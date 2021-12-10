@@ -268,7 +268,7 @@ void DrawModel(void)
 				pDevice->SetTexture(0, NULL);
 				//マテリアルの設定
 				pDevice->SetMaterial(&pMat[i].MatD3D);
-
+			int aaaaaaaaaaaaas;
 				//モデルパーツの描画
 				Modelpolygon[j].s_pVtxMesh->DrawSubset(i);
 			}
