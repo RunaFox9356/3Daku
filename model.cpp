@@ -86,28 +86,29 @@ void UpdateModel(void)
 	
 	if (GetKeyboardPress(DIK_1))
 	{//1押したときパーティクル
-
 		SetParticle(Modelpolygon[s_nNanba].pos - D3DXVECTOR3(0.0f, 20.0f, 0.0f), D3DXVECTOR3(20.0f, 20.0f, 20.0f),
 			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)
-			, 10.0f, 10.0f, PARTICLETYPE_KITUNE, true);
-		
+			, 10.0f, 10.0f, PARTICLETYPE_KITUNE);
 	}
 	if (GetKeyboardPress(DIK_2))
-	{//1押したときパーティクル
+	{//２押したときパーティクル
+		SetParticle(Modelpolygon[s_nNanba].pos + D3DXVECTOR3(0.0f, 20.0f, 0.0f), D3DXVECTOR3(20.0f, 20.0f, 20.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)
+			, 10.0f, 10.0f, PARTICLETYPE_LIGHTNING);
+	}
+	if (GetKeyboardPress(DIK_3))
+	{//３押したときパーティクル
 
 		SetParticle(Modelpolygon[s_nNanba].pos + D3DXVECTOR3(0.0f, 20.0f, 0.0f), D3DXVECTOR3(20.0f, 20.0f, 20.0f),
 			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)
-			, 10.0f, 10.0f, PARTICLETYPE_LIGHTNING, true);
-	
-
-	}if (GetKeyboardPress(DIK_3))
-	{//1押したときパーティクル
+			, 10.0f, 10.0f, PARTICLETYPE_OUKAN);
+	}
+	if (GetKeyboardPress(DIK_4))
+	{//４押したときパーティクル
 
 		SetParticle(Modelpolygon[s_nNanba].pos + D3DXVECTOR3(0.0f, 20.0f, 0.0f), D3DXVECTOR3(20.0f, 20.0f, 20.0f),
 			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)
-			, 10.0f, 10.0f, PARTICLETYPE_OUKAN, true);
-
-
+			, 10.0f, 10.0f, PARTICLETYPE_MERA);
 	}
 	//モデルの切り替え
 	if (GetKeyboardTrigger(DIK_V))
@@ -268,7 +269,7 @@ void DrawModel(void)
 				pDevice->SetTexture(0, NULL);
 				//マテリアルの設定
 				pDevice->SetMaterial(&pMat[i].MatD3D);
-			int aaaaaaaaaaaaas;
+
 				//モデルパーツの描画
 				Modelpolygon[j].s_pVtxMesh->DrawSubset(i);
 			}
