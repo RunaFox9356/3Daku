@@ -70,8 +70,8 @@ void InitMesh(void)
 	// 頂点座標の設定
 	for (int i = 0; i < s_Mesh.Vtx; i++)
 	{
-		float posx = ((i % s_Mesh.X)-1);
-		float posz = ((i / s_Mesh.Z)-1)*-1;
+		float posx = ((i % s_Mesh.X)-1.0f);
+		float posz = ((i / s_Mesh.Z)- 1.0f)*-1.0f;
 		
 		float texU = 1.0f / s_Mesh.xsiz*(i % s_Mesh.X);
 		float texV = 1.0f / s_Mesh.zsiz*(i / s_Mesh.Z);
@@ -261,8 +261,8 @@ void SetMesh(int X ,int Z)//場所.回転
 	// 頂点座標の設定
 	for (int i = 0; i < s_Mesh.Vtx; i++)
 	{
-		float posx = ((i % s_Mesh.X) - 1);
-		float posz = ((i / s_Mesh.Z) - 1)*-1;
+		float posx = ((i % s_Mesh.X) - 1.0f);
+		float posz = ((i / s_Mesh.Z) - 1.0f)*-1.0f;
 
 		float texU = 1.0f / s_Mesh.xsiz*(i % s_Mesh.X);
 		float texV = 1.0f / s_Mesh.zsiz*(i / s_Mesh.Z);

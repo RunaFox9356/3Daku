@@ -13,6 +13,7 @@
 #include"mesh.h"
 #include"paticle.h"
 #include"ken.h"
+#include"effect.h"
 
 //マクロ
 #define Attenuation	(0.5f)		//減衰係数
@@ -88,28 +89,33 @@ void UpdateModel(void)
 	{//1押したときパーティクル
 		SetParticle(Modelpolygon[s_nNanba].pos - D3DXVECTOR3(0.0f, 20.0f, 0.0f), D3DXVECTOR3(20.0f, 20.0f, 20.0f),
 			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)
-			, 10.0f, 10.0f, PARTICLETYPE_KITUNE);
+			, 10.0f, 10.0f, PARTICLETYPE_KITUNE, LIGHTNINGLIFE);
 	}
 	if (GetKeyboardPress(DIK_2))
 	{//２押したときパーティクル
 		SetParticle(Modelpolygon[s_nNanba].pos + D3DXVECTOR3(0.0f, 20.0f, 0.0f), D3DXVECTOR3(20.0f, 20.0f, 20.0f),
 			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)
-			, 10.0f, 10.0f, PARTICLETYPE_LIGHTNING);
+			, 10.0f, 10.0f, PARTICLETYPE_LIGHTNING, KITUNELIFE);
 	}
 	if (GetKeyboardPress(DIK_3))
 	{//３押したときパーティクル
 
 		SetParticle(Modelpolygon[s_nNanba].pos + D3DXVECTOR3(0.0f, 20.0f, 0.0f), D3DXVECTOR3(20.0f, 20.0f, 20.0f),
 			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)
-			, 10.0f, 10.0f, PARTICLETYPE_OUKAN);
+			, 10.0f, 10.0f, PARTICLETYPE_OUKAN, OUKANLIFE);
 	}
 	if (GetKeyboardPress(DIK_4))
 	{//４押したときパーティクル
 
 		SetParticle(Modelpolygon[s_nNanba].pos + D3DXVECTOR3(0.0f, 20.0f, 0.0f), D3DXVECTOR3(20.0f, 20.0f, 20.0f),
 			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)
-			, 10.0f, 10.0f, PARTICLETYPE_MERA);
+			, 10.0f, 10.0f, PARTICLETYPE_MERA, MERALIFE);
 	}
+	if (GetKeyboardTrigger(DIK_5))
+	{//５押したときエフェクト
+			SetEffect(Modelpolygon[s_nNanba].pos + D3DXVECTOR3(0.0f, 10.0f, 0.0f), D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f), 150.0f, 150, EFFECTTYPE_MP, false, false);
+	}
+
 	//モデルの切り替え
 	if (GetKeyboardTrigger(DIK_V))
 	{
@@ -154,7 +160,7 @@ void UpdateModel(void)
 	 // 初期化処理
 		Modelpolygon[s_nNanba].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 頂点座標
 		Modelpolygon[s_nNanba].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 回転座標
-
+		
 	}
 	if (GetKeyboardTrigger(DIK_SPACE))
 	{
@@ -163,6 +169,7 @@ void UpdateModel(void)
 			Modelpolygon[s_nNanba].rot,
 			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
 			1);//場所.回転.色.タイプ
+
 	}
 	
 	//正規化
@@ -236,7 +243,7 @@ void DrawModel(void)
 			else
 			{
 				//サイズ変更
-				D3DXMatrixScaling(&mtxScale, pMesh->xsiz / 10, pMesh->xsiz / 10, pMesh->xsiz / 10);
+				D3DXMatrixScaling(&mtxScale, pMesh->xsiz / 10.0f, pMesh->xsiz / 10.0f, pMesh->xsiz / 10.0f);
 			}
 			
 			// 行列掛け算関数(第2引数×第3引数第を１引数に格納)

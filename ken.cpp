@@ -12,7 +12,7 @@
 #include"kitune.h"
 #include"file.h"
 #include"mesh.h"
-#include"particle.h"
+#include"paticle.h"
 #include"effect.h"
 
 //マクロ
@@ -214,11 +214,11 @@ void UpdateKen(void)
 //=========================================
 void DrawKen(void)
 {
-	LPDIRECT3DDEVICE9 pDevice = GetDevice();
-	D3DXMATRIX mtxScale, mtxTrans, mtxRot;	// 計算用マトリックス
-	D3DMATERIAL9 marDef;
-	D3DXMATERIAL *pMat;
-	MESH *pMesh = GetMesh();
+	//LPDIRECT3DDEVICE9 pDevice = GetDevice();
+	//D3DXMATRIX mtxScale, mtxTrans, mtxRot;	// 計算用マトリックス
+	//D3DMATERIAL9 marDef;
+	//D3DXMATERIAL *pMat;
+	//MESH *pMesh = GetMesh();
 	for (int j = 0; j < MAX_KEN; j++)//出てるモデルの数だけ回す
 	{
 		if (Kenpolygon[j].bUse)//使ってるやつ出す

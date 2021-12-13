@@ -16,7 +16,7 @@
 #include"file.h"
 #include"mesh.h"
 #include"cylinder.h"
-#include"particle.h"
+#include"paticle.h"
 #include"ken.h"
 #include"effect.h"
 
@@ -733,10 +733,10 @@ void Normal(float standard)
 }
 void SetNorotpos(VERTEX_3D *pVtx, float XUP, float XDW, float YUP, float YDW,float ZUP, float ZDW)
 {
-	pVtx[0].pos = D3DXVECTOR3(XDW, YUP, XDW);
-	pVtx[1].pos = D3DXVECTOR3(XUP, YUP, ZUP);
-	pVtx[2].pos = D3DXVECTOR3(XDW, YDW, XDW);
-	pVtx[3].pos = D3DXVECTOR3(XUP, YDW, ZUP);
+	pVtx[0].pos = D3DXVECTOR3(XDW, YUP,ZUP );
+	pVtx[1].pos = D3DXVECTOR3(XUP, YUP,ZUP);
+	pVtx[2].pos = D3DXVECTOR3(XDW, YDW,ZDW );
+	pVtx[3].pos = D3DXVECTOR3(XUP, YDW,ZDW );
 }
 //--------------
 //ƒZƒbƒg‚Ü‚Æ‚ß
