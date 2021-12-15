@@ -6,7 +6,7 @@
 #include "main.h"
 
 //マクロ定義
-#define MAX_PARTICLE	(2048)		//パーティクルの最大数
+#define MAX_PARTICLE	(12800)		//パーティクルの最大数
 #define NUM_PARTICLE	(24)		//パーティクルの種類
 #define LIGHTNINGLIFE (120)
 #define KITUNELIFE	 (150)
@@ -19,6 +19,10 @@ typedef enum
 	PARTICLETYPE_KITUNE,	//丸
 	PARTICLETYPE_OUKAN,		//王冠
 	PARTICLETYPE_MERA,		//一枚絵
+	EFFECTTYPE_FLARE2,		//火
+	EFFECTTYPE_FLARE3,		//火
+	EFFECTTYPE_GLITTER,		//★
+	EFFECTTYPE_AWA,			//泡
 	PARTICLETYPE_MAX
 }PARTICLETYPE;
 
@@ -26,11 +30,15 @@ typedef enum
 typedef struct
 {
 	D3DXVECTOR3 pos;			//位置
-	D3DXVECTOR3 move;			//移動量
+	D3DXVECTOR3	posPop;			// 発生位置
+	D3DXVECTOR3 move;//移動量
+	D3DXVECTOR3 rot;
 	D3DXCOLOR col;				//色
 	D3DXMATRIX mtxWorld;		//ワールドマトリックス
 	PARTICLETYPE type;			//パーティクルの種類
+	float fSpeed;				//早くする
 	float fWidth;				//幅
+	float fLarge;				//まわす幅
 	float fHeight;				//高さ
 	float fRadius;				//半径
 	float fAngle;				//角度
@@ -41,7 +49,7 @@ typedef struct
 	int nParticleNumber;		//パーティクルの番号
 	int nCounterAnim;			//アニメーションカウント
 	int nPatternAnim;			//動きのカウント
-	int nDivisionMAX;				//何分割するかのカウント
+	int nDivisionMAX;			//何分割するかのカウント
 	int nDivisionY;				//Y何分割するかのカウント
 	int nDivisionX;				//X何分割するかのカウント
 	int speed;					//アニメーションの速度

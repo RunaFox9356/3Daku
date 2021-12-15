@@ -10,7 +10,7 @@
 #define	MESHX	(1)
 #define	MESHY	(5)
 #define MAX_SIZMESH (10.0f)
-#define MAX_MESH (20)
+#define MAX_MESH (50)
 //------------------------------------
 // ƒ|ƒŠƒSƒ“‚Ì\‘¢‘Ì‚ğ’è‹`
 //------------------------------------

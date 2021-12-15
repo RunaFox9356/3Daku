@@ -25,7 +25,6 @@ void InitParticle(void)
 	D3DXCreateTextureFromFile(pDevice,
 		"Data/TEXTURE/pipo-btleffect040.png",
 		&s_pTexture[PARTICLETYPE_LIGHTNING]);
-
 	//テクスチャの読み込み
 	D3DXCreateTextureFromFile(pDevice,
 		"Data/TEXTURE/Sprite-0001-Sheet.png",
@@ -38,7 +37,26 @@ void InitParticle(void)
 	D3DXCreateTextureFromFile(pDevice,
 		"Data/TEXTURE/Title102.png",
 		&s_pTexture[PARTICLETYPE_MERA]);
-	
+	//テクスチャの読み込み
+	D3DXCreateTextureFromFile(pDevice,
+		"Data/TEXTURE/Flare001.jpg",
+		&s_pTexture[EFFECTTYPE_FLARE2]);
+	//テクスチャの読み込み
+	D3DXCreateTextureFromFile(pDevice,
+		"Data/TEXTURE/Flare001.jpg",
+		&s_pTexture[EFFECTTYPE_FLARE3]);
+
+	//テクスチャの読み込み
+	D3DXCreateTextureFromFile(pDevice,
+		"Data/TEXTURE/Glitter000.jpg",
+		&s_pTexture[EFFECTTYPE_GLITTER]);
+
+	//テクスチャの読み込み
+	D3DXCreateTextureFromFile(pDevice,
+		"Data/TEXTURE/Glitter000.jpg",
+		&s_pTexture[EFFECTTYPE_AWA]);
+
+
 	//頂点バッファの生成
 	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * 4 * MAX_PARTICLE,
 		D3DUSAGE_WRITEONLY,
@@ -54,7 +72,30 @@ void InitParticle(void)
 
 	for (int nCntParticle = 0; nCntParticle < MAX_PARTICLE; nCntParticle++)
 	{
-		//頂点座標の設定
+		s_aParticle[nCntParticle].pos = {};											// 位置
+		s_aParticle[nCntParticle].posPop = {};										// 発生位置
+		s_aParticle[nCntParticle].rot = {};// 向き
+		s_aParticle[nCntParticle].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);			// カラー
+		s_aParticle[nCntParticle].fRadius = 0.0f;									// 半径
+		s_aParticle[nCntParticle].speed = 0;										// 移動速度
+		s_aParticle[nCntParticle].nLife = 0;											// 寿命																// 発生時間
+		s_aParticle[nCntParticle].bUse = false;
+		s_aParticle[nCntParticle].nMaxLife = 0;				//最大ライフ
+		s_aParticle[nCntParticle].nParticleNumber = 0;		//パーティクルの番号
+		s_aParticle[nCntParticle].nCounterAnim = 0;			//アニメーションカウント
+		s_aParticle[nCntParticle].nPatternAnim = 0;			//動きのカウント
+		s_aParticle[nCntParticle].nDivisionMAX = 0;			//何分割するかのカウント
+		s_aParticle[nCntParticle].nDivisionY = 0;				//Y何分割するかのカウント
+		s_aParticle[nCntParticle].nDivisionX = 0;
+		s_aParticle[nCntParticle].fWidth = 0.0f;				//幅//X何分割するかのカウント
+		s_aParticle[nCntParticle].fLarge = 0.0f;				//まわす幅//頂点座標の設定
+		s_aParticle[nCntParticle].fHeight = 0.0f;				//高さ
+		s_aParticle[nCntParticle].fRadius = 0.0f;				//半径
+		s_aParticle[nCntParticle].fAngle = 0.0f;				//角度
+		s_aParticle[nCntParticle].fLength = 0.0f;				//長さ
+		s_aParticle[nCntParticle].fAttenuation = 0.0f;			//減衰
+
+
 		pVtx[0].pos = s_aParticle[nCntParticle].pos;
 		pVtx[1].pos = s_aParticle[nCntParticle].pos;
 		pVtx[2].pos = s_aParticle[nCntParticle].pos;
@@ -137,8 +178,6 @@ void UpdateParticle(void)
 			s_aParticle[nCntParticle].move.x = -sinf((D3DX_PI * nCntParticle / 10) - (s_aParticle[nCntParticle].fAngle / (5 * s_aParticle[nCntParticle].fAttenuation)));
 			s_aParticle[nCntParticle].move.y -= tanf(D3DX_PI) * s_aParticle[nCntParticle].fRadius / 2;
 			s_aParticle[nCntParticle].move.z = -cosf((D3DX_PI * nCntParticle / 10) - (s_aParticle[nCntParticle].fAngle / (5 * s_aParticle[nCntParticle].fAttenuation)));
-		
-
 			break;
 		case PARTICLETYPE_KITUNE:	//狐火	/*動き方は回転をしながら上昇*/
 			s_aParticle[nCntParticle].col.g -= 0.0075f;
@@ -151,9 +190,7 @@ void UpdateParticle(void)
 			s_aParticle[nCntParticle].fAttenuation -= 30.0f;
 			s_aParticle[nCntParticle].move.x = -sinf((D3DX_PI * nCntParticle / 10) - (s_aParticle[nCntParticle].fAngle / (5 * s_aParticle[nCntParticle].fAttenuation))) * 3;
 			s_aParticle[nCntParticle].move.y -= tanf(D3DX_PI) * s_aParticle[nCntParticle].fRadius / 10;
-			s_aParticle[nCntParticle].move.z = -cosf((D3DX_PI * nCntParticle / 10) - (s_aParticle[nCntParticle].fAngle / (5 * s_aParticle[nCntParticle].fAttenuation)));
-		
-
+			s_aParticle[nCntParticle].move.z = -cosf((D3DX_PI * nCntParticle / 10) - (s_aParticle[nCntParticle].fAngle / (5 * s_aParticle[nCntParticle].fAttenuation)));		
 			break;
 		case PARTICLETYPE_OUKAN:	//王冠	/*動き方は回転をしながら上昇*/
 			s_aParticle[nCntParticle].col.g -= 0.0075f;
@@ -166,9 +203,7 @@ void UpdateParticle(void)
 			s_aParticle[nCntParticle].fAttenuation -= 30.0f;
 			s_aParticle[nCntParticle].move.x = -sinf((D3DX_PI * nCntParticle / 10) - (s_aParticle[nCntParticle].fAngle / (5 * s_aParticle[nCntParticle].fAttenuation))) ;
 			s_aParticle[nCntParticle].move.y -= tanf(D3DX_PI) * s_aParticle[nCntParticle].fRadius / 10;
-			s_aParticle[nCntParticle].move.z = -cosf((D3DX_PI * nCntParticle / 10) - (s_aParticle[nCntParticle].fAngle / (5 * s_aParticle[nCntParticle].fAttenuation)));
-		
-
+			s_aParticle[nCntParticle].move.z = -cosf((D3DX_PI * nCntParticle / 10) - (s_aParticle[nCntParticle].fAngle / (5 * s_aParticle[nCntParticle].fAttenuation)));	
 			break;
 		case PARTICLETYPE_MERA:	//一枚絵	/*動き方は回転をしながら上昇*/
 			s_aParticle[nCntParticle].col.g -= 0.0075f;
@@ -181,10 +216,159 @@ void UpdateParticle(void)
 			s_aParticle[nCntParticle].fAttenuation -= 30.0f;
 			s_aParticle[nCntParticle].move.x = -sinf((D3DX_PI * nCntParticle / 10) - (s_aParticle[nCntParticle].fAngle / (5 * s_aParticle[nCntParticle].fAttenuation))) * 3;
 			s_aParticle[nCntParticle].move.y -= tanf(D3DX_PI) * s_aParticle[nCntParticle].fRadius / 2;
-			s_aParticle[nCntParticle].move.z = -cosf((D3DX_PI * nCntParticle / 10) - (s_aParticle[nCntParticle].fAngle / (5 * s_aParticle[nCntParticle].fAttenuation)));
-			
-
+			s_aParticle[nCntParticle].move.z = -cosf((D3DX_PI * nCntParticle / 10) - (s_aParticle[nCntParticle].fAngle / (5 * s_aParticle[nCntParticle].fAttenuation)));			
 			break;
+		case EFFECTTYPE_FLARE2: // フレア３と併用する場合は事前にposX + 20.0f程加算する
+			s_aParticle[nCntParticle].col.a -= 0.005f;
+			s_aParticle[nCntParticle].fAngle += 10.0f;
+			s_aParticle[nCntParticle].fAttenuation = 50.0f;
+			s_aParticle[nCntParticle].fAttenuation += 30.0f;
+			s_aParticle[nCntParticle].fLarge = 6;
+			s_aParticle[nCntParticle].move.x = -sinf((D3DX_PI)-(s_aParticle[nCntParticle].fAngle / s_aParticle[nCntParticle].fAttenuation)) * s_aParticle[nCntParticle].fLarge;
+			s_aParticle[nCntParticle].move.z = cosf((D3DX_PI)-(s_aParticle[nCntParticle].fAngle / s_aParticle[nCntParticle].fAttenuation)) * s_aParticle[nCntParticle].fLarge;
+			s_aParticle[nCntParticle].nDivisionX = 1;
+			s_aParticle[nCntParticle].nDivisionY = 1;
+			if (s_aParticle[nCntParticle].col.r == 1.0f)
+			{
+				s_aParticle[nCntParticle].col.g += 0.02f;    //前FF0000
+			}
+
+			if (s_aParticle[nCntParticle].col.g >= 1.0f)
+			{
+				s_aParticle[nCntParticle].col.r -= 0.02f;    //前FFFF00
+			}
+
+			if (s_aParticle[nCntParticle].col.r <= 0.0f)
+			{
+				s_aParticle[nCntParticle].col.b += 0.05f;    //前00FF00
+			}
+
+			if (s_aParticle[nCntParticle].col.b >= 1.0f)
+			{
+				s_aParticle[nCntParticle].col.g -= 0.05f;    //前00FFFF
+			}
+
+			if (s_aParticle[nCntParticle].col.g <= 0.0f)
+			{
+				s_aParticle[nCntParticle].col.r += 0.05f;    //前0000FF
+			}
+
+			if (s_aParticle[nCntParticle].col.r >= 1.0f)
+			{
+				s_aParticle[nCntParticle].col.b -= 0.04f;    //前FF00FF
+			}
+			break;
+			//フレア3                /フレア２と併用する場合は事前にposX - 20.0f程減算する/
+		case EFFECTTYPE_FLARE3:
+			s_aParticle[nCntParticle].col.a -= 0.005f;
+			s_aParticle[nCntParticle].fAngle += 10.0f;
+			s_aParticle[nCntParticle].fAttenuation = 50.0f;
+			s_aParticle[nCntParticle].fAttenuation += 30.0f;
+			s_aParticle[nCntParticle].fLarge = 6;
+		
+			s_aParticle[nCntParticle].move.x = sinf((D3DX_PI)-(s_aParticle[nCntParticle].fAngle / s_aParticle[nCntParticle].fAttenuation)) * s_aParticle[nCntParticle].fLarge;
+			s_aParticle[nCntParticle].move.z = -cosf((D3DX_PI)-(s_aParticle[nCntParticle].fAngle / s_aParticle[nCntParticle].fAttenuation)) * s_aParticle[nCntParticle].fLarge;
+			s_aParticle[nCntParticle].nDivisionX = 1;
+			s_aParticle[nCntParticle].nDivisionY = 1;
+			if (s_aParticle[nCntParticle].col.r == 1.0f)
+			{
+				s_aParticle[nCntParticle].col.g += 0.02f;    //前FF0000
+			}
+
+			if (s_aParticle[nCntParticle].col.g >= 1.0f)
+			{
+				s_aParticle[nCntParticle].col.r -= 0.02f;    //前FFFF00
+			}
+
+			if (s_aParticle[nCntParticle].col.r <= 0.0f)
+			{
+				s_aParticle[nCntParticle].col.b += 0.05f;    //前00FF00
+			}
+
+			if (s_aParticle[nCntParticle].col.b >= 1.0f)
+			{
+				s_aParticle[nCntParticle].col.g -= 0.05f;    //前00FFFF
+			}
+
+			if (s_aParticle[nCntParticle].col.g <= 0.0f)
+			{
+				s_aParticle[nCntParticle].col.r += 0.05f;    //前0000FF
+			}
+
+			if (s_aParticle[nCntParticle].col.r >= 1.0f)
+			{
+				s_aParticle[nCntParticle].col.b -= 0.04f;    //前FF00FF
+			}
+			break;
+			//光が少ないキラキラ
+		case EFFECTTYPE_GLITTER:
+
+			s_aParticle[nCntParticle].fAngle += 10.0f;
+			s_aParticle[nCntParticle].fAttenuation = 50.0f;
+			s_aParticle[nCntParticle].fAttenuation += 30.0f;
+			s_aParticle[nCntParticle].fLarge = 6;
+			s_aParticle[nCntParticle].move.x = -sinf((D3DX_PI * nCntParticle / 2) - (s_aParticle[nCntParticle].fAngle / s_aParticle[nCntParticle].fAttenuation) + rand() % 2) * s_aParticle[nCntParticle].fLarge;
+			s_aParticle[nCntParticle].move.z = cosf((D3DX_PI * nCntParticle / 2) - (s_aParticle[nCntParticle].fAngle / s_aParticle[nCntParticle].fAttenuation) + rand() % 2) * s_aParticle[nCntParticle].fLarge;
+			s_aParticle[nCntParticle].nDivisionX = 1;
+			s_aParticle[nCntParticle].nDivisionY = 1;
+			if (s_aParticle[nCntParticle].col.r == 1.0f)
+				{
+					s_aParticle[nCntParticle].col.g += 0.02f;    //前FF0000
+				}
+
+				if (s_aParticle[nCntParticle].col.g >= 1.0f)
+				{
+					s_aParticle[nCntParticle].col.r -= 0.02f;    //前FFFF00
+				}
+
+				if (s_aParticle[nCntParticle].col.r <= 0.0f)
+				{
+					s_aParticle[nCntParticle].col.b += 0.05f;    //前00FF00
+				}
+
+				if (s_aParticle[nCntParticle].col.b >= 1.0f)
+				{
+					s_aParticle[nCntParticle].col.g -= 0.05f;    //前00FFFF
+				}
+
+				if (s_aParticle[nCntParticle].col.g <= 0.0f)
+				{
+					s_aParticle[nCntParticle].col.r += 0.05f;    //前0000FF
+				}
+
+				if (s_aParticle[nCntParticle].col.r >= 1.0f)
+				{
+					s_aParticle[nCntParticle].col.b -= 0.04f;    //前FF00FF
+				}
+			break;
+			case EFFECTTYPE_AWA:
+				// 位置の算出
+				s_aParticle[nCntParticle].pos.x =s_aParticle[nCntParticle].pos.x + (float)(-(int)(s_aParticle[nCntParticle].posPop.x / 2.0f) + rand() % ((int)(s_aParticle[nCntParticle].posPop.x) + 1));
+				s_aParticle[nCntParticle].pos.y =s_aParticle[nCntParticle].pos.y + (float)(-(int)(s_aParticle[nCntParticle].posPop.y / 2.0f) + rand() % ((int)(s_aParticle[nCntParticle].posPop.y) + 1));
+				s_aParticle[nCntParticle].pos.z =s_aParticle[nCntParticle].pos.z + (float)(-(int)(s_aParticle[nCntParticle].posPop.z / 2.0f) + rand() % ((int)(s_aParticle[nCntParticle].posPop.z) + 1));
+
+				// 半径の算出
+				s_aParticle[nCntParticle].fRadius = (float)(rand() % ((int)(s_aParticle[nCntParticle].fRadius * 100.0f) + 1)) / 100.0f;
+
+				// 寿命の算出
+				//s_aParticle[nCntParticle].nLife = rand() % (s_aParticle[nCntParticle].nLife + 1) + 1;
+
+				// 移動速度の算出
+				s_aParticle[nCntParticle].fSpeed = (float)(rand() % ((int)(s_aParticle[nCntParticle].fSpeed * 1000.0f) + 1)) / 1000.0f;
+
+				// 移動方向の算出
+				s_aParticle[nCntParticle].rot.x = (((int)((D3DX_PI * 2) *s_aParticle[nCntParticle].rot.x * 100.0f) / 2) - (rand() % ((int)((D3DX_PI * 2) *s_aParticle[nCntParticle].rot.x * 100.0f) + 1))) / 100.0f;
+				s_aParticle[nCntParticle].rot.y = (((int)((D3DX_PI * 2) *s_aParticle[nCntParticle].rot.y * 100.0f) / 2) - (rand() % ((int)((D3DX_PI * 2) *s_aParticle[nCntParticle].rot.y * 100.0f) + 1))) / 100.0f;
+				s_aParticle[nCntParticle].rot.z = 0.0f;
+
+				//ムーブ更新																									// 移動量の算出
+				s_aParticle[nCntParticle].move.z = sinf(s_aParticle[nCntParticle].rot.x) * cosf(s_aParticle[nCntParticle].rot.y) * s_aParticle[nCntParticle].fSpeed;
+				s_aParticle[nCntParticle].move.x = sinf(s_aParticle[nCntParticle].rot.x) * sinf(s_aParticle[nCntParticle].rot.y) * s_aParticle[nCntParticle].fSpeed;
+				s_aParticle[nCntParticle].move.y = cosf(s_aParticle[nCntParticle].rot.x) * s_aParticle[nCntParticle].fSpeed;
+				s_aParticle[nCntParticle].pos += s_aParticle[nCntParticle].move;
+
+
+				break;
 		default:	//上記以外
 			break;
 		}
@@ -211,10 +395,10 @@ void UpdateParticle(void)
 
 			//表示座標を更新
 			Settex(pVtx,
-				1.0f / s_aParticle[nCntParticle].nDivisionX * (s_aParticle[nCntParticle].nPatternAnim % (s_aParticle[nCntParticle].nDivisionX ))
-				, 1.0f / s_aParticle[nCntParticle].nDivisionX *(s_aParticle[nCntParticle].nPatternAnim % (s_aParticle[nCntParticle].nDivisionX )) + 1.0f / s_aParticle[nCntParticle].nDivisionX
-				, 1.0f / s_aParticle[nCntParticle].nDivisionY * (s_aParticle[nCntParticle].nPatternAnim / ( s_aParticle[nCntParticle].nDivisionY))
-				, 1.0f / s_aParticle[nCntParticle].nDivisionY * (s_aParticle[nCntParticle].nPatternAnim / ( s_aParticle[nCntParticle].nDivisionY) + 1.0f / s_aParticle[nCntParticle].nDivisionY* s_aParticle[nCntParticle].nDivisionY));
+				1.0f / s_aParticle[nCntParticle].nDivisionX * (s_aParticle[nCntParticle].nPatternAnim % (s_aParticle[nCntParticle].nDivisionX))
+				, 1.0f / s_aParticle[nCntParticle].nDivisionX *(s_aParticle[nCntParticle].nPatternAnim % (s_aParticle[nCntParticle].nDivisionX)) + 1.0f / s_aParticle[nCntParticle].nDivisionX
+				, 1.0f / s_aParticle[nCntParticle].nDivisionY * (s_aParticle[nCntParticle].nPatternAnim / (s_aParticle[nCntParticle].nDivisionY))
+				, 1.0f / s_aParticle[nCntParticle].nDivisionY * (s_aParticle[nCntParticle].nPatternAnim / (s_aParticle[nCntParticle].nDivisionY) + 1.0f / s_aParticle[nCntParticle].nDivisionY* s_aParticle[nCntParticle].nDivisionY));
 		}
 
 		//頂点座標の設定
@@ -242,15 +426,24 @@ void DrawParticle(void)
 	//デバイスの取得
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	D3DXMATRIX mtxTrans, mtxView;				//計算用マトリックス
-	int nCntParticle;
 
-	//加算合成
-	pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
-	pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
-
-	for (nCntParticle = 0; nCntParticle < MAX_PARTICLE; nCntParticle++)
+	for (int nCntParticle = 0; nCntParticle < MAX_PARTICLE; nCntParticle++)
 	{
+		switch (s_aParticle[nCntParticle].type)
+		{
+
+		case EFFECTTYPE_AWA:
+			pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_REVSUBTRACT);
+			pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+			pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+			break;
+		default:
+			//加算合成
+			pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+			pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+			pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+			break;
+		}
 		if (s_aParticle[nCntParticle].bUse)
 		{
 			//ワールドマトリックスを初期化
@@ -273,12 +466,21 @@ void DrawParticle(void)
 			D3DXMatrixTranslation(&mtxTrans, s_aParticle[nCntParticle].pos.x, s_aParticle[nCntParticle].pos.y, s_aParticle[nCntParticle].pos.z);
 			D3DXMatrixMultiply(&s_aParticle[nCntParticle].mtxWorld, &s_aParticle[nCntParticle].mtxWorld, &mtxTrans);
 
+
 			//ライトを無効にする
 			pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 			//Zバッファに関わらず描画
 			pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESS);
 			pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+
+
+			pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);//Aテスト
+																 //デフォルトはfalseです
+			pDevice->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x00000000);//色せってい
+																	   //これは消したいいろを選択します
+			pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);//より大きい
+
 
 			//ワールドマトリックスの設定
 			pDevice->SetTransform(D3DTS_WORLD, &s_aParticle[nCntParticle].mtxWorld);
@@ -307,7 +509,7 @@ void DrawParticle(void)
 	pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
-	//Zバッファの設定を元に戻す
+	//Zテストの設定を元に戻す
 	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
@@ -333,7 +535,7 @@ void SetParticle(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXCOLOR col, float fWidth,
 
 			pVtx += 4 * nCntParticle;	// 頂点データのポインタを4つ分進める
 			s_aParticle[nCntParticle].pos = pos;
-			s_aParticle[nCntParticle].move = move / 5;
+			s_aParticle[nCntParticle].move = move;
 			s_aParticle[nCntParticle].col = col;
 			s_aParticle[nCntParticle].type = type;
 			s_aParticle[nCntParticle].fWidth = fWidth;
@@ -364,6 +566,13 @@ void SetParticle(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXCOLOR col, float fWidth,
 				s_aParticle[nCntParticle].nDivisionX = 1;
 				s_aParticle[nCntParticle].nDivisionY = 1;
 				s_aParticle[nCntParticle].speed = 1;
+				break;
+			case EFFECTTYPE_AWA:
+				s_aParticle[nCntParticle].posPop = D3DXVECTOR3(105.0f, 105.0f, 105.0f);
+				s_aParticle[nCntParticle].nDivisionX = 1;
+				s_aParticle[nCntParticle].nDivisionY = 1;
+				s_aParticle[nCntParticle].speed = 10;
+				s_aParticle[nCntParticle].fSpeed = 0.1f;
 				break;
 			default:	//上記以外
 				break;

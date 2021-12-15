@@ -269,7 +269,7 @@ HRESULT Init(HINSTANCE hlnstance, HWND hWnd, BOOL bWindow)//TRUE：ウインドウ/FAL
 	g_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);//アルファブレンド設定
 	g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);//アルファブレンド設定
 	
-
+	
 																		//サンプラーステートの設定
 	g_pD3DDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);//小さいの拡大
 	g_pD3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);//大きいの縮小
@@ -450,6 +450,8 @@ void Update(void)
 	//モデル
 	UpdateModel();
 
+	UpdateLighe();
+
 	//パーティクル更新処理
 	UpdateParticle();
 
@@ -551,12 +553,12 @@ void Draw(void)
 		//シャドー
 		DrawShadow();
 
-		//壁
-		DrawWall();
 
 		//かめら
 		SetCamera();
 
+		//壁
+		DrawWall();
 		//パーティクル描画処理
 		DrawParticle();
 
@@ -671,10 +673,10 @@ void DrawDebug(void)
 	wsprintf(&aStr[0][0], "FPS%d", g_nCountFPS);
 
 	//文字列に代入
-	sprintf(&aStr[1][0], "カメラ注視点->(%.3f|%.3f|%.3f)", pCamera->posR.x, pCamera->posR.y, pCamera->posR.z);
+	sprintf(&aStr[1][0], "カメラ視点->(%.3f|%.3f|%.3f)", pCamera->posR.x, pCamera->posR.y, pCamera->posR.z);
 
 	//文字列に代入
-	sprintf(&aStr[2][0], "カメラ視点->(%.3f|%.3f|%.3f)", pCamera->posV.x, pCamera->posV.y, pCamera->posV.z);
+	sprintf(&aStr[2][0], "カメラ注視点->(%.3f|%.3f|%.3f)", pCamera->posV.x, pCamera->posV.y, pCamera->posV.z);
 
 	//文字列に代入
 	sprintf(&aStr[3][0], "カメラ回転->(%.3f|%.3f|%.3f)", pCamera->rot.x, pCamera->rot.y, pCamera->rot.z);
@@ -697,16 +699,13 @@ void DrawDebug(void)
 	{
 		sprintf(&aStr[8][0], "線モード[OFF]");
 	}
-	wsprintf(&aStr[9][0], "★操作説明★\n視点横移動:A.D 視点縦移動:W.S\n上昇Lシフト下降Rシフト\n回転横:Q.E縦:Z.C\nカメラ移動:カーソルキー\nモデルの横移動:J.Lモデルの縦移動:I.K\n線モードP\n狐好きでしょ？");
+	wsprintf(&aStr[9][0], "★操作説明★\n視点横移動:A.D 視点縦移動:W.S\n上昇Lシフト下降Rシフト\n回転横:Q.E縦:Z.C\nカメラ移動:カーソルキー\nモデルの横移動:J.Lモデルの縦移動:I.K\n線モード:P\n狐好きでしょ？");
 	for (int i = 0; i < MAX_NAME; i++)
 	{
 		rect = { 0,i*30,SCREEN_WIDTH,SCREEN_HEIGHT };
 		//テキストの描画
 		g_pFont->DrawText(NULL, &aStr[i][0], -1, &rect, DT_LEFT, D3DCOLOR_RGBA(200, 179, 0, 255));
-	}
-
-
-	
+	}	
 }
 
 void Settex(VERTEX_3D *pVtx, float left, float right, float top, float down)

@@ -150,7 +150,7 @@ void UninitMesh(void)
 void UpdateMesh(void)
 {	
 	//モデルの切り替え
-	if (GetKeyboardTrigger(DIK_N)&& s_Mesh.xsiz < MAX_MESH)
+	if (GetKeyboardTrigger(DIK_N))
 	{
 		
 		s_Mesh.zsiz++;
@@ -216,7 +216,17 @@ void DrawMesh(void)
 //----------------
 void SetMesh(int X ,int Z)//場所.回転
 {
-	//UninitMesh();
+	// 頂点バッファーの解放
+	if (s_pVtxBuff != NULL)
+	{
+		s_pVtxBuff->Release();
+		s_pVtxBuff = NULL;
+	}
+	if (s_pIdxBuff != NULL)
+	{
+		s_pIdxBuff->Release();
+		s_pIdxBuff = NULL;
+	}
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
 	// 初期化処理

@@ -21,6 +21,8 @@ typedef struct
 	D3DXVECTOR3 rot;//位置回転
 	float fDistance;//距離
 	float fDistanceY;
+	bool bBool;
+	D3DXVECTOR3 posVDest, posRDest;
 	D3DXMATRIX MtxProje; //プロジェクションマトリックス//ポリゴンの位置や回転行列すべてをつめてるナニカ
 	D3DXMATRIX MtxView; //ビューマトリックス//ポリゴンの位置や回転行列すべてをつめてるナニカ
 }CAMERA;

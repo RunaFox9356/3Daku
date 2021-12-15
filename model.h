@@ -16,6 +16,7 @@ typedef struct
 	int nType;			//タイプ
 	int nShadow;		//影番号
 	bool bUse;			//使ってるか使ってないか
+	bool bMystery;
 	LPD3DXMESH s_pVtxMesh;	// メッシュのポインタ
 	LPD3DXBUFFER s_pBuffModel; //バッファのポインタ
 	DWORD s_Model;		//マテリアル情報

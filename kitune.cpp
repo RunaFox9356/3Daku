@@ -129,7 +129,7 @@ void UpdateKitune(void)
 				s_Kitune[i].pos.x = s_Kitune[i].pos.x -= s_Kitune[i].moveX*BallSpede;
 				s_Kitune[i].pos.z = s_Kitune[i].pos.z -= s_Kitune[i].moveZ*BallSpede;
 				SetposShadow(s_Kitune[i].nShadow, s_Kitune[i].pos);
-				SetEffect(s_Kitune[i].pos, D3DXCOLOR(0.1f, 1.0f, 0.1f, 0.5f), 15.0, 150, EFFECTTYPE_LINE, true, true);
+				SetEffect(s_Kitune[i].pos, D3DXCOLOR(0.1f, 1.0f, 0.1f, 0.5f), 15.0, 150, EFFECTTYPE_LINE, true, true, false,false);
 
 				/*if (s_Kitune[i].pos.x < -90.0f)
 				{
@@ -246,10 +246,11 @@ void DrawKitune(void)
 
 
 	}
-	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);//でかえれます
+	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);//Aテスト初期化
 	pDevice->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x00000001);//色せってい//これは消したいいろを選択します
 	pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_ALWAYS);//より大きい
-	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
+
+	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);//Zテスト初期化
 	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 	pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 	//テクスチャの設定

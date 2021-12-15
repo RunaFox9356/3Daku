@@ -24,8 +24,8 @@
 // static変数
 //------------------------------------
 static MODEL Modelpolygon[MAX_MODEL];	// ポリゴンの構造体
-static int s_nNanba,s_nSet;//現在使用してるやつと最大数
-
+static int s_nNanba,s_nSet, s_nTime;//現在使用してるやつと最大数
+static D3DXVECTOR3 mystery;
 //=========================================
 // 初期化処理
 //=========================================
@@ -47,10 +47,11 @@ void InitModel(void)
 		Modelpolygon[i].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 回転座標
 		Modelpolygon[i].nShadow = 0;
 		Modelpolygon[i].bUse = false;
-
+		Modelpolygon[s_nNanba].bMystery = false;
 	}
 	s_nNanba = 0;
 	s_nSet = 0;
+	s_nTime = 0;
 }
 
 //=========================================
@@ -111,9 +112,216 @@ void UpdateModel(void)
 			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)
 			, 10.0f, 10.0f, PARTICLETYPE_MERA, MERALIFE);
 	}
-	if (GetKeyboardTrigger(DIK_5))
-	{//５押したときエフェクト
-			SetEffect(Modelpolygon[s_nNanba].pos + D3DXVECTOR3(0.0f, 10.0f, 0.0f), D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f), 150.0f, 150, EFFECTTYPE_MP, false, false);
+	if (GetKeyboardPress(DIK_7))
+	{//魔法陣発動//0.0のカラーのやつは枠線
+	
+	}
+	if (GetKeyboardTrigger(DIK_8))
+	{//魔法陣発動//0.0のカラーのやつは枠線
+		mystery = Modelpolygon[s_nNanba].pos;
+		SetEffect(mystery + D3DXVECTOR3(15.0f, 55.0f, 0.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 8.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK4, false, true, false, true);
+
+		SetEffect(mystery + D3DXVECTOR3(10.0f, 65.0f, 0.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 13.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK3, false, true, false, true);
+
+		SetEffect(mystery + D3DXVECTOR3(10.0f, 45.0f, 0.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 8.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK, false, true, false, true);
+
+		SetEffect(mystery + D3DXVECTOR3(-15.0f, 45.0f, 0.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 13.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK4, false, true, false, true);
+
+		SetEffect(mystery + D3DXVECTOR3(-15.0f, 65.0f, 0.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 13.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK2, false, true, false, true);
+	
+		SetEffect(mystery + D3DXVECTOR3(5.0f, 45.0f, 0.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 13.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK4, false, true, false, true);
+
+		SetEffect(mystery + D3DXVECTOR3(0.0f, 55.0f, 0.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 60.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK5, false, true, false, true);
+
+		SetEffect(mystery + D3DXVECTOR3(0.0f, 55.0f, 0.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 70.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK6, false, true, false, true);
+		SetEffect(mystery + D3DXVECTOR3(-2.5f, 55.0f, 1.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 40.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK7, false, true, false, true);
+		SetEffect(mystery + D3DXVECTOR3(0.0f, 55.0f, 0.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 50.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK8, false, true, false, true);
+		SetEffect(mystery + D3DXVECTOR3(0.0f, 55.0f, 0.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 20.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK9, false, true, false, true);
+		SetEffect(mystery + D3DXVECTOR3(0.0f, 55.0f, 0.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 50.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK10, false, true, false, true);
+		
+	}
+	if (GetKeyboardTrigger(DIK_0))
+	{//魔法陣発動//0.0のカラーのやつは枠線
+		Modelpolygon[s_nNanba].bMystery = true;
+		mystery = Modelpolygon[s_nNanba].pos;
+
+	}
+	if (Modelpolygon[s_nNanba].bMystery)
+	{
+		s_nTime++;
+		SetParticle(D3DXVECTOR3(mystery),
+			D3DXVECTOR3(0.0, 0.0, 0.0),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f), 3.5f, 6.5f, EFFECTTYPE_AWA, 150);
+
+		if (s_nTime >= 0&&s_nTime <= 200)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+
+				SetParticle(D3DXVECTOR3(mystery - D3DXVECTOR3(0.0f, 0.0f, 60.0f)),
+					D3DXVECTOR3(-sinf(mystery.y), 3.5f, -cosf(mystery.y)),
+					D3DXCOLOR(1.0f, 0.5f, 0.0f, 0.8f), 3.5f, 6.5f, EFFECTTYPE_FLARE2, 150);
+
+				SetParticle(D3DXVECTOR3(mystery + D3DXVECTOR3(0.0f, 0.0f, 60.0f)),
+					D3DXVECTOR3(-sinf(mystery.y), 3.5f, -cosf(mystery.y)),
+					D3DXCOLOR(1.0f, 0.5f, 0.0f, 0.8f), 3.5f, 6.5f, EFFECTTYPE_FLARE3, 150);
+			}
+		}
+		if (s_nTime >= 200 && s_nTime <= 400)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+
+				SetParticle(D3DXVECTOR3(mystery + D3DXVECTOR3(60.0f, 0.0f, 0.0f)),
+					D3DXVECTOR3(-sinf(mystery.y), 3.5f, -cosf(mystery.y)),
+					D3DXCOLOR(1.0f, 0.5f, 0.0f, 0.8f), 3.5f, 6.5f, EFFECTTYPE_FLARE2, 150);
+
+				SetParticle(D3DXVECTOR3(mystery - D3DXVECTOR3(60.0f, 0.0f, 0.0f)),
+					D3DXVECTOR3(-sinf(mystery.y), 3.5f, -cosf(mystery.y)),
+					D3DXCOLOR(1.0f, 0.5f, 0.0f, 0.8f), 3.5f, 6.5f, EFFECTTYPE_FLARE3, 150);
+			}
+		}
+		if (s_nTime >= 600 && s_nTime <= 800)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+
+				SetParticle(D3DXVECTOR3(mystery - D3DXVECTOR3(15.0f, 0.0f, 15.0f)),
+					D3DXVECTOR3(-sinf(mystery.y), 3.5f, -cosf(mystery.y)),
+					D3DXCOLOR(1.0f, 0.5f, 0.0f, 0.8f), 3.5f, 6.5f, EFFECTTYPE_FLARE2, 150);
+
+				SetParticle(D3DXVECTOR3(mystery + D3DXVECTOR3(15.0f, 0.0f, 15.0f)),
+					D3DXVECTOR3(-sinf(mystery.y), 3.5f, -cosf(mystery.y)),
+					D3DXCOLOR(1.0f, 0.5f, 0.0f, 0.8f), 3.5f, 6.5f, EFFECTTYPE_FLARE3, 150);
+			}
+		}
+		if (s_nTime >= 400 && s_nTime <= 600)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+
+				SetParticle(D3DXVECTOR3(mystery + D3DXVECTOR3(15.0f, 0.0f, 15.0f)),
+					D3DXVECTOR3(-sinf(mystery.y), 3.5f, -cosf(mystery.y)),
+					D3DXCOLOR(1.0f, 0.5f, 0.0f, 0.8f), 3.5f, 6.5f, EFFECTTYPE_FLARE2, 150);
+
+				SetParticle(D3DXVECTOR3(mystery - D3DXVECTOR3(15.0f, 0.0f, 15.0f)),
+					D3DXVECTOR3(-sinf(mystery.y), 3.5f, -cosf(mystery.y)),
+					D3DXCOLOR(1.0f, 0.5f, 0.0f, 0.8f), 3.5f, 6.5f, EFFECTTYPE_FLARE3, 150);
+			}
+		}
+
+	
+		SetParticle(D3DXVECTOR3(mystery),
+			D3DXVECTOR3(-sinf(mystery.y), 3.5f, -cosf(mystery.y)),
+			D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 3.5f, 6.5f, EFFECTTYPE_GLITTER, 150);
+
+
+		if (s_nTime ==10)
+		{
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
+				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 11.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP3, false, true, false, false);
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
+				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 16.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP4, false, true, false, false);
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
+				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 0.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP, false, true, false, false);
+
+			//ここから下が虹色
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
+				D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 0.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP, false, true, true, false);
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
+				D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 5.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP2, false, true, true, false);
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
+				D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 10.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP3, false, true, true, false);
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
+				D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 15.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP4, false, true, true, false);
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
+				D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 0.0f, EFFECT_LIFE+40, EFFECTTYPE_MP5, false, true, true, false);
+		}
+		if (s_nTime == 100)
+		{
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 50.0f, 0.0f),
+				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 6.0f, EFFECT_LIFE - 70, EFFECTTYPE_MP, false, true, false, false);
+
+
+			//ここから下が虹色
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 50.0f, 0.0f),
+				D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 5.0f, EFFECT_LIFE- 70 , EFFECTTYPE_MP, false, true, true, false);
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 50.0f, 0.0f),
+				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 0.0f, EFFECT_LIFE - 70 , EFFECTTYPE_MP2, false, true, true, false);
+		}
+		if (s_nTime == 200)
+		{
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 100.0f, 0.0f),
+				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 6.0f, EFFECT_LIFE - 180, EFFECTTYPE_MP3, false, true, false, false);
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 100.0f, 0.0f),
+				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 9.0f, EFFECT_LIFE - 180, EFFECTTYPE_MP4, false, true, false, false);
+
+			//ここから下が虹色
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 100.0f, 0.0f),
+				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 5.0f, EFFECT_LIFE - 180 , EFFECTTYPE_MP3, false, true, true, false);
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 100.0f, 0.0f),
+				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 8.0f, EFFECT_LIFE - 180 , EFFECTTYPE_MP4, false, true, true, false);
+		}
+		if (s_nTime == 300)
+		{
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 150.0f, 0.0f),
+				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 1.0f, EFFECT_LIFE - 290, EFFECTTYPE_MP2, false, true, false, false);
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 150.0f, 0.0f),
+				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 6.0f, EFFECT_LIFE - 290, EFFECTTYPE_MP5, false, true, false, false);
+
+			//ここから下が虹色
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 150.0f, 0.0f),
+				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 0.0f, EFFECT_LIFE - 290 , EFFECTTYPE_MP2, false, true, true, false);
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 150.0f, 0.0f),
+				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 5.0f, EFFECT_LIFE - 290 , EFFECTTYPE_MP5, false, true, true, false);
+		}
+		if (s_nTime == 400)
+		{
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 200.0f, 0.0f),
+				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 3.0f, EFFECT_LIFE - 400, EFFECTTYPE_MP4, false, true, false, false);
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 200.0f, 0.0f),
+				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 3.0f, EFFECT_LIFE - 400, EFFECTTYPE_MP5, false, true, false, false);
+
+			//ここから下が虹色
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 200.0f, 0.0f),
+				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 2.0f, EFFECT_LIFE - 400 , EFFECTTYPE_MP4, false, true, true, false);
+
+			SetEffect(mystery + D3DXVECTOR3(0.0f, 200.0f, 0.0f),
+				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 2.0f, EFFECT_LIFE - 400 , EFFECTTYPE_MP5, false, true, true, false);
+		}
+		if (s_nTime == EFFECT_LIFE)
+		{
+			s_nTime = 0;
+			Modelpolygon[s_nNanba].bMystery = false;
+
+		}
+
+
 	}
 
 	//モデルの切り替え
@@ -133,16 +341,16 @@ void UpdateModel(void)
 	}
 	if (GetKeyboardPress(DIK_K))
 	{//K押したと下加速
-		Modelpolygon[s_nNanba].pos.x -= sinf(pCamera->rot.y)*Spede;
-		Modelpolygon[s_nNanba].pos.z -= cosf(pCamera->rot.y)*Spede;
+		Modelpolygon[s_nNanba].pos.x += sinf(pCamera->rot.y - D3DX_PI)*Spede;
+		Modelpolygon[s_nNanba].pos.z += cosf(pCamera->rot.y - D3DX_PI)*Spede;
 
 		Modelpolygon[s_nNanba].consumption = Modelpolygon[s_nNanba].RotMove.x - D3DX_PI - Modelpolygon[s_nNanba].rot.y + pCamera->rot.y;
 
 	}
 	if (GetKeyboardPress(DIK_L))
 	{//L押したとき右加速
-		Modelpolygon[s_nNanba].pos.x -= sinf(D3DX_PI *-0.5f + pCamera->rot.y)*Spede;
-		Modelpolygon[s_nNanba].pos.z -= cosf(D3DX_PI *-0.5f + pCamera->rot.y)*Spede;
+		Modelpolygon[s_nNanba].pos.x += sinf(D3DX_PI *0.5f + pCamera->rot.y)*Spede;
+		Modelpolygon[s_nNanba].pos.z += cosf(D3DX_PI *0.5f + pCamera->rot.y)*Spede;
 
 		Modelpolygon[s_nNanba].consumption = Modelpolygon[s_nNanba].RotMove.y - D3DX_PI - Modelpolygon[s_nNanba].rot.y + pCamera->rot.y;
 
@@ -235,7 +443,7 @@ void DrawModel(void)
 			// 行列初期化関数(第1引数の行列を単位行列に初期化)
 			D3DXMatrixIdentity(&Modelpolygon[j].MtxWorld);
 
-			if (pMesh->xsiz/ 10 ==0)
+			if (pMesh->xsiz/ 10  == 0)
 			{
 				//サイズ変更
 				D3DXMatrixScaling(&mtxScale, 1.0f, 1.0f, 1.0f);
@@ -243,8 +451,10 @@ void DrawModel(void)
 			else
 			{
 				//サイズ変更
-				D3DXMatrixScaling(&mtxScale, pMesh->xsiz / 10.0f, pMesh->xsiz / 10.0f, pMesh->xsiz / 10.0f);
+				D3DXMatrixScaling(&mtxScale, pMesh->xsiz / 50.0f, pMesh->xsiz / 50.0f, pMesh->xsiz / 50.0f);
 			}
+			
+	
 			
 			// 行列掛け算関数(第2引数×第3引数第を１引数に格納)
 			D3DXMatrixMultiply(&Modelpolygon[j].MtxWorld, &Modelpolygon[j].MtxWorld, &mtxScale);
