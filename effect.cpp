@@ -7,7 +7,7 @@
 #include "comn.h"
 
 //スタティック変数///スタティックをヘッタに使うなよ？
-#define NUM_MAX (16)  
+#define NUM_MAX (EFFECTTYPE_MAX)  
 
 static LPDIRECT3DTEXTURE9 s_pTextureEffect[NUM_MAX] = {}; //テクスチャのポインタ
 static LPDIRECT3DVERTEXBUFFER9 s_pVtxBuffEffect = NULL; //頂点バッファの設定
@@ -85,7 +85,10 @@ void InitEffect(void)
 	D3DXCreateTextureFromFile(pDevice,
 		"Data/TEXTURE/50-38.jpg",
 		&s_pTextureEffect[EFFECTTYPE_CLOCK10]);
-	
+	//テクスチャの読み込み
+	D3DXCreateTextureFromFile(pDevice,
+		"Data/TEXTURE/50-39.jpg",
+		&s_pTextureEffect[EFFECTTYPE_CLOCK11]);
 
 	//頂点バッファ
 	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * 4 * MAX_EFFECT,
@@ -108,9 +111,8 @@ void InitEffect(void)
 		s_aEffect[nCntEffect].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 		s_aEffect[nCntEffect].nLife = 0;
 		s_aEffect[nCntEffect].bUse = false;
-		s_aEffect[nCntEffect].bSiz = false;
 		s_aEffect[nCntEffect].fRadeius = 0;
-		s_aEffect[nCntEffect].Trigger = 0;   //種類
+		s_aEffect[nCntEffect].Trigger = 0;   //何フレームに一回つかうかのチェック
 		s_aEffect[nCntEffect].nType = EFFECTTYPE_LINE;//
 		s_aEffect[nCntEffect].nDivisionX = 1;
 		s_aEffect[nCntEffect].nDivisionY = 1;
@@ -171,7 +173,7 @@ void UpdateEffect(void)
 	{
 		if (s_aEffect[nCntEffect].bUse)
 		{
-			switch (s_aEffect[nCntEffect].nType)
+			switch (s_aEffect[nCntEffect].nType)//時計や魔法陣の回線速度
 			{
 				//魔法陣回転速度
 			case EFFECTTYPE_MP:
@@ -204,8 +206,7 @@ void UpdateEffect(void)
 					s_aEffect[nCntEffect].rot.y += SeteaseIn((D3DX_PI / 1000.0f) *s_aEffect[nCntEffect].easeInspeed);
 				}
 				break;
-			case EFFECTTYPE_MP3:
-			case EFFECTTYPE_CLOCK3:
+			case EFFECTTYPE_MP3:			
 			
 				if (s_aEffect[nCntEffect].easeInspeed <= 120)
 				{
@@ -253,6 +254,7 @@ void UpdateEffect(void)
 				}
 				break;
 			case EFFECTTYPE_CLOCK6:
+			case EFFECTTYPE_CLOCK3:
 				if (s_aEffect[nCntEffect].easeInspeed <= 120)
 				{
 					s_aEffect[nCntEffect].easeInspeed++;
@@ -281,9 +283,7 @@ void UpdateEffect(void)
 				}
 			switch (s_aEffect[nCntEffect].nType)
 			{
-			case EFFECTTYPE_LINE:
-				
-
+			case EFFECTTYPE_LINE://球の光
 				SetNorotpos(pVtx,
 					-s_aEffect[nCntEffect].fRadeius,
 					+s_aEffect[nCntEffect].fRadeius,
@@ -304,8 +304,6 @@ void UpdateEffect(void)
 			case EFFECTTYPE_MP3:
 			case EFFECTTYPE_MP4:
 			case EFFECTTYPE_MP5:
-	
-
 				s_aEffect[nCntEffect].nLife--;
 				//魔法陣を大きく表示する
 				if (s_aEffect[nCntEffect].nLife<= s_aEffect[nCntEffect].nMaxLife&& s_aEffect[nCntEffect].nLife >= s_aEffect[nCntEffect].nMaxLife -60)
@@ -344,10 +342,7 @@ void UpdateEffect(void)
 					s_aEffect[nCntEffect].bUse = false;
 				}
 				}
-				if (s_aEffect[nCntEffect].nLife <= s_aEffect[nCntEffect].nMaxLife&& s_aEffect[nCntEffect].nLife >= s_aEffect[nCntEffect].nMaxLife - 10)
-				{
-					s_aEffect[nCntEffect].fRadeius += 1.0f;
-				}
+				
 				if (s_aEffect[nCntEffect].nLife <= s_aEffect[nCntEffect].nMaxLife&& s_aEffect[nCntEffect].nLife >= s_aEffect[nCntEffect].nMaxLife - 30)
 				{//サイズを+３０する
 					s_aEffect[nCntEffect].fRadeius += 1.0f;
@@ -378,7 +373,7 @@ void UpdateEffect(void)
 			case EFFECTTYPE_CLOCK8:
 			case EFFECTTYPE_CLOCK9:
 			case EFFECTTYPE_CLOCK10:
-
+			case EFFECTTYPE_CLOCK11:
 				s_aEffect[nCntEffect].nLife--;
 				if (s_aEffect[nCntEffect].nLife <= 0)
 				{
@@ -387,16 +382,48 @@ void UpdateEffect(void)
 				//最後に小さくする
 				if (s_aEffect[nCntEffect].nLife <= 60 && s_aEffect[nCntEffect].nLife >= 40)
 				{
+					s_aEffect[nCntEffect].fRadeius += 0.5f;
 					s_aEffect[nCntEffect].col.a -= 0.05f;
 				}
 				if (s_aEffect[nCntEffect].nLife <= 40 && s_aEffect[nCntEffect].nLife >= 0)
 				{
+
+					s_aEffect[nCntEffect].fRadeius += 0.5f;
 					s_aEffect[nCntEffect].col.a -= 0.05f;
 				}
 				
 			default:
 				break;
 
+			}
+			switch (s_aEffect[nCntEffect].nType)
+			{
+			case EFFECTTYPE_CLOCK5:
+			case EFFECTTYPE_CLOCK6:
+			case EFFECTTYPE_CLOCK7:
+			case EFFECTTYPE_CLOCK8:			
+			//出てくるとき大きくなって出てくる時計
+				if (s_aEffect[nCntEffect].nLife <= s_aEffect[nCntEffect].nMaxLife&& s_aEffect[nCntEffect].nLife >= s_aEffect[nCntEffect].nMaxLife - 30)
+				{//サイズを+３０する
+					s_aEffect[nCntEffect].fRadeius += 1.0f;
+				}
+				break;
+			case EFFECTTYPE_CLOCK10://短針制作
+				if (s_aEffect[nCntEffect].Trigger < s_aEffect[nCntEffect].nMaxLife - 100)
+				{
+					s_aEffect[nCntEffect].Trigger++;
+					s_aEffect[nCntEffect].rot.z = -D3DX_PI * 2 / (s_aEffect[nCntEffect].nMaxLife - 100)*s_aEffect[nCntEffect].Trigger;
+				}
+				break;
+			case EFFECTTYPE_CLOCK11://短針制作
+				if (s_aEffect[nCntEffect].Trigger < s_aEffect[nCntEffect].nMaxLife - 100)
+				{
+					s_aEffect[nCntEffect].Trigger++;
+					s_aEffect[nCntEffect].rot.z -= D3DX_PI * 2 / (s_aEffect[nCntEffect].nMaxLife - 100)*s_aEffect[nCntEffect].Trigger;
+				}
+				break;
+			default:
+				break;
 			}
 			if (!s_aEffect[nCntEffect].bRot)
 			{
@@ -421,6 +448,7 @@ void UpdateEffect(void)
 					+1.0f);
 
 			}
+				
 			if (s_aEffect[nCntEffect].bCol)
 			{
 				if (s_aEffect[nCntEffect].col.r == 1.0f)
@@ -451,8 +479,6 @@ void UpdateEffect(void)
 				{
 					s_aEffect[nCntEffect].col.r += 0.05f;    //前0000FF
 				}
-				
-				
 			}
 			else
 			{
@@ -659,6 +685,7 @@ void SetEffect(D3DXVECTOR3 pos, D3DXCOLOR col, float fRadeius, int nLife, EFFECT
 				s_aEffect[nCntEffect].rot = D3DXVECTOR3(0.0f, 0.0f, 3.0f);
 			case EFFECTTYPE_CLOCK7:
 				s_aEffect[nCntEffect].rot = D3DXVECTOR3(0.0f, 0.0f, 3.1f);
+		
 				break;
 			default:
 				s_aEffect[nCntEffect].nDivisionX = 1;

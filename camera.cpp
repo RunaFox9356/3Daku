@@ -18,8 +18,8 @@ void InitCamera(void)
 {
 	s_aCamera.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	//視点　注視点　上方向　設定
-	s_aCamera.posV  = D3DXVECTOR3(0.0f,90.0f, -30.0f);
-	s_aCamera.posR  = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	s_aCamera.posV = D3DXVECTOR3(0.0f, 75.0f, -145.0f);
+	s_aCamera.posR = D3DXVECTOR3(0.0f, 60.0f, 0.0f);
 	s_aCamera.vecU  = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	s_aCamera.directionR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	s_aCamera.directionV = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
@@ -58,7 +58,7 @@ void UpdateCamera(void)
 		if (s_aCamera.bBool == false)
 		{
 			s_aCamera.bBool = true;
-			s_aCamera.posV = D3DXVECTOR3(0.0f, 90.0f, -30.0f);
+			s_aCamera.posV = D3DXVECTOR3(0.0f, 75.0f, -145.0f);
 			s_aCamera.posR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 			s_aCamera.vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 			s_aCamera.directionR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
