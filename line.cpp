@@ -129,7 +129,7 @@ void UpdateLine(void)
 				s_Line[i].pos.x = s_Line[i].pos.x -= s_Line[i].moveX*BallSpede;
 				s_Line[i].pos.z = s_Line[i].pos.z -= s_Line[i].moveZ*BallSpede;
 				SetposShadow(s_Line[i].nShadow, s_Line[i].pos);
-				SetEffect(s_Line[i].pos, D3DXCOLOR(0.1f, 1.0f, 0.1f, 0.5f), 15.0, 150, EFFECTTYPE_LINE, true, true, false, false);
+				//SetEffect(s_Line[i].pos, D3DXCOLOR(0.1f, 1.0f, 0.1f, 0.5f), 15.0, 150, EFFECTTYPE_LINE, true, true, false, false);
 
 				/*if (s_Line[i].pos.x < -90.0f)
 				{

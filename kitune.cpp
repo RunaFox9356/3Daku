@@ -129,7 +129,7 @@ void UpdateKitune(void)
 				s_Kitune[i].pos.x = s_Kitune[i].pos.x -= s_Kitune[i].moveX*BallSpede;
 				s_Kitune[i].pos.z = s_Kitune[i].pos.z -= s_Kitune[i].moveZ*BallSpede;
 				SetposShadow(s_Kitune[i].nShadow, s_Kitune[i].pos);
-				SetEffect(s_Kitune[i].pos, D3DXCOLOR(0.1f, 1.0f, 0.1f, 0.5f), 15.0, 150, EFFECTTYPE_LINE, true, true, false,false);
+				//SetEffect(s_Kitune[i].pos, D3DXCOLOR(0.1f, 1.0f, 0.1f, 0.5f), 15.0, 150, EFFECTTYPE_LINE, true, true, false,false);
 
 				/*if (s_Kitune[i].pos.x < -90.0f)
 				{

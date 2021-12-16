@@ -7,6 +7,9 @@
 #define	MAX_EFFECT	(4096)
 #define	MAX_RECIPEEFFECT	(15)
 #define EFFECT_LIFE (800)
+
+#define LOOD_FILE_NAME_EFFECT		"Effect.txt"
+#define LOOD_FILE_NAME_MAGIC		"Magic.txt"
 typedef enum
 {
 	EFFECTTYPE_LINE = 0,		//キラキラ
@@ -28,6 +31,41 @@ typedef enum
 	EFFECTTYPE_CLOCK11, //長針
 	EFFECTTYPE_MAX
 }EFFECTTYPE;
+
+typedef enum
+{
+	LISTS_ZERO = 0,	//0
+	LISTS_I,		//1
+	LISTS_II,		//2
+	LISTS_III,		//3
+	LISTS_IV,		//4
+	LISTS_V,		//5
+	LISTS_VI,		//6
+	LISTS_VII,		//7
+	LISTS_VIII,		//8
+	LISTS_IX,		//9
+	LISTS_X,		//10
+	LISTS_XI,		//11
+	LISTS_XII,		//12
+	LISTS_XIII,		//13
+	LISTS_XIV,		//14
+	LISTS_XV,		//15
+	LISTS_XVI,		//16
+	LISTS_XVII,		//17
+	LISTS_XVIII,	//18
+	LISTS_XVIX,		//19
+	LISTS_XX,		//20
+	LISTS_XXI,		//21
+	LISTS_XXII,		//22
+	LISTS_XXIII,	//23
+	LISTS_XXIV,		//24
+	LISTS_XXV,		//25
+	LISTS_XXVI,		//26
+	LISTS_XXVII,	//27
+	LISTS_XXVIII,	//28
+	LISTS_XXIX,		//29
+	LISTS_MAX		//30
+}LISTS;
 
 
 //構造体
@@ -77,13 +115,14 @@ typedef struct
 	bool bZbf;			//ゼットテスト使うかどうか
 	bool bAbf;			//アルファテスト使うかどうか
 }EffectFile;
+
 //プロトタイプ宣言
 void InitEffect(void);
 void UninitEffect(void);
 void UpdateEffect(void);
 void DrawEffect(void);
-void SetEffect(D3DXVECTOR3 pos, D3DXCOLOR col, float fRadeius, int nLife, EFFECTTYPE nType,bool bZbf, bool bAbf, bool bCol,bool bRot);
-void SetEffectFile(void);
+void SetEffect(int a);
+void SetEffectFile(char *Filename);
 //設定できること座標、色、半径、ライフ、タイプ、ゼットテスト使うかどうかアルファテスト使うかどうかアルファ値がだんだん大きくなるか
 
 #endif 

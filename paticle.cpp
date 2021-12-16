@@ -535,7 +535,7 @@ void SetParticle(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXCOLOR col, float fWidth,
 
 			pVtx += 4 * nCntParticle;	// 頂点データのポインタを4つ分進める
 			s_aParticle[nCntParticle].pos = pos;
-			s_aParticle[nCntParticle].move = move;
+			s_aParticle[nCntParticle].move = move/10;
 			s_aParticle[nCntParticle].col = col;
 			s_aParticle[nCntParticle].type = type;
 			s_aParticle[nCntParticle].fWidth = fWidth;
@@ -549,17 +549,17 @@ void SetParticle(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXCOLOR col, float fWidth,
 			case PARTICLETYPE_LIGHTNING:	//かみなり
 				s_aParticle[nCntParticle].nDivisionX = 8;
 				s_aParticle[nCntParticle].nDivisionY = 1;
-				s_aParticle[nCntParticle].speed = 5;
+				s_aParticle[nCntParticle].speed = 10;
 				break;
 			case PARTICLETYPE_KITUNE:	//狐火	/*動き方は回転をしながら上昇*/
 				s_aParticle[nCntParticle].nDivisionX = 5;
 				s_aParticle[nCntParticle].nDivisionY = 1;
-				s_aParticle[nCntParticle].speed = 5;			
+				s_aParticle[nCntParticle].speed = 10;			
 				break;
 			case PARTICLETYPE_OUKAN:	//王冠	/*動き方は回転をしながら上昇*/
 				s_aParticle[nCntParticle].nDivisionX = 5;
 				s_aParticle[nCntParticle].nDivisionY = 4;
-				s_aParticle[nCntParticle].speed = 10;
+				s_aParticle[nCntParticle].speed = 40;
 				break;
 			case PARTICLETYPE_MERA:	//一枚絵	/*動き方は回転をしながら上昇*/
 				

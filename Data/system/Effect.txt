@@ -1,33 +1,217 @@
 SCRIPT
+##これは消さないで
+
+##--------------------------------
+##エフェクトファイル読み込み時計編
+##
+##autho：hamadaryuuga
+##--------------------------------
+
+##---------------------------
+##歯車たち
+##---------------------------
 
 EFFECTSET
-TYPE 0
-POS 10.0 10.0 10.0
-COL	1.0 0.0 0.0 0.5
-MAXLIFE 800
-DIVISIONX 1
-DIVISIONY 1
-SPEED 1
-RADEIUS 0.0f
-BCOL=true
-BZDF=false
-BADF=true
-LIN=false
+TYPE 9				##タイプ（歯車古風）
+POS -15.0 65.0 0.0  ##座標
+COL	1.0 1.0 1.0 0.0	##色
+MAXLIFE 800			##ライフ
+RADEIUS 13.0f		##半径
+BZDF=false			##Zテスト使うかどうか
+BADF=true			##Aテスト使うかどうか
+BCOL=false			##色がゲーミングになるかどうか
+BROT=true			##たてるか床にはるかの選択（trueがたてる）
+LIN=false			##自動的に枠線のサイズにする（実験中）
 END_EFFECTSET
 
 EFFECTSET
-TYPE 1
-POS 10.0 10.0 10.0
-COL	1.0 0.0 0.0 0.5
-MAXLIFE 800
-DIVISIONX 1
-DIVISIONY 1
-SPEED 1
-RADEIUS 0.0f
-BCOL=true
-BZDF=false
-BADF=true
-LIN=false
+TYPE 8					##タイプ（歯車工業風）
+POS 15.0 55.0 0.0       ##座標
+COL	1.0 1.0 1.0 0.0     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 11.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
 END_EFFECTSET
 
-END_SCRIPT
+EFFECTSET
+TYPE 9					##タイプ（歯車古風）
+POS 10.0 65.0 0.0       ##座標
+COL	1.0 1.0 1.0 0.0     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 8.0f            ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 9					##タイプ（歯車古風）
+POS -15.0 45.0 0.0      ##座標
+COL	1.0 1.0 1.0 0.0     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 11.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 7					##タイプ（歯車ホイール）
+POS 0.0 75.0 0.0        ##座標
+COL	1.0 1.0 1.0 0.0     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 8.0f            ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 6					##タイプ（歯車穴あき）
+POS 5.0 45.0 0.0        ##座標
+COL	1.0 1.0 1.0 0.0     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 8.0f            ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+
+##---------------------------
+##装飾ズ
+##---------------------------
+EFFECTSET
+TYPE 10					##タイプ（外枠１）
+POS 0.0 55.0 0.0        ##座標
+COL	1.0 1.0 1.0 0.0     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 30.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 11					##タイプ（内巻き外枠）
+POS 0.0 55.0 0.0        ##座標
+COL	1.0 1.0 1.0 0.0     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 40.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 12					##タイプ（時間書かれてる枠）
+POS -3.0 54.0 0.0       ##座標
+COL	1.0 1.0 1.0 0.0     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 10.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 13					##タイプ（一時間が何分割かわかる枠）
+POS 0.0 55.0 0.0        ##座標
+COL	1.0 1.0 1.0 0.0     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 20.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 14					##タイプ（真ん中パーツ多分留め具）
+POS 0.0 55.0 0.0        ##座標
+COL	1.0 1.0 1.0 0.0     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 10.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET				
+TYPE 15					##タイプ（短針）
+POS 0.0 55.0 -3.0       ##座標
+COL	0.0 1.0 0.0 0.2     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 30.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 16					##タイプ（長針）
+POS 0.0 55.0 -3.0       ##座標
+COL	0.0 1.0 0.0 0.2     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 30.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 15					##タイプ（短針）
+POS 0.0 55.0 -3.0       ##座標
+COL	0.0 0.0 1.0 0.2     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 30.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる
+LIN=true                ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 16					##タイプ（長針）
+POS 0.0 55.0 -3.0       ##座標
+COL	0.0 0.0 1.0 0.2     ##色
+MAXLIFE 800             ##ライフ
+RADEIUS 30.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=true               ##たてるか床にはるかの選択（trueがたてる
+LIN=true                ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+
+END_SCRIPT ##これは消さないで
+
+
+

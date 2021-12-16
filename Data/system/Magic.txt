@@ -1,0 +1,348 @@
+SCRIPT##これ消さないで
+##--------------------------------
+##エフェクトファイル読み込み魔法陣編
+##
+##autho：hamadaryuuga
+##--------------------------------
+
+##---------------------------
+##魔法陣たち一段目枠線
+##---------------------------
+EFFECTSET
+TYPE 1					##タイプ（真ん中に何も書かれてないやつ）
+POS 0.0 1.0 0.0         ##座標
+COL	1.0 1.0 1.0 0.0     ##色
+MAXLIFE 840             ##ライフ
+RADEIUS 0.0f            ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 3
+POS 0.0 1.0 0.0			##タイプ（真ん中に大きい魂があるやつ）
+COL	1.0 1.0 1.0 0.0     ##座標
+MAXLIFE 840             ##色
+RADEIUS 11.0f           ##ライフ
+BZDF=false              ##半径
+BADF=true               ##Zテスト使うかどうか
+BCOL=false              ##Aテスト使うかどうか
+BROT=false              ##色がゲーミングになるかどうか
+LIN=false               ##たてるか床にはるかの選択（trueがたてる）
+END_EFFECTSET           ##自動的に枠線のサイズにする（実験中）
+
+EFFECTSET				##タイプ（さんかくがあって魔法陣の枠がない奴）
+TYPE 4                  ##座標
+POS 0.0 1.0 0.0         ##色
+COL	1.0 1.0 1.0 0.0     ##ライフ
+MAXLIFE 840             ##半径
+RADEIUS 16.0f           ##Zテスト使うかどうか
+BZDF=false              ##Aテスト使うかどうか
+BADF=true               ##色がゲーミングになるかどうか
+BCOL=false              ##たてるか床にはるかの選択（trueがたてる）
+BROT=false              ##自動的に枠線のサイズにする（実験中）
+LIN=false
+END_EFFECTSET
+
+##---------------------------
+##魔法陣たち一段目色変わるやつ
+##---------------------------
+
+EFFECTSET
+TYPE 1					##タイプ（真ん中に何も書かれてないやつ）
+POS 0.0 1.0 0.0         ##座標
+COL	1.0 0.0 0.0 1.0     ##色
+MAXLIFE 840             ##ライフ
+RADEIUS 0.0f            ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=true               ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 2					##タイプ（六角形）
+POS 0.0 1.0 0.0         ##座標
+COL	1.0 0.0 0.0 1.0     ##色
+MAXLIFE 840             ##ライフ
+RADEIUS 5.0f            ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=true               ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 3					##タイプ（真ん中に大きい魂があるやつ）
+POS 0.0 1.0 0.0         ##座標
+COL	1.0 0.0 0.0 1.0     ##色
+MAXLIFE 840             ##ライフ
+RADEIUS 10.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=true               ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 4					##タイプ（さんかくがあって魔法陣の枠がない奴）
+POS 0.0 1.0 0.0         ##座標
+COL	1.0 0.0 0.0 1.0     ##色
+MAXLIFE 840             ##ライフ
+RADEIUS 15.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=true               ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 5					##タイプ（魂いっぱい）
+POS 0.0 1.0 0.0         ##座標
+COL	1.0 0.0 0.0 1.0     ##色
+MAXLIFE 840             ##ライフ           
+RADEIUS 0.0f            ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=true               ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+
+##---------------------------
+##魔法陣たち二段目枠線
+##---------------------------
+
+EFFECTSET
+TYPE 1					##タイプ（真ん中に何も書かれてないやつ）
+POS 0.0 50.0 0.0        ##座標
+COL	1.0 1.0 1.0 0.0     ##色
+MAXLIFE 730             ##ライフ
+RADEIUS 11.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+##---------------------------
+##魔法陣たち二段目色
+##---------------------------
+
+EFFECTSET
+TYPE 1					##タイプ（真ん中に何も書かれてないやつ）
+POS 0.0 50.0 0.0        ##座標
+COL	1.0 0.0 0.0 1.0     ##色
+MAXLIFE 730             ##ライフ
+RADEIUS 10.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=true               ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 2					##タイプ（六角形）
+POS 0.0 50.0 0.0        ##座標
+COL	1.0 0.0 0.0 1.0     ##色
+MAXLIFE 730             ##ライフ
+RADEIUS 9.0f            ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=true               ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+##---------------------------
+##魔法陣たち三段目枠
+##---------------------------
+EFFECTSET
+TYPE 4						##タイプ（さんかくがあって魔法陣の枠がない奴）
+POS 0.0 100.0 0.0           ##座標
+COL	1.0 1.0 1.0 0.0         ##色
+MAXLIFE 620                 ##ライフ
+RADEIUS 7.0f                ##半径
+BZDF=false                  ##Zテスト使うかどうか
+BADF=true                   ##Aテスト使うかどうか
+BCOL=false                  ##色がゲーミングになるかどうか
+BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
+LIN=false                   ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 3						##タイプ（真ん中に大きい魂があるやつ）
+POS 0.0 100.0 0.0           ##座標
+COL	1.0 1.0 1.0 0.0         ##色
+MAXLIFE 610                 ##ライフ
+RADEIUS 4.0f                ##半径
+BZDF=false                  ##Zテスト使うかどうか
+BADF=true                   ##Aテスト使うかどうか
+BCOL=false                  ##色がゲーミングになるかどうか
+BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
+LIN=false                   ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+##---------------------------
+##魔法陣たち三段目いろ
+##---------------------------
+EFFECTSET
+TYPE 4					##タイプ（さんかくがあって魔法陣の枠がない奴）
+POS 0.0 100.0 0.0       ##座標
+COL 1.0 0.0 0.0 1.0     ##色
+MAXLIFE 620             ##ライフ
+RADEIUS 6.0f            ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=true               ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET	
+TYPE 3					##タイプ（真ん中に大きい魂があるやつ）
+POS 0.0 100.0 0.0       ##座標
+COL	1.0 0.0 0.0 1.0     ##色
+MAXLIFE 610             ##ライフ
+RADEIUS 3.0f            ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=true               ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+##---------------------------
+##魔法陣たち四段目枠
+##---------------------------
+
+EFFECTSET
+TYPE 2						##タイプ（六角形）
+POS 0.0 150.0 0.0           ##座標
+COL	1.0 1.0 1.0 0.0         ##色
+MAXLIFE 510                 ##ライフ
+RADEIUS 1.0f                ##半径
+BZDF=false                  ##Zテスト使うかどうか
+BADF=true                   ##Aテスト使うかどうか
+BCOL=false                  ##色がゲーミングになるかどうか
+BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
+LIN=false                   ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 5						##タイプ（魂いっぱい）
+POS 0.0 150.0 0.0           ##座標
+COL	1.0 1.0 1.0 0.0         ##色
+MAXLIFE 510                 ##ライフ
+RADEIUS 4.0f                ##半径
+BZDF=false                  ##Zテスト使うかどうか
+BADF=true                   ##Aテスト使うかどうか
+BCOL=false                  ##色がゲーミングになるかどうか
+BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
+LIN=false                   ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+##---------------------------
+##魔法陣たち四段目いろ
+##---------------------------
+
+EFFECTSET
+TYPE 2					##タイプ（六角形）
+POS 0.0 150.0 0.0       ##座標
+COL	1.0 0.0 0.0 1.0     ##色
+MAXLIFE 510             ##ライフ
+RADEIUS 1.0f            ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=true               ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 5					##タイプ（魂いっぱい）
+POS 0.0 150.0 0.0       ##座標
+COL	1.0 0.0 0.0 1.0     ##色
+MAXLIFE 510             ##ライフ
+RADEIUS 3.0f            ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=true               ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=false               ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+
+##---------------------------
+##魔法陣たち五段目枠
+##---------------------------
+EFFECTSET
+TYPE 4						##タイプ（さんかくがあって魔法陣の枠がない奴）
+POS 0.0 200.0 0.0           ##座標
+COL	1.0 1.0 1.0 0.0         ##色
+MAXLIFE 400                 ##ライフ
+RADEIUS 0.0f                ##半径
+BZDF=false                  ##Zテスト使うかどうか
+BADF=true                   ##Aテスト使うかどうか
+BCOL=false                  ##色がゲーミングになるかどうか
+BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
+LIN=false                   ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 5						##タイプ（魂いっぱい）
+POS 0.0 200.0 0.0           ##座標
+COL	1.0 1.0 1.0 0.0         ##色
+MAXLIFE 400                 ##ライフ
+RADEIUS 0.0f                ##半径
+BZDF=false                  ##Zテスト使うかどうか
+BADF=true                   ##Aテスト使うかどうか
+BCOL=false                  ##色がゲーミングになるかどうか
+BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
+LIN=false                   ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+
+##---------------------------
+##魔法陣たち五段目色
+##---------------------------
+
+
+EFFECTSET
+TYPE 4						##タイプ（さんかくがあって魔法陣の枠がない奴）
+POS 0.0 200.0 0.0           ##座標
+COL	1.0 0.0 0.0 1.0         ##色
+MAXLIFE 400                 ##ライフ
+RADEIUS 0.0f                ##半径
+BZDF=false                  ##Zテスト使うかどうか
+BADF=true                   ##Aテスト使うかどうか
+BCOL=true                   ##色がゲーミングになるかどうか
+BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
+LIN=false                   ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+EFFECTSET
+TYPE 5						##タイプ（魂いっぱい）
+POS 0.0 200.0 0.0           ##座標
+COL	1.0 0.0 0.0 1.0         ##色
+MAXLIFE 400                 ##ライフ
+RADEIUS 0.0f                ##半径
+BZDF=false                  ##Zテスト使うかどうか
+BADF=true                   ##Aテスト使うかどうか
+BCOL=true                   ##色がゲーミングになるかどうか
+BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
+LIN=false                   ##自動的に枠線のサイズにする（実験中）
+END_EFFECTSET
+
+END_SCRIPT##これ消さないで
+
+
+

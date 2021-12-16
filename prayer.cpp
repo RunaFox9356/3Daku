@@ -102,7 +102,6 @@ void UpdatePrayer(void)
 	}
 	if (GetKeyboardPress(DIK_3))
 	{//３押したときパーティクル
-
 		SetParticle(Prayerpolygon[s_nNanba].pos + D3DXVECTOR3(0.0f, 20.0f, 0.0f), D3DXVECTOR3(20.0f, 20.0f, 20.0f),
 			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f)
 			, 10.0f, 10.0f, PARTICLETYPE_OUKAN, OUKANLIFE);
@@ -116,54 +115,29 @@ void UpdatePrayer(void)
 	}
 	if (GetKeyboardPress(DIK_7))
 	{//魔法陣発動//0.0のカラーのやつは枠線
-
 	}
 	if (GetKeyboardTrigger(DIK_8))
 	{//時計発動//0.0のカラーのやつは枠線
 	 //SetEffect(D3DXVECTOR3 pos, D3DXCOLOR col, float fRadeius, int nLife, EFFECTTYPE nType,bool bZbf, bool bAbf, bool bCol,bool bRot);
-
-
 		mystery = Prayerpolygon[s_nNanba].pos;
+		//テクスチャの座標設定
+		SetEffectFile(LOOD_FILE_NAME_EFFECT);
 
-		SetEffect(mystery + D3DXVECTOR3(15.0f, 55.0f, 0.0f),
-			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 8.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK4, false, true, false, true);
-
-		SetEffect(mystery + D3DXVECTOR3(10.0f, 65.0f, 0.0f),
-			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 11.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK3, false, true, false, true);
-
-		SetEffect(mystery + D3DXVECTOR3(-15.0f, 45.0f, 0.0f),
-			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 13.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK4, false, true, false, true);
-
-		SetEffect(mystery + D3DXVECTOR3(-15.0f, 65.0f, 0.0f),
-			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 11.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK4, false, true, false, true);
-
-		SetEffect(mystery + D3DXVECTOR3(0.0f, 75.0f, 0.0f),
-			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 8.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK2, false, true, false, true);
-
-		SetEffect(mystery + D3DXVECTOR3(5.0f, 45.0f, 0.0f),
-			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 11.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK, false, true, false, true);
-
-		SetEffect(mystery + D3DXVECTOR3(0.0f, 55.0f, 0.0f),
-			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 30.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK5, false, true, false, true);
-
-		SetEffect(mystery + D3DXVECTOR3(0.0f, 55.0f, 0.0f),
-			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 40.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK6, false, true, false, true);
-
-		SetEffect(mystery + D3DXVECTOR3(-2.5f, 55.0f, 1.0f),
-			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 10.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK7, false, true, false, true);
-
-		SetEffect(mystery + D3DXVECTOR3(0.0f, 55.0f, 0.0f),
-			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 20.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK8, false, true, false, true);
-
-		SetEffect(mystery + D3DXVECTOR3(0.0f, 55.0f, 0.0f),
-			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 10.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK9, false, true, false, true);
-
-		SetEffect(mystery + D3DXVECTOR3(0.0f, 55.0f, 0.0f),
-			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 30.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK10, false, true, false, true);
-
-		SetEffect(mystery + D3DXVECTOR3(0.0f, 55.0f, 0.0f),
-			D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 30.0f, EFFECT_LIFE + 40, EFFECTTYPE_CLOCK11, false, true, false, true);
-
+		SetEffect(LISTS_ZERO);
+		SetEffect(LISTS_I);
+		SetEffect(LISTS_II);
+		SetEffect(LISTS_III);
+		SetEffect(LISTS_IV);
+		SetEffect(LISTS_V);
+		SetEffect(LISTS_VI);
+		SetEffect(LISTS_VII);
+		SetEffect(LISTS_VIII);
+		SetEffect(LISTS_IX);
+		SetEffect(LISTS_X);
+		SetEffect(LISTS_XI);
+		SetEffect(LISTS_XII);
+		SetEffect(LISTS_XIII);
+		SetEffect(LISTS_XIV);
 	}
 	if (GetKeyboardTrigger(DIK_0))
 	{//魔法陣発動//0.0のカラーのやつは枠線
@@ -173,6 +147,7 @@ void UpdatePrayer(void)
 	}
 	if (Prayerpolygon[s_nNanba].bMystery)
 	{
+		SetEffectFile(LOOD_FILE_NAME_MAGIC);
 		s_nTime++;
 		SetParticle(D3DXVECTOR3(mystery),
 			D3DXVECTOR3(0.0, 0.0, 0.0),
@@ -184,89 +159,64 @@ void UpdatePrayer(void)
 
 		if (s_nTime == 10)
 		{
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
-				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 11.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP3, false, true, false, false);
+			SetEffect(LISTS_ZERO);
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
-				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 16.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP4, false, true, false, false);
+			SetEffect(LISTS_I);
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
-				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 0.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP, false, true, false, false);
+			SetEffect(LISTS_II);
 
 			//ここから下が虹色
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
-				D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 0.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP, false, true, true, false);
+			SetEffect(LISTS_III);
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
-				D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 5.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP2, false, true, true, false);
+			SetEffect(LISTS_IV);
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
-				D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 10.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP3, false, true, true, false);
+			SetEffect(LISTS_V);
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
-				D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 15.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP4, false, true, true, false);
+			SetEffect(LISTS_VI);
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 1.0f, 0.0f),
-				D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 0.0f, EFFECT_LIFE + 40, EFFECTTYPE_MP5, false, true, true, false);
+			SetEffect(LISTS_VII);
 		}
 		if (s_nTime == 100)
 		{
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 50.0f, 0.0f),
-				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 11.0f, EFFECT_LIFE - 70, EFFECTTYPE_MP, false, true, false, false);
-
-
+			SetEffect(LISTS_VIII);
 			//ここから下が虹色
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 50.0f, 0.0f),
-				D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f), 10.0f, EFFECT_LIFE - 70, EFFECTTYPE_MP, false, true, true, false);
+			SetEffect(LISTS_IX);
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 50.0f, 0.0f),
-				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 9.0f, EFFECT_LIFE - 70, EFFECTTYPE_MP2, false, true, true, false);
+			SetEffect(LISTS_X);
 		}
 		if (s_nTime == 200)
 		{
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 100.0f, 0.0f),
-				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 3.0f, EFFECT_LIFE - 180, EFFECTTYPE_MP3, false, true, false, false);
+			SetEffect(LISTS_XI);
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 100.0f, 0.0f),
-				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 7.0f, EFFECT_LIFE - 180, EFFECTTYPE_MP4, false, true, false, false);
+			SetEffect(LISTS_XII);
 
 			//ここから下が虹色
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 100.0f, 0.0f),
-				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 2.0f, EFFECT_LIFE - 180, EFFECTTYPE_MP3, false, true, true, false);
+			SetEffect(LISTS_XIII);
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 100.0f, 0.0f),
-				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 6.0f, EFFECT_LIFE - 180, EFFECTTYPE_MP4, false, true, true, false);
+			SetEffect(LISTS_XIV);
 		}
 		if (s_nTime == 300)
 		{
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 150.0f, 0.0f),
-				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 1.0f, EFFECT_LIFE - 290, EFFECTTYPE_MP2, false, true, false, false);
+			SetEffect(LISTS_XV);
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 150.0f, 0.0f),
-				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 4.0f, EFFECT_LIFE - 290, EFFECTTYPE_MP5, false, true, false, false);
+			SetEffect(LISTS_XVI);
 
 			//ここから下が虹色
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 150.0f, 0.0f),
-				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 0.0f, EFFECT_LIFE - 290, EFFECTTYPE_MP2, false, true, true, false);
+			SetEffect(LISTS_XVII);
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 150.0f, 0.0f),
-				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 3.0f, EFFECT_LIFE - 290, EFFECTTYPE_MP5, false, true, true, false);
+			SetEffect(LISTS_XVIII);
 		}
 		if (s_nTime == 400)
 		{
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 200.0f, 0.0f),
-				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 0.0f, EFFECT_LIFE - 400, EFFECTTYPE_MP4, false, true, false, false);
+			SetEffect(LISTS_XVIX);
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 200.0f, 0.0f),
-				D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f), 0.0f, EFFECT_LIFE - 400, EFFECTTYPE_MP5, false, true, false, false);
+			SetEffect(LISTS_XX);
 
 			//ここから下が虹色
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 200.0f, 0.0f),
-				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 0.0f, EFFECT_LIFE - 400, EFFECTTYPE_MP4, false, true, true, false);
+			SetEffect(LISTS_XXI);
 
-			SetEffect(mystery + D3DXVECTOR3(0.0f, 200.0f, 0.0f),
-				D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.5f), 0.0f, EFFECT_LIFE - 400, EFFECTTYPE_MP5, false, true, true, false);
+			SetEffect(LISTS_XXII);
 		}
 		if (s_nTime == EFFECT_LIFE)
 		{

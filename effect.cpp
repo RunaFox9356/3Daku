@@ -11,16 +11,15 @@
 //=====================================
 // マクロ定義
 //=====================================
-#define LOOD_FILE_NAME_EFFECT		"Effect.txt"
-#define NUM_MAX (EFFECTTYPE_MAX)  
 
+#define NUM_MAX (EFFECTTYPE_MAX)  
 //スタティック変数///スタティックをヘッタに使うなよ？
 static char s_EffectFile[128];
 static char s_aString[128];
 static LPDIRECT3DTEXTURE9 s_pTextureEffect[NUM_MAX] = {}; //テクスチャのポインタ
 static LPDIRECT3DVERTEXBUFFER9 s_pVtxBuffEffect = NULL; //頂点バッファの設定
 static Effect s_aEffect[MAX_EFFECT];
-static EffectFile s_aEffectFile[NUM_MAX];
+static EffectFile s_aEffectFile[MAX_EFFECT];
 
 void InitEffect(void)
 {
@@ -91,7 +90,7 @@ void InitEffect(void)
 		&s_pTextureEffect[EFFECTTYPE_CLOCK9]);
 	//テクスチャの読み込み
 	D3DXCreateTextureFromFile(pDevice,
-		"Data/TEXTURE/50-38.jpg",
+		"Data/TEXTURE/50-39.jpg",
 		&s_pTextureEffect[EFFECTTYPE_CLOCK10]);
 	//テクスチャの読み込み
 	D3DXCreateTextureFromFile(pDevice,
@@ -119,6 +118,10 @@ void InitEffect(void)
 		s_aEffect[nCntEffect].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 		s_aEffect[nCntEffect].nLife = 0;
 		s_aEffect[nCntEffect].bUse = false;
+		s_aEffect[nCntEffect].bAbf = false;
+		s_aEffect[nCntEffect].bRot = false;
+		s_aEffect[nCntEffect].bZbf = false;
+		s_aEffect[nCntEffect].bCol = false;
 		s_aEffect[nCntEffect].fRadeius = 0;
 		s_aEffect[nCntEffect].Trigger = 0;   //何フレームに一回つかうかのチェック
 		s_aEffect[nCntEffect].nType = EFFECTTYPE_LINE;//
@@ -141,8 +144,6 @@ void InitEffect(void)
 		pVtx[2].col = s_aEffect[nCntEffect].col;
 		pVtx[3].col = s_aEffect[nCntEffect].col;
 
-		//テクスチャの座標設定
-		SetEffectFile();
 		Settex(pVtx, 0.0f, 1.0f, 0.0f, 1.0f);
 
 		pVtx += 4; //頂点ポイントを四つ進む
@@ -333,23 +334,7 @@ void UpdateEffect(void)
 				}
 
 
-				//アニメーションテクスチャ設定
-				if ((s_aEffect[nCntEffect].nCounterAnim % s_aEffect[nCntEffect].speed) == 0)//ここで速度調整
-				{
-					s_aEffect[nCntEffect].nPatternAnim++;
-
-					//表示座標を更新
-					Settex(pVtx
-						, 1.0f / s_aEffect[nCntEffect].nDivisionX * (s_aEffect[nCntEffect].nPatternAnim % (s_aEffect[nCntEffect].nDivisionX ))
-						, 1.0f / s_aEffect[nCntEffect].nDivisionX *(s_aEffect[nCntEffect].nPatternAnim % (s_aEffect[nCntEffect].nDivisionX )) + 1.0f / s_aEffect[nCntEffect].nDivisionX
-						, 1.0f / s_aEffect[nCntEffect].nDivisionY * (s_aEffect[nCntEffect].nPatternAnim / (s_aEffect[nCntEffect].nDivisionY))
-						, 1.0f / s_aEffect[nCntEffect].nDivisionY * (s_aEffect[nCntEffect].nPatternAnim / ( s_aEffect[nCntEffect].nDivisionY) + 1.0f / s_aEffect[nCntEffect].nDivisionY* s_aEffect[nCntEffect].nDivisionY));
-
-				if (s_aEffect[nCntEffect].nLife <=0)
-				{
-					s_aEffect[nCntEffect].bUse = false;
-				}
-				}
+			
 				
 				if (s_aEffect[nCntEffect].nLife <= s_aEffect[nCntEffect].nMaxLife&& s_aEffect[nCntEffect].nLife >= s_aEffect[nCntEffect].nMaxLife - 30)
 				{//サイズを+３０する
@@ -368,8 +353,6 @@ void UpdateEffect(void)
 				{
 					s_aEffect[nCntEffect].bUse = false;
 				}
-				s_aEffect[nCntEffect].nCounterAnim++;
-			
 				break;
 			case EFFECTTYPE_CLOCK:
 			case EFFECTTYPE_CLOCK2:
@@ -424,7 +407,7 @@ void UpdateEffect(void)
 					s_aEffect[nCntEffect].rot.z = -D3DX_PI * 2 / (s_aEffect[nCntEffect].nMaxLife - 100)*s_aEffect[nCntEffect].Trigger;
 				}
 				break;
-			case EFFECTTYPE_CLOCK11://短針制作
+			case EFFECTTYPE_CLOCK11://長針制作
 				if (s_aEffect[nCntEffect].Trigger < s_aEffect[nCntEffect].nMaxLife - 100)
 				{
 					s_aEffect[nCntEffect].Trigger++;
@@ -447,12 +430,13 @@ void UpdateEffect(void)
 				s_aEffect[nCntEffect].rot.z += D3DX_PI * 2;
 
 			}
+			
 			if (!s_aEffect[nCntEffect].bRot)
 			{
 				//設定
 				SetNorotpos(pVtx,
 					-s_aEffect[nCntEffect].fRadeius,
-					+s_aEffect[nCntEffect].fRadeius,
+					+s_aEffect[nCntEffect].	fRadeius,
 					+1.0f,
 					+1.0f,
 					-s_aEffect[nCntEffect].fRadeius,
@@ -470,7 +454,9 @@ void UpdateEffect(void)
 					+1.0f);
 
 			}
-				
+
+	
+
 			if (s_aEffect[nCntEffect].bCol)
 			{
 				if (s_aEffect[nCntEffect].col.r == 1.0f)
@@ -514,7 +500,28 @@ void UpdateEffect(void)
 			pVtx[1].col = s_aEffect[nCntEffect].col;
 			pVtx[2].col = s_aEffect[nCntEffect].col;
 			pVtx[3].col = s_aEffect[nCntEffect].col;
+
+			s_aEffect[nCntEffect].nCounterAnim++;
+			//アニメーションテクスチャ設定
+			if ((s_aEffect[nCntEffect].nCounterAnim % s_aEffect[nCntEffect].speed) == 0)//ここで速度調整
+			{
+				s_aEffect[nCntEffect].nPatternAnim++;
+
+				//表示座標を更新
+				Settex(pVtx
+					, 1.0f / s_aEffect[nCntEffect].nDivisionX * (s_aEffect[nCntEffect].nPatternAnim % (s_aEffect[nCntEffect].nDivisionX))
+					, 1.0f / s_aEffect[nCntEffect].nDivisionX *(s_aEffect[nCntEffect].nPatternAnim % (s_aEffect[nCntEffect].nDivisionX)) + 1.0f / s_aEffect[nCntEffect].nDivisionX
+					, 1.0f / s_aEffect[nCntEffect].nDivisionY * (s_aEffect[nCntEffect].nPatternAnim / (s_aEffect[nCntEffect].nDivisionY))
+					, 1.0f / s_aEffect[nCntEffect].nDivisionY * (s_aEffect[nCntEffect].nPatternAnim / (s_aEffect[nCntEffect].nDivisionY) + 1.0f / s_aEffect[nCntEffect].nDivisionY* s_aEffect[nCntEffect].nDivisionY));
+
+
+				if (s_aEffect[nCntEffect].nLife <= 0)
+				{
+					s_aEffect[nCntEffect].bUse = false;
+				}
+			}
 		}
+		
 		pVtx += 4;
 	}
 	//頂点バッファをアンロック
@@ -627,7 +634,7 @@ void DrawEffect(void)
 	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
 }
-void SetEffect(D3DXVECTOR3 pos, D3DXCOLOR col, float fRadeius, int nLife, EFFECTTYPE nType, bool bZbf, bool bAbf, bool bCol,bool bRot)
+void SetEffect(int a)
 {
 	int nCntEffect;
 	VERTEX_3D*pVtx; //頂点へのポインタ
@@ -637,47 +644,41 @@ void SetEffect(D3DXVECTOR3 pos, D3DXCOLOR col, float fRadeius, int nLife, EFFECT
 	{
 		if (s_aEffect[nCntEffect].bUse == false)
 		{
-
 			//エフェクトが使用されてない場合
-			s_aEffect[nCntEffect].fRadeius = fRadeius;
-			s_aEffect[nCntEffect].pos = pos;
-			s_aEffect[nCntEffect].bAbf = bAbf;
-			s_aEffect[nCntEffect].bZbf = bZbf;
-			s_aEffect[nCntEffect].bCol = bCol;
-			s_aEffect[nCntEffect].nType = nType;
+			s_aEffect[nCntEffect].fRadeius = s_aEffectFile[a].fRadeius;
+			s_aEffect[nCntEffect].pos = s_aEffectFile[a].pos;
+			s_aEffect[nCntEffect].bAbf = s_aEffectFile[a].bAbf;
+			s_aEffect[nCntEffect].bZbf = s_aEffectFile[a].bZbf;
+			s_aEffect[nCntEffect].bCol = s_aEffectFile[a].bCol;
+			s_aEffect[nCntEffect].bRot = s_aEffectFile[a].bRot;
+			s_aEffect[nCntEffect].nType = s_aEffectFile[a].nType;
 			s_aEffect[nCntEffect].nCounterAnim = 0;
 			s_aEffect[nCntEffect].nPatternAnim = 0;
-			s_aEffect[nCntEffect].nMaxLife = nLife;
-			s_aEffect[nCntEffect].bRot = bRot;
+			s_aEffect[nCntEffect].nMaxLife = s_aEffectFile[a].nMaxLife;
+			s_aEffect[nCntEffect].bRot = s_aEffectFile[a].bRot;
 		
-			//アニメーション最大数
-			s_aEffect[nCntEffect].nDivisionMAX = s_aEffect[nCntEffect].nDivisionX*s_aEffect[nCntEffect].nDivisionY;
-
-			//テクスチャ設定
-			Settex(pVtx, 0.0f, 1.0f / s_aEffect[nCntEffect].nDivisionX, 0.0f, 1.0f / s_aEffect[nCntEffect].nDivisionY);
-
 			if (!s_aEffect[nCntEffect].bRot)
 			{
 				// 回転座標
 				s_aEffect[nCntEffect].rot = D3DXVECTOR3(0.0f, 0.01f, 0.0f);
 				//設定
 				SetNorotpos(pVtx,
-					-fRadeius,
-					+fRadeius,
+					-s_aEffect[nCntEffect].fRadeius,
+					+s_aEffect[nCntEffect].fRadeius,
 					+1.0f,
 					+1.0f,
-					-fRadeius,
-					+fRadeius);
+					-s_aEffect[nCntEffect].fRadeius,
+					+s_aEffect[nCntEffect].fRadeius);
 			}
 			else
 			{
 				s_aEffect[nCntEffect].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 				//設定
 				SetNorotpos(pVtx,
-					-fRadeius,
-					+fRadeius,
-					-fRadeius,
-					+fRadeius,
+					-s_aEffect[nCntEffect].fRadeius,
+					+s_aEffect[nCntEffect].fRadeius,
+					-s_aEffect[nCntEffect].fRadeius,
+					+s_aEffect[nCntEffect].fRadeius,
 					+1.0f,
 					+1.0f);
 					
@@ -689,13 +690,13 @@ void SetEffect(D3DXVECTOR3 pos, D3DXCOLOR col, float fRadeius, int nLife, EFFECT
 			s_aEffect[nCntEffect].easeInspeed = 0;
 
 			//生存時間
-			s_aEffect[nCntEffect].nLife = nLife;
+			s_aEffect[nCntEffect].nLife = s_aEffectFile[a].nMaxLife;
 
 			//使用チェック
 			s_aEffect[nCntEffect].bUse = true;
 
 			//カラー
-			s_aEffect[nCntEffect].col = col;
+			s_aEffect[nCntEffect].col = s_aEffectFile[a].col;
 
 			switch (s_aEffect[nCntEffect].nType)
 			{
@@ -715,11 +716,15 @@ void SetEffect(D3DXVECTOR3 pos, D3DXCOLOR col, float fRadeius, int nLife, EFFECT
 				s_aEffect[nCntEffect].speed = 5;
 				break;
 			}
+			//アニメーション最大数
+			s_aEffect[nCntEffect].nDivisionMAX = s_aEffect[nCntEffect].nDivisionX*s_aEffect[nCntEffect].nDivisionY;
+			//テクスチャ設定
+			Settex(pVtx, 0.0f, 1.0f / s_aEffect[nCntEffect].nDivisionX, 0.0f, 1.0f / s_aEffect[nCntEffect].nDivisionY);
 			//頂点カラーの設定
-			pVtx[0].col = col;
-			pVtx[1].col = col;
-			pVtx[2].col = col;
-			pVtx[3].col = col;
+			pVtx[0].col = s_aEffectFile[a].col;
+			pVtx[1].col = s_aEffectFile[a].col;
+			pVtx[2].col = s_aEffectFile[a].col;
+			pVtx[3].col = s_aEffectFile[a].col;
 			break;
 		}
 		pVtx += 4;
@@ -728,14 +733,17 @@ void SetEffect(D3DXVECTOR3 pos, D3DXCOLOR col, float fRadeius, int nLife, EFFECT
 	s_pVtxBuffEffect->Unlock();
 	
 }
-void SetEffectFile(void)
+void SetEffectFile(char *Filename)
 {
 	// ファイルポインタの宣言
 	FILE * pFile;
-
+	
 	char aFile[128] = FILE_3D_SYSTEM;
-	strcat(aFile, LOOD_FILE_NAME_EFFECT);//合成　aFile＜-こいつに入れる
+
+	strcat(aFile, &Filename[0]);//合成　aFile＜-こいつに入れる
+
 	int a=0;
+	int t = 0;
 									  //ファイルを開く
 	pFile = fopen(aFile, "r");
 
@@ -743,7 +751,7 @@ void SetEffectFile(void)
 	{//ファイルが開いた場合
 		fscanf(pFile, "%s", &s_aString);
 
-		if (strcmp(&s_aString[0], "SCRIPT") == 0)
+		if (strncmp(&s_aString[0], "SCRIPT",6) == 0)
 		{// 文字列が一致した場合
 			while (1)
 			{// 文字列の初期化と読み込み
@@ -761,10 +769,15 @@ void SetEffectFile(void)
 						// 文字列の初期化と読み込み
 						s_aString[0] = {};
 						fscanf(pFile, "%s", &s_aString[0]);
+						if (strncmp(&s_aString[0], "##" ,2)==0)
+						{
+							fscanf(pFile, "%f");
+							continue;
+						}
 						if (strcmp(&s_aString[0], "TYPE") == 0)
 						{
-							fscanf(pFile, "%d", &a);
-							s_aEffectFile[a].nType = (EFFECTTYPE)a;
+							fscanf(pFile, "%d", &t);
+							s_aEffectFile[a].nType = (EFFECTTYPE)t;
 						}
 						if (strcmp(&s_aString[0], "POS") == 0)
 						{// 文字列が一致した場合
@@ -804,15 +817,33 @@ void SetEffectFile(void)
 						{// 文字列が一致した場合
 							s_aEffectFile[a].bCol = true;
 						}
-						
+						if (strcmp(&s_aString[0], "BCOL=false") == 0)
+						{// 文字列が一致した場合
+							s_aEffectFile[a].bCol = false;
+						}
 						if (strcmp(&s_aString[0], "BZDF=true") == 0)
 						{// 文字列が一致した場合
 							s_aEffectFile[a].bZbf = true;
 						}
-	
+						if (strcmp(&s_aString[0], "BZDF=false") == 0)
+						{// 文字列が一致した場合
+							s_aEffectFile[a].bZbf = false;
+						}
 						if (strcmp(&s_aString[0], "BADF=true") == 0)
 						{// 文字列が一致した場合
 							s_aEffectFile[a].bAbf = true;
+						}
+						if (strcmp(&s_aString[0], "BADF=false") == 0)
+						{// 文字列が一致した場合
+							s_aEffectFile[a].bAbf = false;
+						}
+						if (strcmp(&s_aString[0], "BROT=true") == 0)
+						{// 文字列が一致した場合
+							s_aEffectFile[a].bRot = true;
+						}
+						if (strcmp(&s_aString[0], "BROT=false") == 0)
+						{// 文字列が一致した場合
+							s_aEffectFile[a].bRot = false;
 						}
 						if (strcmp(&s_aString[0], "LIN=true") == 0)
 						{// 文字列が一致した場合//白枠モード
@@ -821,11 +852,13 @@ void SetEffectFile(void)
 						}
 						if (strcmp(&s_aString[0], "END_EFFECTSET") == 0)
 						{// 文字列が一致した場合
+							a++;
 							break;
 						}
 					}
+
 				}
-				else if (strcmp(&s_aString[0], "END_SCRIPT") == 0)
+				else if (strncmp(&s_aString[0], "END_SCRIPT",10) == 0)
 				{// 文字列が一致した場合
 					break;
 				}
@@ -839,11 +872,4 @@ void SetEffectFile(void)
 	{//ファイルが開けない場合
 		printf("\n * * * ファイルが開けません * * * \n");
 	}
-
-
-
-
-
-
-
 }
