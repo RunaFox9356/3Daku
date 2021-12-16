@@ -12,8 +12,10 @@
 //=====================================
 //　ファイルパスまとめ
 //=====================================
+#define FILE_3D_PRAYER  "Data/Model/"
 #define FILE_3D_MODEL  "Data/Model/"
 #define FILE_3D_SYSTEM "Data/system/"
+
 
 //=====================================
 // プロトタイプ宣言

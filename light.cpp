@@ -4,7 +4,7 @@
 //=======================
 
 #include"light.h"
-#include"model.h"
+#include"prayer.h"
 
 #define MAXLIT (3) 
 static D3DLIGHT9  s_light[MAXLIT];
@@ -61,11 +61,11 @@ void UninitLighe(void)
 //----------------------------
 void UpdateLighe(void)
 {
-	MODEL *pModel = GetModel();
+	PRAYER *pPrayer = GetPrayer();
 	LPDIRECT3DDEVICE9  pDevice = GetDevice();
 
 	D3DXVECTOR3 vecDir[MAXLIT];
-	if (pModel->bMystery)
+	if (pPrayer->bMystery)
 	{
 		if (Lite.r >=0.3f)
 		{
@@ -86,7 +86,7 @@ void UpdateLighe(void)
 
 
 	}
-	if (!pModel->bMystery)
+	if (!pPrayer->bMystery)
 	{
 		if (Lite.r <= 1.0f)
 		{

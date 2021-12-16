@@ -5,7 +5,7 @@
 #include "kitune.h"
 #include "camera.h"
 #include"shadow.h"
-#include "model.h"
+#include "prayer.h"
 #include"effect.h"
 
 //------------------------------------
@@ -262,8 +262,8 @@ void DrawKitune(void)
 void SetKitune(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXCOLOR col,int nType)//場所.回転.色.タイプ
 {	
 	
-	MODEL *pModel;
-	pModel = GetModel();
+	PRAYER *pPrayer = GetPrayer();
+
 	// 頂点座標をロック
 	VERTEX_3D*pVtx; //頂点へのポインタ
 	s_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
@@ -289,8 +289,8 @@ void SetKitune(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXCOLOR col,int nType)//場所.
 			pVtx[2].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 			pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
-			s_Kitune[i].moveX = sinf(pModel->rot.y);
-			s_Kitune[i].moveZ = cosf(pModel->rot.y);
+			s_Kitune[i].moveX = sinf(pPrayer->rot.y);
+			s_Kitune[i].moveZ = cosf(pPrayer->rot.y);
 			// 頂点カラーの設定
 			pVtx[0].col = col;
 			pVtx[1].col = col;

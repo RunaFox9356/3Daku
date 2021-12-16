@@ -4,7 +4,7 @@
 //========================
 #include"camera.h"
 #include"input.h"
-#include"model.h"
+#include"prayer.h"
 
 #define Spede (1.0f)
 #define rotSpede (0.01f)
@@ -18,8 +18,8 @@ void InitCamera(void)
 {
 	s_aCamera.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	//視点　注視点　上方向　設定
-	s_aCamera.posV  = D3DXVECTOR3(0.0f,90.0f, -30.0f);
-	s_aCamera.posR  = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	s_aCamera.posV = D3DXVECTOR3(0.0f, 75.0f, -145.0f);
+	s_aCamera.posR = D3DXVECTOR3(0.0f, 60.0f, 0.0f);
 	s_aCamera.vecU  = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	s_aCamera.directionR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	s_aCamera.directionV = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
@@ -58,7 +58,7 @@ void UpdateCamera(void)
 		if (s_aCamera.bBool == false)
 		{
 			s_aCamera.bBool = true;
-			s_aCamera.posV = D3DXVECTOR3(0.0f, 90.0f, -30.0f);
+			s_aCamera.posV = D3DXVECTOR3(0.0f, 75.0f, -145.0f);
 			s_aCamera.posR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 			s_aCamera.vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 			s_aCamera.directionR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
@@ -181,14 +181,14 @@ void UpdateCamera(void)
 	}
 	else
 	{
-		MODEL *pModel = GetModel();
+		PRAYER *pPrayer = GetPrayer();
 
-		s_aCamera.posRDest.x = pModel->pos.x + sinf(pModel->rot.y-D3DX_PI) *10.0f;         //目的の値
-		//s_aCamera.posRDest.y = pModel->pos.y + sin(pModel->rot.y) *s_aCamera.fDistance;         //目的の値
-		s_aCamera.posRDest.z = pModel->pos.z + cosf(pModel->rot.y - D3DX_PI) *10.0f;
+		s_aCamera.posRDest.x = pPrayer->pos.x + sinf(pPrayer->rot.y-D3DX_PI) *10.0f;         //目的の値
+		//s_aCamera.posRDest.y = pPrayer->pos.y + sin(pPrayer->rot.y) *s_aCamera.fDistance;         //目的の値
+		s_aCamera.posRDest.z = pPrayer->pos.z + cosf(pPrayer->rot.y - D3DX_PI) *10.0f;
 											 
-		s_aCamera.posVDest.x = pModel->pos.x - sinf(s_aCamera.rot.y)*s_aCamera.fDistance;          //目的の値
-		s_aCamera.posVDest.z = pModel->pos.z - cosf(s_aCamera.rot.y)*s_aCamera.fDistance;
+		s_aCamera.posVDest.x = pPrayer->pos.x - sinf(s_aCamera.rot.y)*s_aCamera.fDistance;          //目的の値
+		s_aCamera.posVDest.z = pPrayer->pos.z - cosf(s_aCamera.rot.y)*s_aCamera.fDistance;
 
 		s_aCamera.posR.x += (s_aCamera.posRDest.x - s_aCamera.posR.x) * 0.1f;	
 		//s_aCamera.posR.y += (s_aCamera.posRDest.y - s_aCamera.posR.y) * 0.1f;
@@ -198,7 +198,7 @@ void UpdateCamera(void)
 		//s_aCamera.pos.y += (s_aCamera.posRDest.y - s_aCamera.posR.y) * 0.1f;
 		s_aCamera.posV.z += (s_aCamera.posVDest.z - s_aCamera.posV.z) * 0.1f;
 	}
-
+	
 
 	//正規化
 	if (s_aCamera.rot.y > D3DX_PI)

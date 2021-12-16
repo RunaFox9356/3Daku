@@ -11,12 +11,14 @@
 #include "file.h"
 #include"file.h"
 #include"model.h"
+#include"Prayer.h"
 
 //=====================================
 // マクロ定義
 //=====================================
-#define LOOD_FILE_NAME_000		"model.txt"
-#define LOOD_FILE_NAME_001		"model2.txt"
+#define LOOD_FILE_NAME_000		"Prayer.txt"
+#define LOOD_FILE_NAME_001		"model.txt"
+
 //=====================================
 // グローバル変数
 //=====================================
@@ -70,9 +72,7 @@ void LoodSetFile(void)
 						if (strcmp(&g_aString[0], "END_MODELSET") == 0)
 						{// 文字列が一致した場合
 						 // モデルの設置
-							SetModel(g_modelpos, g_modelFile);
-						
-
+							SetPrayer(g_modelpos, g_modelFile);
 							break;
 						}
 					}
@@ -93,11 +93,10 @@ void LoodSetFile(void)
 	}
 
 
-
 	char aFile2[128] = FILE_3D_SYSTEM;
 	strcat(aFile2, LOOD_FILE_NAME_001);//合成　aFile＜-こいつに入れる
 
-									  //ファイルを開く
+									   //ファイルを開く
 	pFile = fopen(aFile2, "r");
 
 	if (pFile != NULL)
@@ -133,7 +132,7 @@ void LoodSetFile(void)
 						{// 文字列が一致した場合
 						 // モデルの設置
 							SetModel(g_modelpos, g_modelFile);
-							
+
 							break;
 						}
 					}
@@ -152,6 +151,7 @@ void LoodSetFile(void)
 	{//ファイルが開けない場合
 		printf("\n * * * ファイルが開けません * * * \n");
 	}
+
 }
 
 //---------------------------------------------------------------------------

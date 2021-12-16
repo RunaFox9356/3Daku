@@ -5,7 +5,7 @@
 
 #include<stdio.h>
 #include "ken.h"
-#include"model.h"
+#include"prayer.h"
 #include "input.h"
 #include"camera.h"
 #include"shadow.h"
@@ -36,8 +36,7 @@ void InitKen(void)
 	pCamera = GetCamera();
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	//カメラのデータ取得
-	MODEL *pModel;
-	pModel = GetModel();
+	PRAYER *pPrayer = GetPrayer();
 
 	for (int i = 0; i < MAX_KEN; i++)
 	{
@@ -50,11 +49,11 @@ void InitKen(void)
 		Kenpolygon[i].nLif = 100;
 		if (i <= MAX_KEN/2)
 		{
-			Kenpolygon[i].pos = Kenpolygon[i].pos = D3DXVECTOR3(pModel->pos.x + (10 * i), pModel->pos.y, pModel->pos.z);
+			Kenpolygon[i].pos = Kenpolygon[i].pos = D3DXVECTOR3(pPrayer->pos.x + (10 * i), pPrayer->pos.y, pPrayer->pos.z);
 		}
 		else
 		{
-			Kenpolygon[i].pos = Kenpolygon[i].pos = D3DXVECTOR3(pModel->pos.x - (10 * (i/2)), pModel->pos.y, pModel->pos.z);
+			Kenpolygon[i].pos = Kenpolygon[i].pos = D3DXVECTOR3(pPrayer->pos.x - (10 * (i/2)), pPrayer->pos.y, pPrayer->pos.z);
 		}
 		Kenpolygon[i].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	// 回転座標
 		Kenpolygon[i].bUse = true;
@@ -149,8 +148,7 @@ void UninitKen(void)
 //=========================================
 void UpdateKen(void)
 {	//カメラのデータ取得
-	MODEL *pModel;
-	pModel = GetModel();
+	PRAYER *pPrayer = GetPrayer();
 	//カメラのデータ取得
 	CAMERA *pCamera;
 	pCamera = GetCamera();
@@ -164,14 +162,14 @@ void UpdateKen(void)
 		if (GetKeyboardTrigger(DIK_SPACE))
 		{
 			Kenpolygon[i].bFri = true;	
-			Kenpolygon[i].move.x = sinf(pModel->rot.y);
-			Kenpolygon[i].move.y = cosf(pModel->rot.y);
+			Kenpolygon[i].move.x = sinf(pPrayer->rot.y);
+			Kenpolygon[i].move.y = cosf(pPrayer->rot.y);
 		}
 		if (GetKeyboardTrigger(DIK_O))
 		{
 			Kenpolygon[i].bFri = false;
-			Kenpolygon[i].move.x = sinf(pModel->rot.y);
-			Kenpolygon[i].move.y = cosf(pModel->rot.y);
+			Kenpolygon[i].move.x = sinf(pPrayer->rot.y);
+			Kenpolygon[i].move.y = cosf(pPrayer->rot.y);
 		}
 
 		
@@ -196,13 +194,13 @@ void UpdateKen(void)
 			{
 				if (i <= MAX_KEN / 2)
 				{
-					Kenpolygon[i].pos = Kenpolygon[i].pos = D3DXVECTOR3(pModel->pos.x + (10 * i), pModel->pos.y + 10 + 20 * i, pModel->pos.z);
+					Kenpolygon[i].pos = Kenpolygon[i].pos = D3DXVECTOR3(pPrayer->pos.x + (10 * i), pPrayer->pos.y + 10 + 20 * i, pPrayer->pos.z);
 				}
 				else
 				{
-					Kenpolygon[i].pos = Kenpolygon[i].pos = D3DXVECTOR3(pModel->pos.x - (10 * (i / 2)), pModel->pos.y+10+20 * i/2, pModel->pos.z);
+					Kenpolygon[i].pos = Kenpolygon[i].pos = D3DXVECTOR3(pPrayer->pos.x - (10 * (i / 2)), pPrayer->pos.y+10+20 * i/2, pPrayer->pos.z);
 				}
-				Kenpolygon[i].rot = D3DXVECTOR3(pModel->rot);	// 回転座標
+				Kenpolygon[i].rot = D3DXVECTOR3(pPrayer->rot);	// 回転座標
 			}
 		}
 	}
@@ -277,23 +275,22 @@ void SetKen(D3DXVECTOR3 pos)
 	//カメラのデータ取得
 	CAMERA *pCamera;
 	pCamera = GetCamera();
-	//カメラのデータ取得
-	MODEL *pModel;
-	pModel = GetModel();
+	//モデルのデータ取得
+	PRAYER *pPrayer = GetPrayer();
 
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	for (int i = 0; i < MAX_KEN; i++)
 	{
 		Kenpolygon[i].nLif = 100;
-		Kenpolygon[i].RotMove = D3DXVECTOR3(D3DX_PI + pModel->rot.y, D3DX_PI*0.5f + pModel->rot.y, 0.0f);
+		Kenpolygon[i].RotMove = D3DXVECTOR3(D3DX_PI + pPrayer->rot.y, D3DX_PI*0.5f + pPrayer->rot.y, 0.0f);
 		// 初期化処理
 
 		Kenpolygon[i].pos.x = pos.x+i * 20.0f;	// 頂点座標
 		Kenpolygon[i].pos.y = pos.y+i*20.0f;	// 頂点座標
 		Kenpolygon[i].pos.z = pos.z;	// 頂点座標
-		Kenpolygon[i].move.x = sinf(pModel->rot.y);
-		Kenpolygon[i].move.y = cosf(pModel->rot.y);
-		Kenpolygon[i].rot = D3DXVECTOR3(pModel->rot);	// 回転座標
+		Kenpolygon[i].move.x = sinf(pPrayer->rot.y);
+		Kenpolygon[i].move.y = cosf(pPrayer->rot.y);
+		Kenpolygon[i].rot = D3DXVECTOR3(pPrayer->rot);	// 回転座標
 		Kenpolygon[i].bUse = true;
 		Kenpolygon[i].nType = i;
 	}

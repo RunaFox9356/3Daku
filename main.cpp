@@ -19,6 +19,7 @@
 #include"paticle.h"
 #include"ken.h"
 #include"effect.h"
+#include"Prayer.h"
 
 #define MAX_NAME (10)
 
@@ -29,7 +30,7 @@ MODE g_mode = MODE_TITLE;//モード
 LPD3DXFONT g_pFont = NULL; //フォントのポインタ
 int g_nCountFPS;
 int g_nUseWireFrame;
-bool bLi;//lineモード
+bool bLine;//lineモード
 //===================
 //メイン関数
 //===================
@@ -270,7 +271,7 @@ HRESULT Init(HINSTANCE hlnstance, HWND hWnd, BOOL bWindow)//TRUE：ウインドウ/FAL
 	g_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);//アルファブレンド設定
 	
 	
-																		//サンプラーステートの設定
+	//サンプラーステートの設定
 	g_pD3DDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);//小さいの拡大
 	g_pD3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);//大きいの縮小
 	g_pD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
@@ -299,7 +300,7 @@ HRESULT Init(HINSTANCE hlnstance, HWND hWnd, BOOL bWindow)//TRUE：ウインドウ/FAL
 	D3DXCreateFont(g_pD3DDevice, 18, 0, 0, 0, FALSE, SHIFTJIS_CHARSET,
 		OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH, "UDデジタル教科書体 NP-B", &g_pFont);
 	
-	bLi = false;
+	bLine = false;
 	
 	//ライト
 	InitLighe();
@@ -320,8 +321,10 @@ HRESULT Init(HINSTANCE hlnstance, HWND hWnd, BOOL bWindow)//TRUE：ウインドウ/FAL
 	InitShadow();
 
 	//モデル
-	InitModel();
+	InitPrayer();
 
+	//モデル
+	InitModel();
 	//メッシュ
 	InitMesh();
 
@@ -362,7 +365,7 @@ void Uninit(void)
 
 	UninitCylinder();
 	//モデル
-	UninitModel();
+	UninitPrayer();
 
 	//メッシュ
 	UninitMesh();
@@ -382,7 +385,8 @@ void Uninit(void)
 	
 	//kenパーティクル
 	UninitKen();
-
+	//モデル
+	UninitModel();
 	//影
 	UninitShadow();
 
@@ -448,7 +452,7 @@ void Update(void)
 	//カメラ
 	UpdateCylinder();
 	//モデル
-	UpdateModel();
+	UpdatePrayer();
 
 	UpdateLighe();
 
@@ -462,7 +466,8 @@ void Update(void)
 	UpdateMesh();
 
 	//Uninitblock();
-
+	//モデル
+	UpdateModel();
 	//ライト
 	UpdateLighe();
 
@@ -485,13 +490,13 @@ void Update(void)
 
 	if (GetKeyboardTrigger(DIK_P))
 	{
-		bLi = !bLi;
+		bLine = !bLine;
 	}
-	if (bLi)
+	if (bLine)
 	{
 		g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);//senn
 	}
-	if (bLi == false)
+	if (bLine == false)
 	{
 		g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);//senn
 	}
@@ -548,12 +553,13 @@ void Draw(void)
 		DrawKen();
 
 		//モデル
-		DrawModel();
+		DrawPrayer();
 
 		//シャドー
 		DrawShadow();
 
-
+		//モデル
+		DrawModel();
 		//かめら
 		SetCamera();
 
@@ -664,7 +670,7 @@ MODE GetMode(void)//取得
 void DrawDebug(void)
 {
 	CAMERA *pCamera = GetCamera();
-	MODEL *pModel = GetModel();
+	PRAYER *pPrayer = GetPrayer();
 	MESH *pMesh = GetMesh();
 	RECT rect = { 0,0,SCREEN_WIDTH,SCREEN_HEIGHT };
 	char aStr[MAX_NAME][256];
@@ -682,20 +688,20 @@ void DrawDebug(void)
 	sprintf(&aStr[3][0], "カメラ回転->(%.3f|%.3f|%.3f)", pCamera->rot.x, pCamera->rot.y, pCamera->rot.z);
 
 	//文字列に代入
-	sprintf(&aStr[4][0], "モデル移動->(%.3f|%.3f|%.3f)", pModel->pos.x, pModel->pos.y, pModel->pos.z);
+	sprintf(&aStr[4][0], "モデル移動->(%.3f|%.3f|%.3f)", pPrayer->pos.x, pPrayer->pos.y, pPrayer->pos.z);
 	
 	//文字列に代入
-	sprintf(&aStr[5][0], "モデル回転->(%.3f|%.3f|%.3f)", pModel->rot.x, pModel->rot.y, pModel->rot.z);
+	sprintf(&aStr[5][0], "モデル回転->(%.3f|%.3f|%.3f)", pPrayer->rot.x, pPrayer->rot.y, pPrayer->rot.z);
 
 	sprintf(&aStr[6][0], "今動いてるモデルの番号（%d）動かすキャラ切り替えVキー", nNanba);
 	
 	sprintf(&aStr[7][0],"メッシュのバッファ%d,メッシュのインデックス%d サイズＸ%dサイズＹ%d", pMesh->Vtx, pMesh->Index,pMesh->xsiz, pMesh->zsiz);
 	
-	if (bLi)
+	if (bLine)
 	{
 		sprintf(&aStr[8][0], "線モード[ON]");
 	}
-	if (bLi == false)
+	if (bLine == false)
 	{
 		sprintf(&aStr[8][0], "線モード[OFF]");
 	}
@@ -743,15 +749,15 @@ void SetNorotpos(VERTEX_3D *pVtx, float XUP, float XDW, float YUP, float YDW,flo
 void set(void)
 {
 
-	SetKitune(D3DXVECTOR3(50.0f, 0.0f, 100.0f),
-		D3DXVECTOR3(0.0f, 0.0f, 0.0f),
-		D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f), 0);//場所.回転.色
-											  //おく
+	//SetKitune(D3DXVECTOR3(50.0f, 0.0f, 100.0f),
+	//	D3DXVECTOR3(0.0f, 0.0f, 0.0f),
+	//	D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f), 0);//場所.回転.色
+											 //手前 
 	SetWall(D3DXVECTOR3(0.0f, 0.0f, 100.0f),
 		D3DXVECTOR3(0.0f, 0.0f, 0.0f),
 		D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));//場所.回転
 
-										   //手前
+										   //おく
 	SetWall(D3DXVECTOR3(0.0f, 0.0f, -100.0f),
 		D3DXVECTOR3(0.0f, D3DX_PI, 0.0f),
 		D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));//場所.回転
@@ -770,10 +776,10 @@ void set(void)
 		D3DXVECTOR3(0.0f, D3DX_PI, 0.0f),
 		D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f));//場所.回転
 
-										   //手前
-	SetWall(D3DXVECTOR3(0.0f, 0.0f, -100.0f),
-		D3DXVECTOR3(0.0f, 0.0f, 0.0f),
-		D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f));//場所.回転
+	//									   //手前
+	//SetWall(D3DXVECTOR3(0.0f, 0.0f, -100.0f),
+	//	D3DXVECTOR3(0.0f, 0.0f, 0.0f),
+	//	D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f));//場所.回転
 
 										   //右
 	SetWall(D3DXVECTOR3(100.0f, 0.0f, 0.0f),
