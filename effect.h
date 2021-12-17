@@ -102,6 +102,7 @@ typedef struct
 
 typedef struct
 {
+	int MaxEffect;
 	D3DXVECTOR3 pos;	//位置
 	D3DXVECTOR3 move;	//移動量
 	D3DXVECTOR3 rot;	//ロット
@@ -127,6 +128,7 @@ void UpdateEffect(void);
 void DrawEffect(void);
 void SetEffect(int a);
 void SetEffectFile(char *Filename);
+int GetEffectFile(void);
 //設定できること座標、色、半径、ライフ、タイプ、ゼットテスト使うかどうかアルファテスト使うかどうかアルファ値がだんだん大きくなるか
 
 #endif 

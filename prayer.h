@@ -10,6 +10,7 @@
 typedef struct
 {
 	D3DXVECTOR3 pos;	//ˆÊ’u
+	D3DXVECTOR3 posOld;
 	D3DXVECTOR3 rot;	//‰ñ“]
 	D3DXVECTOR3 RotMove;//‰ñ“]ƒ€[ƒu
 	D3DXVECTOR3 ModelMin;

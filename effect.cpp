@@ -636,10 +636,14 @@ void SetEffectFile(char *Filename)
 	if (pFile != NULL)
 	{//ファイルが開いた場合
 		fscanf(pFile, "%s", &s_aString);
+	
+			while (strncmp(&s_aString[0], "SCRIPT", 6) != 0)
+			{
+				s_aString[0] = {};
+				fscanf(pFile, "%s", &s_aString[0]);				
+			}
 
-		if (strncmp(&s_aString[0], "SCRIPT",6) == 0)
-		{// 文字列が一致した場合
-			while (1)
+			while (strncmp(&s_aString[0], "END_SCRIPT", 10) != 0)
 			{// 文字列の初期化と読み込み
 				s_aString[0] = {};
 				fscanf(pFile, "%s", &s_aString[0]);
@@ -647,6 +651,10 @@ void SetEffectFile(char *Filename)
 				if (strcmp(&s_aString[0], "MODEL_FILENAME") == 0)
 				{// 文字列が一致した場合
 					fscanf(pFile, "%s", &s_EffectFile);
+				}
+				if (strcmp(&s_aString[0], "MAX_EFFECT") == 0)
+				{
+					fscanf(pFile, "%d", &s_aEffectFile[0].MaxEffect);
 				}
 				else if (strcmp(&s_aString[0], "EFFECTSET") == 0)
 				{// 文字列が一致した場合
@@ -660,11 +668,13 @@ void SetEffectFile(char *Filename)
 							fscanf(pFile, "%f");
 							continue;
 						}
+					
 						if (strcmp(&s_aString[0], "TYPE") == 0)
 						{
 							fscanf(pFile, "%d", &t);
 							s_aEffectFile[a].nType = (EFFECTTYPE)t;
 						}
+						
 						if (strcmp(&s_aString[0], "POS") == 0)
 						{// 文字列が一致した場合
 							fscanf(pFile, "%f", &s_aEffectFile[a].pos.x);
@@ -761,12 +771,9 @@ void SetEffectFile(char *Filename)
 					}
 
 				}
-				else if (strncmp(&s_aString[0], "END_SCRIPT",10) == 0)
-				{// 文字列が一致した場合
-					break;
-				}
+			
 			}
-		}
+		
 
 		//ファイルを閉じる
 		fclose(pFile);
@@ -775,4 +782,9 @@ void SetEffectFile(char *Filename)
 	{//ファイルが開けない場合
 		printf("\n * * * ファイルが開けません * * * \n");
 	}
+}
+
+int GetEffectFile(void)
+{
+	return s_aEffectFile[0].MaxEffect;
 }

@@ -1,15 +1,15 @@
-SCRIPT
-##これは消さないで
-
 ##--------------------------------
 ##エフェクトファイル読み込み時計編
 ##
 ##autho：hamadaryuuga
 ##--------------------------------
+SCRIPT  ##これは消さないで
 
 ##---------------------------
 ##歯車たち
 ##---------------------------
+MAX_EFFECT 17			##読み込む最大数
+
 
 EFFECTSET
 TYPE 9					##タイプ（歯車古風）
@@ -25,7 +25,22 @@ BROT=true				##たてるか床にはるかの選択（trueがたてる）
 LIN=false				##自動的に枠線のサイズにする（実験中）
 BSPIN=true				##回転使うか使わないか
 BCOURSE=true			##回転向きtrueが右falseが左
+END_EFFECTSET
 
+EFFECTSET
+TYPE 9					##タイプ（歯車古風）
+POS -1.0 45.0 0.0  	##座標
+COL	1.0 1.0 1.0 0.0		##色
+MAXLIFE 800				##ライフ
+RADEIUS 10.0f			##半径
+SPIN 3100				##回転速度数字が大きいと遅い
+BZDF=false				##Zテスト使うかどうか
+BADF=true				##Aテスト使うかどうか
+BCOL=false				##色がゲーミングになるかどうか
+BROT=true				##たてるか床にはるかの選択（trueがたてる）
+LIN=false				##自動的に枠線のサイズにする（実験中）
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -191,6 +206,7 @@ LIN=false               ##自動的に枠線のサイズにする（実験中）
 BSPIN=false				##回転使うか使わないか
 BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
+
 ##----------------------------------
 ##針
 ##こいつらの回転は特殊なので触らない
@@ -248,8 +264,5 @@ BROT=true               ##たてるか床にはるかの選択（trueがたて�
 LIN=false                ##自動的に枠線のサイズにする（実験中）
 END_EFFECTSET
 
-
 END_SCRIPT ##これは消さないで
-
-
 

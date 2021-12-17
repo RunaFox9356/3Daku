@@ -23,6 +23,7 @@
 //------------------------------------
 // static変数
 //------------------------------------
+static bool s_bIsLanding;
 static MODEL Modelpolygon[MAX_MODEL];	// ポリゴンの構造体
 static int s_nSet; //最大数
 
@@ -239,3 +240,56 @@ MODEL *GetModel(void)
 {
 	return &Modelpolygon[0];
 }
+void  CollisionModel(D3DXVECTOR3 *pPos, D3DXVECTOR3 *pPosOld, D3DXVECTOR3 Max, D3DXVECTOR3 Min)
+{
+	{
+		for (int nCnt = 0; nCnt < s_nSet; nCnt++)
+		{
+
+			if (Modelpolygon[nCnt].bUse)
+			{//頂点カラーの設定
+			
+				//	//左右の壁
+				//if (pPosOld->y + Max.y / 2.0f > Modelpolygon[nCnt].pos.y - Modelpolygon[s_nSet].ModelMin.y
+				//	&& pPosOld->y - Min.y / 2.0f < Modelpolygon[nCnt].pos.y + Modelpolygon[s_nSet].ModelMax.y)
+				//{
+					if (pPos->x + Max.x/2 > Modelpolygon[nCnt].pos.x - Modelpolygon[nCnt].ModelMin.x
+						&& pPosOld->x + Max.x /2< Modelpolygon[nCnt].pos.x - Modelpolygon[nCnt].ModelMin.x)
+					{//ブロックの座標と座標が重なり合ったら//通常モード//左
+
+						pPos->x = Modelpolygon[nCnt].pos.x - Modelpolygon[nCnt].ModelMin.x - Max.x/2;
+					}
+				/*}*/
+				//		if (pPos->x - pwidth / 2 < Modelpolygon[nCnt].pos.x + Modelpolygon[nCnt].fwidth / 2
+				//			&& pPosOld->x - pwidth / 2 >= Modelpolygon[nCnt].pos.x + Modelpolygon[nCnt].fwidth / 2)
+				//		{//ブロックの座標と座標が重なり合ったら//通常モード//右
+				//			
+				//			pPos->x = Modelpolygon[nCnt].pos.x + Modelpolygon[nCnt].fwidth / 2 + pwidth / 2;
+				//		}
+
+				//	}
+				//
+				////上と下のカベ処理
+				//if (pPos->x + pwidth / 2 > Modelpolygon[nCnt].pos.x - Modelpolygon[nCnt].fwidth / 2
+				//	&& pPos->x - pwidth / 2 < Modelpolygon[nCnt].pos.x + Modelpolygon[nCnt].fwidth / 2)
+				//{
+				//	if (pPos->y - pheight / 2 < Modelpolygon[nCnt].pos.y + Modelpolygon[nCnt].fheight / 2
+				//		&& pPosOld->y - pheight / 2 >= Modelpolygon[nCnt].pos.y + Modelpolygon[nCnt].fheight / 2)
+				//	{//ブロックの座標と座標が重なり合ったら//通常モード//
+				//		pPos->y = Modelpolygon[nCnt].pos.y + Modelpolygon[nCnt].fheight / 2 + pheight / 2;
+
+				//	}
+				//	if (pPos->y + pheight / 2 > Modelpolygon[nCnt].pos.y - Modelpolygon[nCnt].fheight / 2
+				//		&& pPosOld->y + pheight / 2 <= Modelpolygon[nCnt].pos.y - Modelpolygon[nCnt].fheight / 2)
+				//	{//ブロックの座標と座標が重なり合ったら//通常モード//上	
+				//			pPos->y = Modelpolygon[nCnt].pos.y - Modelpolygon[nCnt].fheight / 2 - pheight / 2;
+				//			s_bIsLanding = true;
+				//		
+				//	}
+				//}
+			}
+		}
+	
+	}
+}
+

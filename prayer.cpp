@@ -14,7 +14,7 @@
 #include"paticle.h"
 #include"ken.h"
 #include"effect.h"
-
+#include"model.h"
 //マクロ
 #define Attenuation	(0.5f)		//減衰係数
 #define Spede	(1.0f)			//スピード
@@ -83,6 +83,7 @@ void UninitPrayer(void)
 //=========================================
 void UpdatePrayer(void)
 {
+	
 	//カメラのデータ取得
 	CAMERA *pCamera;
 	pCamera = GetCamera();
@@ -122,9 +123,14 @@ void UpdatePrayer(void)
 		mystery = Prayerpolygon[s_nNanba].pos;
 		//テクスチャの座標設定
 		SetEffectFile(LOOD_FILE_NAME_EFFECT);
+		int a = GetEffectFile();
 
-		SetEffect(LISTS_ZERO);
-		SetEffect(LISTS_I);
+		for (int i = 0; i < a; i++)
+		{
+			SetEffect(i);
+		}
+		
+		/*SetEffect(LISTS_I);
 		SetEffect(LISTS_II);
 		SetEffect(LISTS_III);
 		SetEffect(LISTS_IV);
@@ -137,7 +143,7 @@ void UpdatePrayer(void)
 		SetEffect(LISTS_XI);
 		SetEffect(LISTS_XII);
 		SetEffect(LISTS_XIII);
-		SetEffect(LISTS_XIV);
+		SetEffect(LISTS_XIV);*/
 	}
 	if (GetKeyboardTrigger(DIK_0))
 	{//魔法陣発動//0.0のカラーのやつは枠線
@@ -232,6 +238,7 @@ void UpdatePrayer(void)
 		s_nNanba++;
 		s_nNanba %= s_nSet;
 	}
+	Prayerpolygon[s_nNanba].posOld = Prayerpolygon[s_nNanba].pos;
 	Prayerpolygon[s_nNanba].consumption = 0.0f;
 	if (GetKeyboardPress(DIK_I))
 	{//I押したとき上加速
@@ -275,7 +282,9 @@ void UpdatePrayer(void)
 			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
 			1);//場所.回転.色.タイプ
 	}
+	CollisionModel(&Prayerpolygon[s_nNanba].pos, &Prayerpolygon[s_nNanba].posOld, Prayerpolygon[s_nNanba].ModelMax, Prayerpolygon[s_nSet].ModelMin);
 
+	
 	//正規化
 	if (Prayerpolygon[s_nNanba].consumption > D3DX_PI)
 	{
@@ -298,7 +307,7 @@ void UpdatePrayer(void)
 	{
 		Prayerpolygon[s_nNanba].rot.y += D3DX_PI * 2;
 	}
-
+	CollisionModel(&Prayerpolygon[s_nNanba].pos, &Prayerpolygon[s_nNanba].posOld, Prayerpolygon[s_nNanba].ModelMax, Prayerpolygon[s_nSet].ModelMin);
 	//影更新
 	SetposShadow(Prayerpolygon[s_nNanba].nShadow, Prayerpolygon[s_nNanba].pos);
 	MESH *pMesh = GetMesh();
@@ -359,12 +368,14 @@ void DrawPrayer(void)
 			// 行列掛け算関数(第2引数×第3引数第を１引数に格納)
 			D3DXMatrixMultiply(&Prayerpolygon[j].MtxWorld, &Prayerpolygon[j].MtxWorld, &mtxRot);
 
+		
 			// 位置を反映
 			// 行列移動関数(第１引数にX,Y,Z方向の移動行列を作成)
 			D3DXMatrixTranslation(&mtxTrans, Prayerpolygon[j].pos.x, Prayerpolygon[j].pos.y, Prayerpolygon[j].pos.z);
 			// 行列掛け算関数(第2引数×第3引数第を１引数に格納)
 			D3DXMatrixMultiply(&Prayerpolygon[j].MtxWorld, &Prayerpolygon[j].MtxWorld, &mtxTrans);
 
+		
 			// ワールド座標行列の設定
 			pDevice->SetTransform(D3DTS_WORLD, &Prayerpolygon[j].MtxWorld);
 
