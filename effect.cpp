@@ -181,105 +181,77 @@ void UpdateEffect(void)
 	{
 		if (s_aEffect[nCntEffect].bUse)
 		{
-			switch (s_aEffect[nCntEffect].nType)//時計や魔法陣の回線速度
-			{
-				//魔法陣回転速度
-			case EFFECTTYPE_MP:
-				if (s_aEffect[nCntEffect].easeInspeed <= 120)//最高速度制限
+			s_aEffect[nCntEffect].nLife--;
+			if (s_aEffect[nCntEffect].bCourse)//回転の向き
+			{//みぎ
+				if (s_aEffect[nCntEffect].bSpin)//回転式
 				{
-					s_aEffect[nCntEffect].easeInspeed++;
-				}		
-				if (s_aEffect[nCntEffect].bRot)//＜-これは　立てるか床にするか
-				{	//イージング　二乗してる　D3DX_PI / Xの数を回転速度に二乗してます
-					s_aEffect[nCntEffect].rot.z += SeteaseIn((D3DX_PI / 3100.0f) *s_aEffect[nCntEffect].easeInspeed);
+					if (s_aEffect[nCntEffect].easeInspeed <= 120)//最高速度制限
+					{
+						s_aEffect[nCntEffect].easeInspeed++;
+					}
+					if (s_aEffect[nCntEffect].bRot)//＜-これは　立てるか床にするか
+					{	//イージング　二乗してる　D3DX_PI / Xの数を回転速度に二乗してます
+						s_aEffect[nCntEffect].rot.z += SeteaseIn((D3DX_PI / s_aEffect[nCntEffect].RotSpin) *s_aEffect[nCntEffect].easeInspeed);
+					}
+					else
+					{
+						s_aEffect[nCntEffect].rot.y += SeteaseIn((D3DX_PI / s_aEffect[nCntEffect].RotSpin) *s_aEffect[nCntEffect].easeInspeed);
+					}
 				}
-				else
-				{	
-					s_aEffect[nCntEffect].rot.y += SeteaseIn((D3DX_PI / 1100.0f) *s_aEffect[nCntEffect].easeInspeed);
-				}	
-				break;
-			case EFFECTTYPE_MP2:
-			case EFFECTTYPE_CLOCK2:
-				if (s_aEffect[nCntEffect].easeInspeed <= 120)
-				{
-					s_aEffect[nCntEffect].easeInspeed++;
-				}
-				if (s_aEffect[nCntEffect].bRot)
-				{
-					s_aEffect[nCntEffect].rot.z += SeteaseIn((D3DX_PI / 3100.0f) *s_aEffect[nCntEffect].easeInspeed);
-				}
-				else
-				{
-					s_aEffect[nCntEffect].rot.y += SeteaseIn((D3DX_PI / 1000.0f) *s_aEffect[nCntEffect].easeInspeed);
-				}
-				break;
-			case EFFECTTYPE_MP3:			
-			
-				if (s_aEffect[nCntEffect].easeInspeed <= 120)
-				{
-					s_aEffect[nCntEffect].easeInspeed++;
-				}	
-				if (s_aEffect[nCntEffect].bRot)
-				{
-					s_aEffect[nCntEffect].rot.z += SeteaseIn((D3DX_PI / 3100.0f) *s_aEffect[nCntEffect].easeInspeed);
-				}
-				else
-				{
-					s_aEffect[nCntEffect].rot.y += SeteaseIn((D3DX_PI / 1200.0f) *s_aEffect[nCntEffect].easeInspeed);
-				}
-				break;
-			case EFFECTTYPE_MP4:
-			case EFFECTTYPE_CLOCK4:
-			
-				if (s_aEffect[nCntEffect].easeInspeed <= 120)
-				{
-					s_aEffect[nCntEffect].easeInspeed++;
-				}
-				if (s_aEffect[nCntEffect].bRot)
-				{
-					s_aEffect[nCntEffect].rot.z += SeteaseIn((D3DX_PI / 3100.0f) *s_aEffect[nCntEffect].easeInspeed);
-				}
-				else
-				{
-					s_aEffect[nCntEffect].rot.y += SeteaseIn((D3DX_PI / 800.0f) *s_aEffect[nCntEffect].easeInspeed);
-				}
-				break;
-			case EFFECTTYPE_MP5:
-			case EFFECTTYPE_CLOCK5:
-			
-				if (s_aEffect[nCntEffect].easeInspeed <= 120)
-				{
-					s_aEffect[nCntEffect].easeInspeed++;
-				}	
-				if (s_aEffect[nCntEffect].bRot)
-				{
-					s_aEffect[nCntEffect].rot.z += SeteaseIn((D3DX_PI / 3100.0f) *s_aEffect[nCntEffect].easeInspeed);
-				}
-				else
-				{
-					s_aEffect[nCntEffect].rot.y += SeteaseIn((D3DX_PI / 900.0f) *s_aEffect[nCntEffect].easeInspeed);
-				}
-				break;
-			case EFFECTTYPE_CLOCK6:
-			case EFFECTTYPE_CLOCK3:
-			case EFFECTTYPE_CLOCK:
-				if (s_aEffect[nCntEffect].easeInspeed <= 120)
-				{
-					s_aEffect[nCntEffect].easeInspeed++;
-				}
-				if (s_aEffect[nCntEffect].bRot)
-				{
-					s_aEffect[nCntEffect].rot.z -= SeteaseIn((D3DX_PI / 2100.0f) *s_aEffect[nCntEffect].easeInspeed);
-				}
-				else
-				{
-					s_aEffect[nCntEffect].rot.y += SeteaseIn((D3DX_PI / 900.0f) *s_aEffect[nCntEffect].easeInspeed);
-				}
-				break;
-			default:
-				break;
 			}
-		
+			else
+			{//左
+				if (s_aEffect[nCntEffect].bSpin)//回転式
+				{
+					if (s_aEffect[nCntEffect].easeInspeed <= 120)//最高速度制限
+					{
+						s_aEffect[nCntEffect].easeInspeed++;
+					}
+					if (s_aEffect[nCntEffect].bRot)//＜-これは　立てるか床にするか
+					{	//イージング　二乗してる　D3DX_PI / Xの数を回転速度に二乗してます
+						s_aEffect[nCntEffect].rot.z -= SeteaseIn((D3DX_PI / s_aEffect[nCntEffect].RotSpin) *s_aEffect[nCntEffect].easeInspeed);
+					}
+					else
+					{
+						s_aEffect[nCntEffect].rot.y -= SeteaseIn((D3DX_PI / s_aEffect[nCntEffect].RotSpin) *s_aEffect[nCntEffect].easeInspeed);
+					}
+				}
+			}
+
+			//登場の仕方設定
+			if (s_aEffect[nCntEffect].col.a >= 0.0f&&s_aEffect[nCntEffect].col.a <= 0.5f)
+			{
+				s_aEffect[nCntEffect].col.a += 0.005f;
+			}
+			else
+			{
+				if (s_aEffect[nCntEffect].nLife <= s_aEffect[nCntEffect].nMaxLife&& s_aEffect[nCntEffect].nLife >= s_aEffect[nCntEffect].nMaxLife - 40)
+				{
+					s_aEffect[nCntEffect].fRadeius += 1.0f;
+				}
+			}
+			if (s_aEffect[nCntEffect].bLin)
+			{
+				if (s_aEffect[nCntEffect].nLife <= s_aEffect[nCntEffect].nMaxLife&& s_aEffect[nCntEffect].nLife >= s_aEffect[nCntEffect].nMaxLife - 40)
+				{
+					s_aEffect[nCntEffect].fRadeius += 1.0f;
+				}
+			}
+			//最後に小さくする
+			if (s_aEffect[nCntEffect].nLife <= 40 && s_aEffect[nCntEffect].nLife >= 30)
+			{
+				s_aEffect[nCntEffect].fRadeius += 1.5f;
+			}
+			if (s_aEffect[nCntEffect].nLife <= 30 && s_aEffect[nCntEffect].nLife >= 0)
+			{
+				s_aEffect[nCntEffect].fRadeius -= 5.0f;
+			}
+			if (s_aEffect[nCntEffect].fRadeius <= 0)
+			{
+					s_aEffect[nCntEffect].bUse = false;
+			}
+
 			if (s_aEffect[nCntEffect].rot.y > D3DX_PI)
 				{
 					s_aEffect[nCntEffect].rot.y -= D3DX_PI * 2;
@@ -307,103 +279,14 @@ void UpdateEffect(void)
 					s_aEffect[nCntEffect].bUse = false;
 				}
 				break;
-			case EFFECTTYPE_MP:
-			case EFFECTTYPE_MP2:
-			case EFFECTTYPE_MP3:
-			case EFFECTTYPE_MP4:
-			case EFFECTTYPE_MP5:
-				s_aEffect[nCntEffect].nLife--;
-				//魔法陣を大きく表示する
-				if (s_aEffect[nCntEffect].nLife<= s_aEffect[nCntEffect].nMaxLife&& s_aEffect[nCntEffect].nLife >= s_aEffect[nCntEffect].nMaxLife -60)
-				{
-					s_aEffect[nCntEffect].fRadeius += 1.0f;
-				}
-
-				//最後に小さくする
-				if (s_aEffect[nCntEffect].nLife <= 60 && s_aEffect[nCntEffect].nLife >= 40)
-				{
-					s_aEffect[nCntEffect].fRadeius += 1.5f;
-				}
-				if (s_aEffect[nCntEffect].nLife <= 40 && s_aEffect[nCntEffect].nLife >= 0)
-				{
-					s_aEffect[nCntEffect].fRadeius -= 5.0f;
-				}
-				if (s_aEffect[nCntEffect].fRadeius <= 0)
-				{
-					s_aEffect[nCntEffect].bUse = false;
-				}
-
-
-			
-				
-				if (s_aEffect[nCntEffect].nLife <= s_aEffect[nCntEffect].nMaxLife&& s_aEffect[nCntEffect].nLife >= s_aEffect[nCntEffect].nMaxLife - 30)
-				{//サイズを+３０する
-					s_aEffect[nCntEffect].fRadeius += 1.0f;
-				}
-				//最後に小さくする
-				if (s_aEffect[nCntEffect].nLife <= 60 && s_aEffect[nCntEffect].nLife >= 40)
-				{
-					s_aEffect[nCntEffect].fRadeius += 1.5f;
-				}
-				if (s_aEffect[nCntEffect].nLife <= 40 && s_aEffect[nCntEffect].nLife >= 0)
-				{
-					s_aEffect[nCntEffect].fRadeius -= 5.0f;
-				}
-				if (s_aEffect[nCntEffect].fRadeius <= 0)
-				{
-					s_aEffect[nCntEffect].bUse = false;
-				}
-				break;
-			case EFFECTTYPE_CLOCK:
-			case EFFECTTYPE_CLOCK2:
-			case EFFECTTYPE_CLOCK3:
-			case EFFECTTYPE_CLOCK4:
-			case EFFECTTYPE_CLOCK5:
-			case EFFECTTYPE_CLOCK6:
-			case EFFECTTYPE_CLOCK7:
-			case EFFECTTYPE_CLOCK8:
-			case EFFECTTYPE_CLOCK9:
-			case EFFECTTYPE_CLOCK10:
-			case EFFECTTYPE_CLOCK11:
-				s_aEffect[nCntEffect].nLife--;
-				if (s_aEffect[nCntEffect].nLife <= 0)
-				{
-					s_aEffect[nCntEffect].bUse = false;
-					s_aEffect[nCntEffect].Trigger = 0;
-				}
-				//最後に小さくする
-				if (s_aEffect[nCntEffect].nLife <= 60 && s_aEffect[nCntEffect].nLife >= 40)
-				{
-					s_aEffect[nCntEffect].fRadeius += 0.5f;
-					s_aEffect[nCntEffect].col.a -= 0.05f;
-				}
-				if (s_aEffect[nCntEffect].nLife <= 40 && s_aEffect[nCntEffect].nLife >= 0)
-				{
-
-					s_aEffect[nCntEffect].fRadeius += 0.5f;
-					s_aEffect[nCntEffect].col.a -= 0.05f;
-				}
-				
-			default:
-				break;
-
-			}
-			switch (s_aEffect[nCntEffect].nType)
-			{
-			case EFFECTTYPE_CLOCK5:
-			case EFFECTTYPE_CLOCK6:
-			case EFFECTTYPE_CLOCK7:
-			case EFFECTTYPE_CLOCK8:			
-			//出てくるとき大きくなって出てくる時計
-				if (s_aEffect[nCntEffect].nLife <= s_aEffect[nCntEffect].nMaxLife&& s_aEffect[nCntEffect].nLife >= s_aEffect[nCntEffect].nMaxLife - 30)
-				{//サイズを+３０する
-					s_aEffect[nCntEffect].fRadeius += 1.0f;
-				}
-				break;
 			case EFFECTTYPE_CLOCK10://短針制作
 				if (s_aEffect[nCntEffect].Trigger < s_aEffect[nCntEffect].nMaxLife - 100)
 				{
 					s_aEffect[nCntEffect].Trigger++;
+					s_aEffect[nCntEffect].rot.z = -D3DX_PI * 2 / (s_aEffect[nCntEffect].nMaxLife - 100)*s_aEffect[nCntEffect].Trigger;
+				}
+				else
+				{
 					s_aEffect[nCntEffect].rot.z = -D3DX_PI * 2 / (s_aEffect[nCntEffect].nMaxLife - 100)*s_aEffect[nCntEffect].Trigger;
 				}
 				break;
@@ -454,9 +337,6 @@ void UpdateEffect(void)
 					+1.0f);
 
 			}
-
-	
-
 			if (s_aEffect[nCntEffect].bCol)
 			{
 				if (s_aEffect[nCntEffect].col.r == 1.0f)
@@ -656,6 +536,12 @@ void SetEffect(int a)
 			s_aEffect[nCntEffect].nPatternAnim = 0;
 			s_aEffect[nCntEffect].nMaxLife = s_aEffectFile[a].nMaxLife;
 			s_aEffect[nCntEffect].bRot = s_aEffectFile[a].bRot;
+			s_aEffect[nCntEffect].RotSpin = s_aEffectFile[a].RotSpin;
+			s_aEffect[nCntEffect].bCourse = s_aEffectFile[a].bCourse;
+			s_aEffect[nCntEffect].bSpin = s_aEffectFile[a].bSpin;
+			s_aEffect[nCntEffect].bLin = s_aEffectFile[a].bLin;
+			s_aEffect[nCntEffect].Trigger = 0;
+
 		
 			if (!s_aEffect[nCntEffect].bRot)
 			{
@@ -792,6 +678,11 @@ void SetEffectFile(char *Filename)
 							fscanf(pFile, "%f", &s_aEffectFile[a].col.b);
 							fscanf(pFile, "%f", &s_aEffectFile[a].col.a);
 						}
+
+						if (strcmp(&s_aString[0], "SPIN") == 0)
+						{// 文字列が一致した場合
+							fscanf(pFile, "%d", &s_aEffectFile[a].RotSpin);
+						}
 						if (strcmp(&s_aString[0], "MAXLIFE") == 0)
 						{// 文字列が一致した場合
 							fscanf(pFile, "%d", &s_aEffectFile[a].nMaxLife);
@@ -800,18 +691,21 @@ void SetEffectFile(char *Filename)
 						{// 文字列が一致した場合
 							fscanf(pFile, "%f", &s_aEffectFile[a].fRadeius);
 						}
-						if (strcmp(&s_aString[0], "DIVISIONX") == 0)
+						if (strcmp(&s_aString[0], "BSPIN=true") == 0)
 						{// 文字列が一致した場合
-							fscanf(pFile, "%d", &s_aEffectFile[a].nDivisionX);
+							s_aEffectFile[a].bSpin = true;
 						}
-						if (strcmp(&s_aString[0], "DIVISIONY") == 0)
+						if (strcmp(&s_aString[0], "BSPIN=false") == 0)
 						{// 文字列が一致した場合
-							fscanf(pFile, "%d", &s_aEffectFile[a].nDivisionY);
-							s_aEffectFile[a].nDivisionMAX = s_aEffectFile[a].nDivisionX * s_aEffectFile[a].nDivisionY;
+							s_aEffectFile[a].bSpin = false;
 						}
-						if (strcmp(&s_aString[0], "SPEED") == 0)
+						if (strcmp(&s_aString[0], "BCOURSE=true") == 0)
 						{// 文字列が一致した場合
-							fscanf(pFile, "%d", &s_aEffectFile[a].speed);
+							s_aEffectFile[a].bCourse = true;
+						}
+						if (strcmp(&s_aString[0], "BCOURSE=false") == 0)
+						{// 文字列が一致した場合
+							s_aEffectFile[a].bCourse = false;
 						}
 						if (strcmp(&s_aString[0], "BCOL=true") == 0)
 						{// 文字列が一致した場合
@@ -847,8 +741,17 @@ void SetEffectFile(char *Filename)
 						}
 						if (strcmp(&s_aString[0], "LIN=true") == 0)
 						{// 文字列が一致した場合//白枠モード
-							s_aEffectFile[a].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
-							s_aEffectFile[a].fRadeius += 1.0f;
+							s_aEffectFile[a].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
+							s_aEffectFile[a].bLin = true;
+						}
+						if (strcmp(&s_aString[0], "LIN=true") == 0)
+						{// 文字列が一致した場合//白枠モード
+							s_aEffectFile[a].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
+							s_aEffectFile[a].bLin = true;
+						}
+						if (strcmp(&s_aString[0], "LIN=false") == 0)
+						{// 文字列が一致した場合//白枠モード
+							s_aEffectFile[a].bLin = false;
 						}
 						if (strcmp(&s_aString[0], "END_EFFECTSET") == 0)
 						{// 文字列が一致した場合

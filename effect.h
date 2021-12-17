@@ -86,13 +86,17 @@ typedef struct
 	int nDivisionMAX;	//アニメーションの最大枚数
 	int easeInspeed;	//いーじんぐ
 	int speed;			//スピード
+	int RotSpin;		//回転速度
+	float fRadeius;		//半径
+	bool bSpin;			//回るか回らないか
+	bool bCourse;	//回転する向き
 	bool bCol;			//アルファ値をだんだんだすか
 	bool bSiz;			//小さくなって出てくるか
-	bool bRot;			//回るか
+	bool bLin;			//枠線化
+	bool bRot;			//立てるか横になってるか
 	bool bUse;			//使用してるかどうか
 	bool bZbf;			//ゼットテスト使うかどうか
 	bool bAbf;			//アルファテスト使うかどうか
-	float fRadeius;		//半径
 	D3DXMATRIX mtxWorld; //マトリックス//ポリゴンの位置や回転行列すべてをつめてるナニカ
 }Effect;
 
@@ -105,12 +109,12 @@ typedef struct
 	EFFECTTYPE nType;	//タイプ
 	float fRadeius;		//半径
 	int nMaxLife;		//最大の寿命
-	int nDivisionX;		//アニメーションXの枚数
-	int nDivisionY;		//アニメーションYの枚数
-	int nDivisionMAX;	//アニメーションの最大枚数
-	int speed;			//スピード
+	int RotSpin;		//回転速度
+	bool bCourse;	//回転する向き
+	bool bSpin;			//回るか回らないか
 	bool bCol;			//アルファ値をだんだんだすか
 	bool bRot;			//回るか
+	bool bLin;
 	bool bUse;			//使用してるかどうか
 	bool bZbf;			//ゼットテスト使うかどうか
 	bool bAbf;			//アルファテスト使うかどうか

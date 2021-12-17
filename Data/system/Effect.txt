@@ -12,16 +12,20 @@ SCRIPT
 ##---------------------------
 
 EFFECTSET
-TYPE 9				##タイプ（歯車古風）
-POS -15.0 65.0 0.0  ##座標
-COL	1.0 1.0 1.0 0.0	##色
-MAXLIFE 800			##ライフ
-RADEIUS 13.0f		##半径
-BZDF=false			##Zテスト使うかどうか
-BADF=true			##Aテスト使うかどうか
-BCOL=false			##色がゲーミングになるかどうか
-BROT=true			##たてるか床にはるかの選択（trueがたてる）
-LIN=false			##自動的に枠線のサイズにする（実験中）
+TYPE 9					##タイプ（歯車古風）
+POS -15.0 65.0 0.0  	##座標
+COL	1.0 1.0 1.0 0.0		##色
+MAXLIFE 800				##ライフ
+RADEIUS 10.0f			##半径
+SPIN 3100				##回転速度数字が大きいと遅い
+BZDF=false				##Zテスト使うかどうか
+BADF=true				##Aテスト使うかどうか
+BCOL=false				##色がゲーミングになるかどうか
+BROT=true				##たてるか床にはるかの選択（trueがたてる）
+LIN=false				##自動的に枠線のサイズにする（実験中）
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
+
 END_EFFECTSET
 
 EFFECTSET
@@ -30,11 +34,14 @@ POS 15.0 55.0 0.0       ##座標
 COL	1.0 1.0 1.0 0.0     ##色
 MAXLIFE 800             ##ライフ
 RADEIUS 11.0f           ##半径
+SPIN 3100				##回転速度数字が大きいと遅い
 BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=true               ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -43,11 +50,14 @@ POS 10.0 65.0 0.0       ##座標
 COL	1.0 1.0 1.0 0.0     ##色
 MAXLIFE 800             ##ライフ
 RADEIUS 8.0f            ##半径
+SPIN 3100				##回転速度数字が大きいと遅い
 BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=true               ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -56,11 +66,14 @@ POS -15.0 45.0 0.0      ##座標
 COL	1.0 1.0 1.0 0.0     ##色
 MAXLIFE 800             ##ライフ
 RADEIUS 11.0f           ##半径
+SPIN 3100				##回転速度数字が大きいと遅い
 BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=true               ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -69,11 +82,14 @@ POS 0.0 75.0 0.0        ##座標
 COL	1.0 1.0 1.0 0.0     ##色
 MAXLIFE 800             ##ライフ
 RADEIUS 8.0f            ##半径
+SPIN 3100				##回転速度数字が大きいと遅い
 BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=true               ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -82,11 +98,14 @@ POS 5.0 45.0 0.0        ##座標
 COL	1.0 1.0 1.0 0.0     ##色
 MAXLIFE 800             ##ライフ
 RADEIUS 8.0f            ##半径
+SPIN 3100				##回転速度数字が大きいと遅い
 BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=true               ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 
@@ -96,53 +115,65 @@ END_EFFECTSET
 EFFECTSET
 TYPE 10					##タイプ（外枠１）
 POS 0.0 55.0 0.0        ##座標
-COL	1.0 1.0 1.0 0.0     ##色
+COL	1.0 1.0 1.0 0.5     ##色
 MAXLIFE 800             ##ライフ
-RADEIUS 30.0f           ##半径
+RADEIUS 33.0f           ##半径
+SPIN 3100				##回転速度数字が大きいと遅い
 BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=true               ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
 TYPE 11					##タイプ（内巻き外枠）
 POS 0.0 55.0 0.0        ##座標
-COL	1.0 1.0 1.0 0.0     ##色
+COL	1.0 1.0 1.0 0.5     ##色
 MAXLIFE 800             ##ライフ
-RADEIUS 40.0f           ##半径
+RADEIUS 41.0f           ##半径
+SPIN 1100				##回転速度数字が大きいと遅い
 BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=true               ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+BSPIN=true				##回転使うか使わないか
+BCOURSE=false			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
 TYPE 12					##タイプ（時間書かれてる枠）
-POS -3.0 54.0 0.0       ##座標
-COL	1.0 1.0 1.0 0.0     ##色
+POS -2.8 54.0 0.0       ##座標
+COL	1.0 1.0 1.0 0.5     ##色
 MAXLIFE 800             ##ライフ
 RADEIUS 10.0f           ##半径
+SPIN 3100				##回転速度数字が大きいと遅い
 BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=true               ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+BSPIN=false				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
 TYPE 13					##タイプ（一時間が何分割かわかる枠）
 POS 0.0 55.0 0.0        ##座標
-COL	1.0 1.0 1.0 0.0     ##色
+COL	1.0 1.0 1.0 0.5     ##色
 MAXLIFE 800             ##ライフ
 RADEIUS 20.0f           ##半径
+SPIN 3100				##回転速度数字が大きいと遅い
 BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=true               ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+BSPIN=false				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -151,17 +182,24 @@ POS 0.0 55.0 0.0        ##座標
 COL	1.0 1.0 1.0 0.0     ##色
 MAXLIFE 800             ##ライフ
 RADEIUS 10.0f           ##半径
+SPIN 3100				##回転速度数字が大きいと遅い
 BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=true               ##たてるか床にはるかの選択（trueがたてる
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+BSPIN=false				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
+##----------------------------------
+##針
+##こいつらの回転は特殊なので触らない
+##----------------------------------
 
 EFFECTSET				
 TYPE 15					##タイプ（短針）
 POS 0.0 55.0 -3.0       ##座標
-COL	0.0 1.0 0.0 0.2     ##色
+COL	0.0 1.0 0.0 0.0     ##色
 MAXLIFE 800             ##ライフ
 RADEIUS 30.0f           ##半径
 BZDF=false              ##Zテスト使うかどうか
@@ -174,7 +212,7 @@ END_EFFECTSET
 EFFECTSET
 TYPE 16					##タイプ（長針）
 POS 0.0 55.0 -3.0       ##座標
-COL	0.0 1.0 0.0 0.2     ##色
+COL	0.0 1.0 0.0 0.0     ##色
 MAXLIFE 800             ##ライフ
 RADEIUS 30.0f           ##半径
 BZDF=false              ##Zテスト使うかどうか
@@ -187,27 +225,27 @@ END_EFFECTSET
 EFFECTSET
 TYPE 15					##タイプ（短針）
 POS 0.0 55.0 -3.0       ##座標
-COL	0.0 0.0 1.0 0.2     ##色
+COL	0.0 0.0 1.0 0.0     ##色
 MAXLIFE 800             ##ライフ
 RADEIUS 30.0f           ##半径
 BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=true               ##たてるか床にはるかの選択（trueがたてる
-LIN=true                ##自動的に枠線のサイズにする（実験中）
+LIN=false                ##自動的に枠線のサイズにする（実験中）
 END_EFFECTSET
 
 EFFECTSET
 TYPE 16					##タイプ（長針）
 POS 0.0 55.0 -3.0       ##座標
-COL	0.0 0.0 1.0 0.2     ##色
+COL	0.0 0.0 1.0 0.0     ##色
 MAXLIFE 800             ##ライフ
 RADEIUS 30.0f           ##半径
 BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=true               ##たてるか床にはるかの選択（trueがたてる
-LIN=true                ##自動的に枠線のサイズにする（実験中）
+LIN=false                ##自動的に枠線のサイズにする（実験中）
 END_EFFECTSET
 
 

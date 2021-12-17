@@ -18,7 +18,10 @@ BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=false              ##たてるか床にはるかの選択（trueがたてる）
-LIN=false               ##自動的に枠線のサイズにする（実験中）
+LIN=true               ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -31,20 +34,26 @@ BZDF=false              ##半径
 BADF=true               ##Zテスト使うかどうか
 BCOL=false              ##Aテスト使うかどうか
 BROT=false              ##色がゲーミングになるかどうか
-LIN=false               ##たてるか床にはるかの選択（trueがたてる）
+LIN=true               ##たてるか床にはるかの選択（trueがたてる）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET           ##自動的に枠線のサイズにする（実験中）
 
-EFFECTSET				##タイプ（さんかくがあって魔法陣の枠がない奴）
-TYPE 4                  ##座標
-POS 0.0 1.0 0.0         ##色
-COL	1.0 1.0 1.0 0.0     ##ライフ
-MAXLIFE 840             ##半径
-RADEIUS 16.0f           ##Zテスト使うかどうか
-BZDF=false              ##Aテスト使うかどうか
-BADF=true               ##色がゲーミングになるかどうか
-BCOL=false              ##たてるか床にはるかの選択（trueがたてる）
-BROT=false              ##自動的に枠線のサイズにする（実験中）
-LIN=false
+EFFECTSET				
+TYPE 4                  ##タイプ（さんかくがあって魔法陣の枠がない奴）
+POS 0.0 1.0 0.0         ##座標
+COL	1.0 1.0 1.0 0.0     ##色
+MAXLIFE 840             ##ライフ
+RADEIUS 16.0f           ##半径
+BZDF=false              ##Zテスト使うかどうか
+BADF=true               ##Aテスト使うかどうか
+BCOL=false              ##色がゲーミングになるかどうか
+BROT=false              ##たてるか床にはるかの選択（trueがたてる）
+LIN=true                ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 ##---------------------------
@@ -62,6 +71,9 @@ BADF=true               ##Aテスト使うかどうか
 BCOL=true               ##色がゲーミングになるかどうか
 BROT=false              ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -75,6 +87,9 @@ BADF=true               ##Aテスト使うかどうか
 BCOL=true               ##色がゲーミングになるかどうか
 BROT=false              ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -88,6 +103,9 @@ BADF=true               ##Aテスト使うかどうか
 BCOL=true               ##色がゲーミングになるかどうか
 BROT=false              ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -101,6 +119,9 @@ BADF=true               ##Aテスト使うかどうか
 BCOL=true               ##色がゲーミングになるかどうか
 BROT=false              ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -114,6 +135,9 @@ BADF=true               ##Aテスト使うかどうか
 BCOL=true               ##色がゲーミングになるかどうか
 BROT=false              ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 
@@ -131,7 +155,10 @@ BZDF=false              ##Zテスト使うかどうか
 BADF=true               ##Aテスト使うかどうか
 BCOL=false              ##色がゲーミングになるかどうか
 BROT=false              ##たてるか床にはるかの選択（trueがたてる）
-LIN=false               ##自動的に枠線のサイズにする（実験中）
+LIN=true               ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 ##---------------------------
 ##魔法陣たち二段目色
@@ -148,6 +175,9 @@ BADF=true               ##Aテスト使うかどうか
 BCOL=true               ##色がゲーミングになるかどうか
 BROT=false              ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -161,6 +191,9 @@ BADF=true               ##Aテスト使うかどうか
 BCOL=true               ##色がゲーミングになるかどうか
 BROT=false              ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 ##---------------------------
@@ -176,7 +209,10 @@ BZDF=false                  ##Zテスト使うかどうか
 BADF=true                   ##Aテスト使うかどうか
 BCOL=false                  ##色がゲーミングになるかどうか
 BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
-LIN=false                   ##自動的に枠線のサイズにする（実験中）
+LIN=true                   ##自動的に枠線のサイズにする（実験中）
+SPIN 3100					##回転速度数字が大きいと遅い
+BSPIN=true					##回転使うか使わないか
+BCOURSE=true				##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -189,7 +225,10 @@ BZDF=false                  ##Zテスト使うかどうか
 BADF=true                   ##Aテスト使うかどうか
 BCOL=false                  ##色がゲーミングになるかどうか
 BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
-LIN=false                   ##自動的に枠線のサイズにする（実験中）
+LIN=true                   ##自動的に枠線のサイズにする（実験中）
+SPIN 3100					##回転速度数字が大きいと遅い
+BSPIN=true					##回転使うか使わないか
+BCOURSE=true				##回転向きtrueが右falseが左
 END_EFFECTSET
 
 ##---------------------------
@@ -206,6 +245,9 @@ BADF=true               ##Aテスト使うかどうか
 BCOL=true               ##色がゲーミングになるかどうか
 BROT=false              ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET	
@@ -219,6 +261,9 @@ BADF=true               ##Aテスト使うかどうか
 BCOL=true               ##色がゲーミングになるかどうか
 BROT=false              ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 ##---------------------------
@@ -235,7 +280,10 @@ BZDF=false                  ##Zテスト使うかどうか
 BADF=true                   ##Aテスト使うかどうか
 BCOL=false                  ##色がゲーミングになるかどうか
 BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
-LIN=false                   ##自動的に枠線のサイズにする（実験中）
+LIN=true                   ##自動的に枠線のサイズにする（実験中）
+SPIN 3100					##回転速度数字が大きいと遅い
+BSPIN=true					##回転使うか使わないか
+BCOURSE=true				##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -248,8 +296,11 @@ BZDF=false                  ##Zテスト使うかどうか
 BADF=true                   ##Aテスト使うかどうか
 BCOL=false                  ##色がゲーミングになるかどうか
 BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
-LIN=false                   ##自動的に枠線のサイズにする（実験中）
-END_EFFECTSET
+LIN=true                   ##自動的に枠線のサイズにする（実験中）
+SPIN 3100					##回転速度数字が大きいと遅い
+BSPIN=true					##回転使うか使わないか
+BCOURSE=true				##回転向きtrueが右falseが左
+END_EFFECTSET	
 ##---------------------------
 ##魔法陣たち四段目いろ
 ##---------------------------
@@ -265,6 +316,9 @@ BADF=true               ##Aテスト使うかどうか
 BCOL=true               ##色がゲーミングになるかどうか
 BROT=false              ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -278,6 +332,9 @@ BADF=true               ##Aテスト使うかどうか
 BCOL=true               ##色がゲーミングになるかどうか
 BROT=false              ##たてるか床にはるかの選択（trueがたてる）
 LIN=false               ##自動的に枠線のサイズにする（実験中）
+SPIN 3100				##回転速度数字が大きいと遅い
+BSPIN=true				##回転使うか使わないか
+BCOURSE=true			##回転向きtrueが右falseが左
 END_EFFECTSET
 
 
@@ -294,7 +351,10 @@ BZDF=false                  ##Zテスト使うかどうか
 BADF=true                   ##Aテスト使うかどうか
 BCOL=false                  ##色がゲーミングになるかどうか
 BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
-LIN=false                   ##自動的に枠線のサイズにする（実験中）
+LIN=true                   ##自動的に枠線のサイズにする（実験中）
+SPIN 3100					##回転速度数字が大きいと遅い
+BSPIN=true					##回転使うか使わないか
+BCOURSE=true				##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -307,7 +367,10 @@ BZDF=false                  ##Zテスト使うかどうか
 BADF=true                   ##Aテスト使うかどうか
 BCOL=false                  ##色がゲーミングになるかどうか
 BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
-LIN=false                   ##自動的に枠線のサイズにする（実験中）
+LIN=true                   ##自動的に枠線のサイズにする（実験中）
+SPIN 3100					##回転速度数字が大きいと遅い
+BSPIN=true					##回転使うか使わないか
+BCOURSE=true				##回転向きtrueが右falseが左
 END_EFFECTSET
 
 
@@ -327,6 +390,9 @@ BADF=true                   ##Aテスト使うかどうか
 BCOL=true                   ##色がゲーミングになるかどうか
 BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
 LIN=false                   ##自動的に枠線のサイズにする（実験中）
+SPIN 3100					##回転速度数字が大きいと遅い
+BSPIN=true					##回転使うか使わないか
+BCOURSE=true				##回転向きtrueが右falseが左
 END_EFFECTSET
 
 EFFECTSET
@@ -340,6 +406,9 @@ BADF=true                   ##Aテスト使うかどうか
 BCOL=true                   ##色がゲーミングになるかどうか
 BROT=false                  ##たてるか床にはるかの選択（trueがたてる）
 LIN=false                   ##自動的に枠線のサイズにする（実験中）
+SPIN 3100					##回転速度数字が大きいと遅い
+BSPIN=true					##回転使うか使わないか
+BCOURSE=true				##回転向きtrueが右falseが左
 END_EFFECTSET
 
 END_SCRIPT##これ消さないで
