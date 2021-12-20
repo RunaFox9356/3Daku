@@ -126,7 +126,7 @@ void InitEffect(void);
 void UninitEffect(void);
 void UpdateEffect(void);
 void DrawEffect(void);
-void SetEffect(int a);
+void SetEffect(int a, D3DXVECTOR3 pos);
 void SetEffectFile(char *Filename);
 int GetEffectFile(void);
 //設定できること座標、色、半径、ライフ、タイプ、ゼットテスト使うかどうかアルファテスト使うかどうかアルファ値がだんだん大きくなるか

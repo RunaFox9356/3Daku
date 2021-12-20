@@ -7,6 +7,7 @@
 #include "comn.h"
 #include<stdio.h>
 #include"file.h"
+#include"prayer.h"
 
 //=====================================
 // マクロ定義
@@ -14,6 +15,8 @@
 
 #define NUM_MAX (EFFECTTYPE_MAX)  
 //スタティック変数///スタティックをヘッタに使うなよ？
+
+
 static char s_EffectFile[128];
 static char s_aString[128];
 static LPDIRECT3DTEXTURE9 s_pTextureEffect[NUM_MAX] = {}; //テクスチャのポインタ
@@ -514,11 +517,12 @@ void DrawEffect(void)
 	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
 }
-void SetEffect(int a)
+void SetEffect(int a, D3DXVECTOR3 pos)
 {
 	int nCntEffect;
 	VERTEX_3D*pVtx; //頂点へのポインタ
 	s_pVtxBuffEffect->Lock(0, 0, (void**)&pVtx, 0);
+	PRAYER *pPrayer = GetPrayer();
 
 	for (nCntEffect = 0; nCntEffect < MAX_EFFECT; nCntEffect++)
 	{
@@ -526,7 +530,7 @@ void SetEffect(int a)
 		{
 			//エフェクトが使用されてない場合
 			s_aEffect[nCntEffect].fRadeius = s_aEffectFile[a].fRadeius;
-			s_aEffect[nCntEffect].pos = s_aEffectFile[a].pos;
+			s_aEffect[nCntEffect].pos = s_aEffectFile[a].pos+ pos;
 			s_aEffect[nCntEffect].bAbf = s_aEffectFile[a].bAbf;
 			s_aEffect[nCntEffect].bZbf = s_aEffectFile[a].bZbf;
 			s_aEffect[nCntEffect].bCol = s_aEffectFile[a].bCol;

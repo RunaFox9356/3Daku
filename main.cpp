@@ -20,6 +20,7 @@
 #include"ken.h"
 #include"effect.h"
 #include"Prayer.h"
+#include"line.h"
 
 #define MAX_NAME (10)
 
@@ -314,7 +315,7 @@ HRESULT Init(HINSTANCE hlnstance, HWND hWnd, BOOL bWindow)//TRUE：ウインドウ/FAL
 	//パーティクル初期化
 	InitParticle();
 	
-	//kenパーティクル初期化
+	//ken初期化
 	InitKen();
 
 	//影
@@ -339,11 +340,15 @@ HRESULT Init(HINSTANCE hlnstance, HWND hWnd, BOOL bWindow)//TRUE：ウインドウ/FAL
 	//ビルボード
 	InitKitune();
 
+	//line
+	InitLine();
+
 	//ファイル
 	LoodSetFile();
 
 	//セット
 	set();
+
 
 	/*InitSound(hWnd);
 
@@ -381,10 +386,12 @@ void Uninit(void)
 	//カメラ
 	UninitCamera();
 	
+	//エフェクト
 	UninitEffect();
 	
-	//kenパーティクル
+	//ken
 	UninitKen();
+
 	//モデル
 	UninitModel();
 	//影
@@ -398,6 +405,8 @@ void Uninit(void)
 	//キーボードの終了処理
 	UninitKeyboard();
 
+	//line
+	UninitLine();
 	////タイトル
 	//UninitTitle();
 
@@ -451,8 +460,7 @@ void Update(void)
 
 	//カメラ
 	UpdateCylinder();
-	//モデル
-	UpdatePrayer();
+	
 
 	UpdateLighe();
 
@@ -468,12 +476,16 @@ void Update(void)
 	//Uninitblock();
 	//モデル
 	UpdateModel();
+
+	//モデル
+	UpdatePrayer();
 	//ライト
 	UpdateLighe();
 
 	//カメラ
 	UpdateCamera();
 
+	//エフェクト
 	UpdateEffect();
 
 	//影
@@ -487,6 +499,9 @@ void Update(void)
 
 	//ジョイパット
 	UpdateJoypad();
+
+	//line
+	UpdateLine();
 
 	if (GetKeyboardTrigger(DIK_P))
 	{
@@ -570,6 +585,9 @@ void Draw(void)
 
 		//エフェクト
 		DrawEffect();
+
+		//line
+		DrawLine();
 
 		//ビルボード
 		DrawKitune();
@@ -705,7 +723,7 @@ void DrawDebug(void)
 	{
 		sprintf(&aStr[8][0], "線モード[OFF]");
 	}
-	wsprintf(&aStr[9][0], "★操作説明★\n視点横移動:A.D 視点縦移動:W.S\n上昇Lシフト下降Rシフト\n回転横:Q.E縦:Z.C\nカメラ移動:カーソルキー\nモデルの横移動:J.Lモデルの縦移動:I.K\n線モード:P\n狐好きでしょ？");
+	wsprintf(&aStr[9][0], "★操作説明★\n視点横移動:A.D 視点縦移動:W.S\n上昇Lシフト下降Rシフト\n回転横:Q.E縦:Z.C\nカメラ移動:カーソルキー\nモデルの横移動:J.Lモデルの縦移動:I.K\n線モード:P\nカメラの追従Uキー");
 	for (int i = 0; i < MAX_NAME; i++)
 	{
 		rect = { 0,i*30,SCREEN_WIDTH,SCREEN_HEIGHT };

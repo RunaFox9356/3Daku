@@ -78,19 +78,19 @@ void UpdateCamera(void)
 			GetKeyboardPress(DIK_W))
 		{
 			if (GetKeyboardPress(DIK_A))
-			{//A押した回る視点左
+			{//A押した回る注視点左
 				s_aCamera.rot.y -= rotSpede;
 			}
 			if (GetKeyboardPress(DIK_D))
-			{//D押した回る視点右
+			{//D押した回る注視点右
 				s_aCamera.rot.y += rotSpede;
 			}
 			if (GetKeyboardPress(DIK_S))
-			{//s押した回る視点下
+			{//s押した回る注視点下
 				s_aCamera.rot.x += rotSpede;
 			}
 			if (GetKeyboardPress(DIK_W))
-			{//押した回る視点上
+			{//押した回る注視点上
 				s_aCamera.rot.x -= rotSpede;
 			}
 
@@ -106,22 +106,22 @@ void UpdateCamera(void)
 			GetKeyboardPress(DIK_C))
 		{
 			if (GetKeyboardPress(DIK_Q))
-			{//A押した回る注視点左
+			{//A押した回る視点左
 				s_aCamera.rot.y -= rotSpede;
 			}
 
 			if (GetKeyboardPress(DIK_E))
-			{//D押した回る注視点右
+			{//D押した回る視点右
 				s_aCamera.rot.y += rotSpede;
 			}
 
 			if (GetKeyboardPress(DIK_Z))
-			{//s押した回る注視点上
+			{//s押した回る視点上
 				s_aCamera.rot.x -= rotSpede;
 			}
 
 			if (GetKeyboardPress(DIK_C))
-			{//押した回る注視点下
+			{//押した回る視点下
 				s_aCamera.rot.x += rotSpede;
 			}
 
@@ -183,7 +183,7 @@ void UpdateCamera(void)
 	{
 		PRAYER *pPrayer = GetPrayer();
 
-		s_aCamera.posRDest.x = pPrayer->pos.x + sinf(pPrayer->rot.y-D3DX_PI) *10.0f;         //目的の値
+		s_aCamera.posRDest.x = pPrayer->pos.x + sinf(pPrayer->rot.y -D3DX_PI) *10.0f;         //目的の値
 		//s_aCamera.posRDest.y = pPrayer->pos.y + sin(pPrayer->rot.y) *s_aCamera.fDistance;         //目的の値
 		s_aCamera.posRDest.z = pPrayer->pos.z + cosf(pPrayer->rot.y - D3DX_PI) *10.0f;
 											 
@@ -191,11 +191,9 @@ void UpdateCamera(void)
 		s_aCamera.posVDest.z = pPrayer->pos.z - cosf(s_aCamera.rot.y)*s_aCamera.fDistance;
 
 		s_aCamera.posR.x += (s_aCamera.posRDest.x - s_aCamera.posR.x) * 0.1f;	
-		//s_aCamera.posR.y += (s_aCamera.posRDest.y - s_aCamera.posR.y) * 0.1f;
 		s_aCamera.posR.z += (s_aCamera.posRDest.z - s_aCamera.posR.z) * 0.1f;
 												 						  
 		s_aCamera.posV.x += (s_aCamera.posVDest.x - s_aCamera.posV.x) * 0.1f;
-		//s_aCamera.pos.y += (s_aCamera.posRDest.y - s_aCamera.posR.y) * 0.1f;
 		s_aCamera.posV.z += (s_aCamera.posVDest.z - s_aCamera.posV.z) * 0.1f;
 	}
 	

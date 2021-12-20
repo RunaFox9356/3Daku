@@ -32,6 +32,6 @@ void UpdateModel(void);//更新
 void DrawModel(void);//描画
 void SetModel(D3DXVECTOR3 pos, char *Filename);//セット引数座標と読み込むファイル名
 MODEL *GetModel(void);
-void  CollisionModel(D3DXVECTOR3 *pPos, D3DXVECTOR3 *pPosOld, D3DXVECTOR3 Max, D3DXVECTOR3 Min);
+void  CollisionModel(D3DXVECTOR3 *pPos, D3DXVECTOR3 *pPosOld, D3DXVECTOR3 Siz);
 
 #endif

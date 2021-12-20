@@ -12,7 +12,6 @@
 // static•Ï”
 //------------------------------------
 static LPDIRECT3DVERTEXBUFFER9 s_pVtxBuff = NULL;	// ’¸“_ƒoƒbƒtƒ@[‚Ö‚Ìƒ|ƒCƒ“ƒ^
-static LPDIRECT3DTEXTURE9 s_pTextureLine[MAX_TEX] = {}; //ƒeƒNƒXƒ`ƒƒ‚Ìƒ|ƒCƒ“ƒ^
 static LINE s_Line[MAX_LINE];								// ƒ|ƒŠƒSƒ“‚Ì\‘¢‘Ì
 static D3DXVECTOR3 s_RotMove;
 
@@ -23,18 +22,8 @@ void InitLine(void)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
-	//ƒeƒNƒXƒ`ƒƒ‚Ì“Ç‚Ýž‚Ý
-	D3DXCreateTextureFromFile(pDevice,
-		"Data/TEXTURE/211.png",
-		&s_pTextureLine[0]);
-
-	//ƒeƒNƒXƒ`ƒƒ‚Ì“Ç‚Ýž‚Ý
-	D3DXCreateTextureFromFile(pDevice,
-		"Data/TEXTURE/bullet004.png",
-		&s_pTextureLine[1]);
-
 	// ’¸“_ƒoƒbƒtƒ@‚Ì¶¬
-	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * 4 * MAX_LINE,
+	pDevice->CreateVertexBuffer(sizeof(VERTEX_3D) * 2 * MAX_LINE,
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_3D,
 		D3DPOOL_MANAGED,
@@ -56,28 +45,20 @@ void InitLine(void)
 															// ’¸“_À•W‚ÌÝ’è
 		pVtx[0].pos = D3DXVECTOR3(-10.0f, 0.0f, 0.0f);
 		pVtx[1].pos = D3DXVECTOR3(10.0f, 0.0f, 0.0f);
-		pVtx[2].pos = D3DXVECTOR3(-10.0f, 10.0f, 0.0f);
-		pVtx[3].pos = D3DXVECTOR3(10.0f, 10.0f, 0.0f);
 
 		// Še’¸“_‚Ì–@ü‚ÌÝ’è(¦ƒxƒNƒgƒ‹‚Ì‘å‚«‚³‚Í1‚É‚·‚é•K—v‚ª‚ ‚é)
 		pVtx[0].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 		pVtx[1].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-		pVtx[2].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-		pVtx[3].nor = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 
 		// ’¸“_ƒJƒ‰[‚ÌÝ’è
 		pVtx[0].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 		pVtx[1].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-		pVtx[2].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-		pVtx[3].col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-
+	
 		// ƒeƒNƒXƒ`ƒƒÀ•W‚ÌÝ’è
-
-		Settex(pVtx, 0.0f, 1.0f, 0.0f, 1.0f);
 		s_Line[i].bUse = false;
 
 		s_Line[i].nType = 0;
-		pVtx += 4;
+		pVtx += 2;
 	}
 	// ’¸“_À•W‚ðƒAƒ“ƒƒbƒN
 	s_pVtxBuff->Unlock();
@@ -95,14 +76,6 @@ void UninitLine(void)
 		s_pVtxBuff = NULL;
 	}
 
-	for (int i = 0; i < MAX_TEX; i++)
-	{
-		if (s_pTextureLine[i] != NULL)
-		{
-			s_pTextureLine[i]->Release();
-			s_pTextureLine[i] = NULL;
-		}
-	}
 
 
 }
@@ -117,50 +90,7 @@ void UpdateLine(void)
 
 	VERTEX_3D* pVtx = NULL;
 	// ’¸“_À•W‚ðƒƒbƒN
-	s_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
-	for (int i = 0; i < MAX_LINE; i++)
-	{
-		if (s_Line[i].bUse)
-		{
-			if (s_Line[i].nType == 1)
-			{
-				s_Line[i].des--;
-				s_Line[i].pos.x = s_Line[i].pos.x -= s_Line[i].moveX*BallSpede;
-				s_Line[i].pos.z = s_Line[i].pos.z -= s_Line[i].moveZ*BallSpede;
-				SetposShadow(s_Line[i].nShadow, s_Line[i].pos);
-				//SetEffect(s_Line[i].pos, D3DXCOLOR(0.1f, 1.0f, 0.1f, 0.5f), 15.0, 150, EFFECTTYPE_LINE, true, true, false, false);
-
-				/*if (s_Line[i].pos.x < -90.0f)
-				{
-				s_Line[i].bUse = false;
-				DisappearanceShadow(s_Line[i].nShadow);
-				}
-				if (s_Line[i].pos.x > 90.0f)
-				{
-				s_Line[i].bUse = false;
-				DisappearanceShadow(s_Line[i].nShadow);
-				}
-				if (s_Line[i].pos.z < -90.0f)
-				{
-				s_Line[i].bUse = false;
-				DisappearanceShadow(s_Line[i].nShadow);
-				}
-				if (s_Line[i].pos.z > 90.0f)
-				{
-				s_Line[i].bUse = false;
-				DisappearanceShadow(s_Line[i].nShadow);
-				}*/
-
-				if (s_Line[i].des < 0)
-				{
-					s_Line[i].bUse = false;
-					DisappearanceShadow(s_Line[i].nShadow);
-				}
-			}
-		}
-		pVtx += 4;
-	}
 
 }
 
@@ -188,17 +118,6 @@ void DrawLine(void)
 			//ƒrƒ‹ƒ{[ƒh‚ÌÝ’è
 			pDevice->GetTransform(D3DTS_VIEW, &mtxView);
 
-			//‚Q‚ª‚Â‚¢‚Ä‚é‚â‚Â‚¯‚·‚ÆY•ûŒü
-			//‹t”Ý’è
-			s_Line[i].mtxWorld._11 = mtxView._11;
-			s_Line[i].mtxWorld._12 = mtxView._21;
-			s_Line[i].mtxWorld._13 = mtxView._31;
-			//s_Line[i].mtxWorld._21 = mtxView._12;
-			//s_Line[i].mtxWorld._22 = mtxView._22;
-			//s_Line[i].mtxWorld._23 = mtxView._32;
-			s_Line[i].mtxWorld._31 = mtxView._13;
-			s_Line[i].mtxWorld._32 = mtxView._23;
-			s_Line[i].mtxWorld._33 = mtxView._33;
 
 			// ˆÊ’u‚ð”½‰f
 			// s—ñˆÚ“®ŠÖ”(‘æ‚Pˆø”‚ÉX,Y,Z•ûŒü‚ÌˆÚ“®s—ñ‚ðì¬)
@@ -208,30 +127,12 @@ void DrawLine(void)
 
 			//ƒ‰ƒCƒgÝ’èfalse‚É‚·‚é‚Æƒ‰ƒCƒg‚ÆH‚ç‚í‚È‚¢
 			pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
-			if (s_Line[i].nType == 0)
-			{
-				//ZƒeƒXƒg
-				pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_ALWAYS);
-				pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-			}
-			if (s_Line[i].nType == 1)
-			{//ƒAƒ‹ƒtƒ@ƒeƒXƒg
-				pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
-				pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-				pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);//‚Å‚©‚¦‚ê‚Ü‚·
-																	 //ƒfƒtƒHƒ‹ƒg‚Ífalse‚Å‚·
-				pDevice->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x00000001);//F‚¹‚Á‚Ä‚¢
-																		   //‚±‚ê‚ÍÁ‚µ‚½‚¢‚¢‚ë‚ð‘I‘ð‚µ‚Ü‚·
-				pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);//‚æ‚è‘å‚«‚¢
-			}
-
 
 			// ƒ[ƒ‹ƒhÀ•Ws—ñ‚ÌÝ’è
 			pDevice->SetTransform(D3DTS_WORLD, &s_Line[i].mtxWorld);
 
 
-			//ƒeƒNƒXƒ`ƒƒ‚ÌÝ’è
-			pDevice->SetTexture(0, s_pTextureLine[s_Line[i].nType]);
+		
 			// ’¸“_ƒoƒbƒtƒ@‚ðƒfƒoƒCƒX‚Ìƒf[ƒ^ƒXƒgƒŠ[ƒ€‚ÉÝ’è
 			pDevice->SetStreamSource(0, s_pVtxBuff, 0, sizeof(VERTEX_3D));
 
@@ -239,27 +140,21 @@ void DrawLine(void)
 			pDevice->SetFVF(FVF_VERTEX_3D);
 
 			// ƒ|ƒŠƒSƒ“‚Ì•`‰æ
-			pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, i * 4, 2);
+			pDevice->DrawPrimitive(D3DPT_LINELIST,  i * 2, 1);
 
 		}
 
 
 
 	}
-	pDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);//AƒeƒXƒg‰Šú‰»
-	pDevice->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x00000001);//F‚¹‚Á‚Ä‚¢//‚±‚ê‚ÍÁ‚µ‚½‚¢‚¢‚ë‚ð‘I‘ð‚µ‚Ü‚·
-	pDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_ALWAYS);//‚æ‚è‘å‚«‚¢
 
-	pDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);//ZƒeƒXƒg‰Šú‰»
-	pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-	pDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 	//ƒeƒNƒXƒ`ƒƒ‚ÌÝ’è
 	pDevice->SetTexture(0, NULL);
 }
 //----------------------------------
 //ƒZƒbƒg
 //----------------------------------
-void SetLine(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXCOLOR col, int nType)//êŠ.‰ñ“].F.ƒ^ƒCƒv
+void SetLine(D3DXVECTOR3 Maxpos, D3DXVECTOR3  Minpos,D3DXVECTOR3 pos )//êŠ.‰ñ“].F.ƒ^ƒCƒv
 {
 
 	PRAYER *pPrayer = GetPrayer();
@@ -272,38 +167,22 @@ void SetLine(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXCOLOR col, int nType)//êŠ.‰
 	{
 		if (s_Line[i].bUse == false)
 		{
-			// ‰Šú‰»ˆ—
-			s_Line[i].pos = pos;	// ’¸“_À•W
-			s_Line[i].rot = rot;	// ‰ñ“]À•W
-			s_Line[i].nType = nType;
-			s_Line[i].des = 100;
+	
 			// ’¸“_À•W‚ÌÝ’è
-			pVtx[0].pos = D3DXVECTOR3(-10.0f, 10.0f, 0.0f);
-			pVtx[1].pos = D3DXVECTOR3(+10.0f, 10.0f, 0.0f);
-			pVtx[2].pos = D3DXVECTOR3(-10.0f, 0.0f, 0.0f);
-			pVtx[3].pos = D3DXVECTOR3(+10.0f, 0.0f, 0.0f);
+			pVtx[0].pos = pos + Minpos;
+			pVtx[1].pos = pos + Maxpos;
+
 
 			// Še’¸“_‚Ì–@ü‚ÌÝ’è(¦ƒxƒNƒgƒ‹‚Ì‘å‚«‚³‚Í1‚É‚·‚é•K—v‚ª‚ ‚é)
 			pVtx[0].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 			pVtx[1].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-			pVtx[2].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-			pVtx[3].nor = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-
-			s_Line[i].moveX = sinf(pPrayer->rot.y);
-			s_Line[i].moveZ = cosf(pPrayer->rot.y);
+			
 			// ’¸“_ƒJƒ‰[‚ÌÝ’è
-			pVtx[0].col = col;
-			pVtx[1].col = col;
-			pVtx[2].col = col;
-			pVtx[3].col = col;
-
+			
 			// ƒeƒNƒXƒ`ƒƒÀ•W‚ÌÝ’è
 			pVtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
 			pVtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
-			pVtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
-			pVtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
-
-			s_Line[i].nShadow = SetShadow(s_Line[i].pos, s_Line[i].rot, 1);//êŠ.‰ñ“]
+		
 
 
 																				 //Žg‚Á‚Ä‚é‚©‚Ç‚¤‚©
@@ -311,17 +190,11 @@ void SetLine(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXCOLOR col, int nType)//êŠ.‰
 			break;
 
 		}
-		pVtx += 4;
+		pVtx += 2;
 	}
 
 	// ’¸“_À•W‚ðƒAƒ“ƒƒbƒN
 	s_pVtxBuff->Unlock();
 
 }
-//----------------------
-//ƒQƒbƒg
-//-----------------------
-LINE *GetLine(void)
-{
-	return &s_Line[0];
-}
+

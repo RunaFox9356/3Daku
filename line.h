@@ -35,7 +35,7 @@ void InitLine(void);//初期化
 void UninitLine(void);//破棄
 void UpdateLine(void);//更新
 void DrawLine(void);//描画
-void SetLine(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXCOLOR col, int nType);//場所.回転
-LINE *GetLine(void);
+void SetLine(D3DXVECTOR3 Maxpos, D3DXVECTOR3  Minpos, D3DXVECTOR3 pos);//場所.回転.色.タイプ
+
 #endif
 

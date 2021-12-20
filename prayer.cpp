@@ -127,23 +127,10 @@ void UpdatePrayer(void)
 
 		for (int i = 0; i < a; i++)
 		{
-			SetEffect(i);
+			SetEffect(i, mystery);
 		}
 		
-		/*SetEffect(LISTS_I);
-		SetEffect(LISTS_II);
-		SetEffect(LISTS_III);
-		SetEffect(LISTS_IV);
-		SetEffect(LISTS_V);
-		SetEffect(LISTS_VI);
-		SetEffect(LISTS_VII);
-		SetEffect(LISTS_VIII);
-		SetEffect(LISTS_IX);
-		SetEffect(LISTS_X);
-		SetEffect(LISTS_XI);
-		SetEffect(LISTS_XII);
-		SetEffect(LISTS_XIII);
-		SetEffect(LISTS_XIV);*/
+	
 	}
 	if (GetKeyboardTrigger(DIK_0))
 	{//魔法陣発動//0.0のカラーのやつは枠線
@@ -165,64 +152,64 @@ void UpdatePrayer(void)
 
 		if (s_nTime == 10)
 		{
-			SetEffect(LISTS_ZERO);
+			SetEffect(LISTS_ZERO, mystery);
 
-			SetEffect(LISTS_I);
+			SetEffect(LISTS_I, mystery);
 
-			SetEffect(LISTS_II);
+			SetEffect(LISTS_II, mystery);
 
 			//ここから下が虹色
-			SetEffect(LISTS_III);
+			SetEffect(LISTS_III, mystery);
 
-			SetEffect(LISTS_IV);
+			SetEffect(LISTS_IV, mystery);
 
-			SetEffect(LISTS_V);
+			SetEffect(LISTS_V, mystery);
 
-			SetEffect(LISTS_VI);
+			SetEffect(LISTS_VI, mystery);
 
-			SetEffect(LISTS_VII);
+			SetEffect(LISTS_VII, mystery);
 		}
 		if (s_nTime == 100)
 		{
-			SetEffect(LISTS_VIII);
+			SetEffect(LISTS_VIII, mystery);
 			//ここから下が虹色
-			SetEffect(LISTS_IX);
+			SetEffect(LISTS_IX, mystery);
 
-			SetEffect(LISTS_X);
+			SetEffect(LISTS_X, mystery);
 		}
 		if (s_nTime == 200)
 		{
-			SetEffect(LISTS_XI);
+			SetEffect(LISTS_XI, mystery);
 
-			SetEffect(LISTS_XII);
+			SetEffect(LISTS_XII, mystery);
 
 			//ここから下が虹色
-			SetEffect(LISTS_XIII);
+			SetEffect(LISTS_XIII, mystery);
 
-			SetEffect(LISTS_XIV);
+			SetEffect(LISTS_XIV, mystery);
 		}
 		if (s_nTime == 300)
 		{
-			SetEffect(LISTS_XV);
+			SetEffect(LISTS_XV, mystery);
 
-			SetEffect(LISTS_XVI);
+			SetEffect(LISTS_XVI, mystery);
 
 			//ここから下が虹色
-			SetEffect(LISTS_XVII);
+			SetEffect(LISTS_XVII, mystery);
 
-			SetEffect(LISTS_XVIII);
+			SetEffect(LISTS_XVIII, mystery);
 		}
 		if (s_nTime == 400)
 		{
 
-			SetEffect(LISTS_XVIX);
+			SetEffect(LISTS_XVIX, mystery);
 
-			SetEffect(LISTS_XX);
+			SetEffect(LISTS_XX, mystery);
 
 			//ここから下が虹色
-			SetEffect(LISTS_XXI);
+			SetEffect(LISTS_XXI,mystery);
 
-			SetEffect(LISTS_XXII);
+			SetEffect(LISTS_XXII, mystery);
 		}
 		if (s_nTime == EFFECT_LIFE)
 		{
@@ -252,7 +239,9 @@ void UpdatePrayer(void)
 		Prayerpolygon[s_nNanba].pos.x += sinf(pCamera->rot.y - D3DX_PI)*Spede;
 		Prayerpolygon[s_nNanba].pos.z += cosf(pCamera->rot.y - D3DX_PI)*Spede;
 
-		Prayerpolygon[s_nNanba].consumption = Prayerpolygon[s_nNanba].RotMove.x - D3DX_PI - Prayerpolygon[s_nNanba].rot.y + pCamera->rot.y;
+		Prayerpolygon[s_nNanba].consumption = (Prayerpolygon[s_nNanba].RotMove.x - 
+												D3DX_PI - Prayerpolygon[s_nNanba].rot.y 
+												+ pCamera->rot.y);
 	}
 	if (GetKeyboardPress(DIK_L))
 	{//L押したとき右加速
@@ -282,17 +271,15 @@ void UpdatePrayer(void)
 			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f),
 			1);//場所.回転.色.タイプ
 	}
-	CollisionModel(&Prayerpolygon[s_nNanba].pos, &Prayerpolygon[s_nNanba].posOld, Prayerpolygon[s_nNanba].ModelMax, Prayerpolygon[s_nSet].ModelMin);
-
-	
+	CollisionModel(&Prayerpolygon[s_nNanba].pos, &Prayerpolygon[s_nNanba].posOld, Prayerpolygon[s_nNanba].ModelMax - Prayerpolygon[s_nNanba].ModelMin);
 	//正規化
 	if (Prayerpolygon[s_nNanba].consumption > D3DX_PI)
 	{
-		Prayerpolygon[s_nNanba].consumption -= D3DX_PI * 2;
+		Prayerpolygon[s_nNanba].consumption += D3DX_PI * 2;
 	}
 	if (Prayerpolygon[s_nNanba].consumption < -D3DX_PI)
 	{
-		Prayerpolygon[s_nNanba].consumption += D3DX_PI * 2;
+		Prayerpolygon[s_nNanba].consumption += -D3DX_PI * 2;
 	}
 
 	//減算設定（感性）
@@ -301,13 +288,13 @@ void UpdatePrayer(void)
 																					  //正規化
 	if (Prayerpolygon[s_nNanba].rot.y > D3DX_PI)
 	{
-		Prayerpolygon[s_nNanba].rot.y -= D3DX_PI * 2;
+		Prayerpolygon[s_nNanba].rot.y += -D3DX_PI * 2;
 	}
 	if (Prayerpolygon[s_nNanba].rot.y <= -D3DX_PI)
 	{
 		Prayerpolygon[s_nNanba].rot.y += D3DX_PI * 2;
 	}
-	CollisionModel(&Prayerpolygon[s_nNanba].pos, &Prayerpolygon[s_nNanba].posOld, Prayerpolygon[s_nNanba].ModelMax, Prayerpolygon[s_nSet].ModelMin);
+	
 	//影更新
 	SetposShadow(Prayerpolygon[s_nNanba].nShadow, Prayerpolygon[s_nNanba].pos);
 	MESH *pMesh = GetMesh();
@@ -340,7 +327,7 @@ void DrawPrayer(void)
 	D3DMATERIAL9 marDef;
 	D3DXMATERIAL *pMat;
 	MESH *pMesh = GetMesh();
-	for (int j = 0; j < s_nSet; j++)//出てるモデルの数だけ回す
+for (int j = 0; j < s_nSet; j++)//出てるモデルの数だけ回す
 	{
 		if (Prayerpolygon[j].bUse)//使ってるやつ出す
 		{
@@ -367,15 +354,13 @@ void DrawPrayer(void)
 			D3DXMatrixRotationYawPitchRoll(&mtxRot, Prayerpolygon[j].rot.y, Prayerpolygon[j].rot.x, Prayerpolygon[j].rot.z);
 			// 行列掛け算関数(第2引数×第3引数第を１引数に格納)
 			D3DXMatrixMultiply(&Prayerpolygon[j].MtxWorld, &Prayerpolygon[j].MtxWorld, &mtxRot);
-
-		
+	
 			// 位置を反映
 			// 行列移動関数(第１引数にX,Y,Z方向の移動行列を作成)
 			D3DXMatrixTranslation(&mtxTrans, Prayerpolygon[j].pos.x, Prayerpolygon[j].pos.y, Prayerpolygon[j].pos.z);
 			// 行列掛け算関数(第2引数×第3引数第を１引数に格納)
 			D3DXMatrixMultiply(&Prayerpolygon[j].MtxWorld, &Prayerpolygon[j].MtxWorld, &mtxTrans);
 
-		
 			// ワールド座標行列の設定
 			pDevice->SetTransform(D3DTS_WORLD, &Prayerpolygon[j].MtxWorld);
 
@@ -440,34 +425,33 @@ void SetPrayer(D3DXVECTOR3 pos, char *Filename)
 	//	頂点バッファのロックしましょう
 	Prayerpolygon[s_nSet].s_pVtxMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVtxBuff);
 
-
+	
 	for (int i = 0; i < NumVpx; i++)
 	{
-
 		D3DXVECTOR3 pVtx = *(D3DXVECTOR3*)pVtxBuff;
 		//それを使ってモデルの最大値と最小値を使って求める
 		//XYZ全部求める
-		if (pVtx.x <= Prayerpolygon[s_nSet].ModelMin.x)
+		if (pVtx.x < Prayerpolygon[s_nSet].ModelMin.x)
 		{
 			Prayerpolygon[s_nSet].ModelMin.x = pVtx.x;
 		}
-		if (pVtx.x >= Prayerpolygon[s_nSet].ModelMax.x)
+		if (pVtx.x > Prayerpolygon[s_nSet].ModelMax.x)
 		{
 			Prayerpolygon[s_nSet].ModelMax.x = pVtx.x;
 		}
-		if (pVtx.y <= Prayerpolygon[s_nSet].ModelMin.y)
+		if (pVtx.y < Prayerpolygon[s_nSet].ModelMin.y)
 		{
 			Prayerpolygon[s_nSet].ModelMin.y = pVtx.y;
 		}
-		if (pVtx.y >= Prayerpolygon[s_nSet].ModelMax.y)
+		if (pVtx.y > Prayerpolygon[s_nSet].ModelMax.y)
 		{
 			Prayerpolygon[s_nSet].ModelMax.y = pVtx.y;
 		}
-		if (pVtx.z <= Prayerpolygon[s_nSet].ModelMin.z)
+		if (pVtx.z < Prayerpolygon[s_nSet].ModelMin.z)
 		{
 			Prayerpolygon[s_nSet].ModelMin.z = pVtx.z;
 		}
-		if (pVtx.z >= Prayerpolygon[s_nSet].ModelMax.z)
+		if (pVtx.z > Prayerpolygon[s_nSet].ModelMax.z)
 		{
 			Prayerpolygon[s_nSet].ModelMax.z = pVtx.z;
 		}
@@ -479,8 +463,6 @@ void SetPrayer(D3DXVECTOR3 pos, char *Filename)
 	}
 	//	頂点バッファのロックしましょう
 	Prayerpolygon[s_nSet].s_pVtxMesh->UnlockVertexBuffer();
-
-
 
 	Prayerpolygon[s_nSet].RotMove = D3DXVECTOR3(D3DX_PI + pCamera->rot.y, D3DX_PI*0.5f + pCamera->rot.y, 0.0f);
 	// 初期化処理

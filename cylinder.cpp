@@ -179,7 +179,7 @@ void UpdateCylinder(void)
 
 		s_Cylinder.zsiz++;
 		s_Cylinder.xsiz++;
-		SetCylinder(s_Cylinder.xsiz, s_Cylinder.zsiz);
+		SetCylinder();
 	}
 
 	//ƒ‚ƒfƒ‹‚ÌØ‚è‘Ö‚¦
@@ -187,7 +187,7 @@ void UpdateCylinder(void)
 	{
 		s_Cylinder.zsiz--;
 		s_Cylinder.xsiz--;
-		SetCylinder(s_Cylinder.xsiz, s_Cylinder.zsiz);
+		SetCylinder();
 	}
 }
 
@@ -237,7 +237,7 @@ void DrawCylinder(void)
 //----------------
 //ƒƒbƒVƒ…İ’è
 //----------------
-void SetCylinder(int X, int Z)//êŠ.‰ñ“]
+void SetCylinder(void)//êŠ.‰ñ“]
 {
 	UninitCylinder();
 	InitCylinder();

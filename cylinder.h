@@ -34,7 +34,7 @@ void InitCylinder(void);//‰Šú‰»
 void UninitCylinder(void);//”jŠü
 void UpdateCylinder(void);//XV
 void DrawCylinder(void);//•`‰æ
-void SetCylinder(int X, int Z);//êŠ.‰ñ“]
+void SetCylinder(void);//êŠ.‰ñ“]
 CYLINDER *GetCylinder(void);
 
 #endif
