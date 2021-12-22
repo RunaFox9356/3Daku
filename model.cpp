@@ -74,7 +74,6 @@ void UninitModel(void)
 			Modelpolygon[i].s_pBuffModel = NULL;
 		}
 	}
-	
 }
 
 //=========================================
@@ -99,7 +98,6 @@ void DrawModel(void)
 	{
 		if (Modelpolygon[j].bUse)//使ってるやつ出す
 		{
-
 			// ワールドマトリックスの初期化
 			// 行列初期化関数(第1引数の行列を単位行列に初期化)
 			D3DXMatrixIdentity(&Modelpolygon[j].MtxWorld);
@@ -139,13 +137,10 @@ void DrawModel(void)
 				//モデルパーツの描画
 				Modelpolygon[j].s_pVtxMesh->DrawSubset(i);
 			}
-
 			//現在のマテリアルを保持
 			pDevice->SetMaterial(&marDef);
 		}
 	}
-
-
 }
 void SetModel(D3DXVECTOR3 pos, char *Filename)
 {
@@ -181,7 +176,7 @@ void SetModel(D3DXVECTOR3 pos, char *Filename)
 	NumVpx = Modelpolygon[s_nSet].s_pVtxMesh->GetNumVertices();
 
 	//ここでサイズを入れる
-	 sizeFVF = D3DXGetFVFVertexSize(Modelpolygon[s_nSet].s_pVtxMesh->GetFVF());
+	sizeFVF = D3DXGetFVFVertexSize(Modelpolygon[s_nSet].s_pVtxMesh->GetFVF());
 
 	//	頂点バッファのロックしましょう
 	Modelpolygon[s_nSet].s_pVtxMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVtxBuff);
@@ -235,28 +230,6 @@ void SetModel(D3DXVECTOR3 pos, char *Filename)
 	Modelpolygon[s_nSet].bUse = true;
 	Modelpolygon[s_nSet].RotMove = D3DXVECTOR3(D3DX_PI + pCamera->rot.y, D3DX_PI*0.5f + pCamera->rot.y, 0.0f);
 
-	//D3DXMATRIX mtxOut, mtxTrans, mtxRot;	// 計算用マトリックス
-
-	//// ワールドマトリックスの初期化
-	//// 行列初期化関数(第1引数の行列を単位行列に初期化)
-	//D3DXMatrixIdentity(&Modelpolygon[s_nSet].MtxWorld);
-
-
-
-	//// 向きを反映
-	//// 行列回転関数(第1引数にヨー(y)ピッチ(x)ロール(z)方向の回転行列を作成)
-	//D3DXMatrixRotationYawPitchRoll(&mtxRot, Modelpolygon[s_nSet].rot.y, Modelpolygon[s_nSet].rot.x, Modelpolygon[s_nSet].rot.z);
-	//// 行列掛け算関数(第2引数×第3引数第を１引数に格納)
-	//D3DXMatrixMultiply(&mtxOut, &mtxOut, &mtxRot);
-
-	//// 位置を反映
-	//// 行列移動関数(第１引数にX,Y,Z方向の移動行列を作成)
-	//D3DXMatrixTranslation(&mtxTrans, Modelpolygon[s_nSet].pos.x, Modelpolygon[s_nSet].pos.y, Modelpolygon[s_nSet].pos.z);
-	//// 行列掛け算関数(第2引数×第3引数第を１引数に格納)
-	//D3DXMatrixMultiply(&mtxOut, &mtxOut, &mtxTrans);
-
-	//D3DXVec3TransformCoord(&Modelpolygon[s_nSet].ModelMin, &Modelpolygon[s_nSet].ModelMin, &mtxOut);
-	//D3DXVec3TransformCoord(&Modelpolygon[s_nSet].ModelMax, &Modelpolygon[s_nSet].ModelMax, &mtxOut);
 
 #ifdef _DEBUG
 	SetLine(D3DXVECTOR3(Modelpolygon[s_nSet].ModelMin.x, Modelpolygon[s_nSet].ModelMin.y + 1, Modelpolygon[s_nSet].ModelMin.z),
@@ -313,12 +286,8 @@ void  CollisionModel(D3DXVECTOR3 *pPos, D3DXVECTOR3 *pPosOld, D3DXVECTOR3 Siz)
 	{
 		for (int nCnt = 0; nCnt < s_nSet; nCnt++)
 		{
-
 			if (Modelpolygon[nCnt].bUse)
-			{//頂点カラーの設定
-		/*		float PosX = pPos->x + Siz.x / 2;
-				float PosZ = pPos->z + Siz.z / 2;*/
-
+			{
 				//左右の壁
 				if (pPosOld->z + Siz.z > Modelpolygon[nCnt].pos.z + Modelpolygon[nCnt].ModelMax.z
 					&& pPosOld->z - Siz.z < Modelpolygon[nCnt].pos.z + Modelpolygon[nCnt].ModelMin.z)
@@ -326,12 +295,12 @@ void  CollisionModel(D3DXVECTOR3 *pPos, D3DXVECTOR3 *pPosOld, D3DXVECTOR3 Siz)
 					if (pPos->x + Siz.x / 2 > Modelpolygon[nCnt].pos.x + Modelpolygon[nCnt].ModelMin.x
 						&& pPosOld->x + Siz.x / 2 <= Modelpolygon[nCnt].pos.x + Modelpolygon[nCnt].ModelMin.x)
 					{//ブロックの座標と座標が重なり合ったら//通常モード//左
-						pPos->x = Modelpolygon[nCnt].pos.x + Modelpolygon[nCnt].ModelMin.x - Siz.x / 2;
+						pPos->x = Modelpolygon[nCnt].pos.x + Modelpolygon[nCnt].ModelMin.x - Siz.x / 2.0f;
 					}
 					if (pPos->x - Siz.x / 2 < Modelpolygon[nCnt].pos.x + Modelpolygon[nCnt].ModelMax.x
 						&& pPosOld->x - Siz.x / 2 >= Modelpolygon[nCnt].pos.x + Modelpolygon[nCnt].ModelMax.x)
 					{//ブロックの座標と座標が重なり合ったら//通常モード//右
-						pPos->x = Modelpolygon[nCnt].pos.x + Modelpolygon[nCnt].ModelMax.x + Siz.x / 2;
+						pPos->x = Modelpolygon[nCnt].pos.x + Modelpolygon[nCnt].ModelMax.x + Siz.x / 2.0f+0.01f;
 					}
 				}
 				//上下の壁
@@ -341,12 +310,12 @@ void  CollisionModel(D3DXVECTOR3 *pPos, D3DXVECTOR3 *pPosOld, D3DXVECTOR3 Siz)
 					if (pPos->z + Siz.z / 2 > Modelpolygon[nCnt].pos.z + Modelpolygon[nCnt].ModelMin.z
 						&& pPosOld->z + Siz.z / 2 <= Modelpolygon[nCnt].pos.z + Modelpolygon[nCnt].ModelMin.z)
 					{//ブロックの座標と座標が重なり合ったら//通常モード//下
-						pPos->z = Modelpolygon[nCnt].pos.z + Modelpolygon[nCnt].ModelMin.z - Siz.z / 2;
+						pPos->z = Modelpolygon[nCnt].pos.z + Modelpolygon[nCnt].ModelMin.z - Siz.z / 2.0f;
 					}
 					if (pPos->z - Siz.z / 2 < Modelpolygon[nCnt].pos.z + Modelpolygon[nCnt].ModelMax.z
 						&& pPosOld->z - Siz.z / 2 >= Modelpolygon[nCnt].pos.z + Modelpolygon[nCnt].ModelMax.z)
 					{//ブロックの座標と座標が重なり合ったら//通常モード//上
-						pPos->z = Modelpolygon[nCnt].pos.z + Modelpolygon[nCnt].ModelMax.z + Siz.z / 2.0f+1.0f;
+						pPos->z = Modelpolygon[nCnt].pos.z + Modelpolygon[nCnt].ModelMax.z + Siz.z / 2.0f + 0.01f;
 					}
 					
 				}

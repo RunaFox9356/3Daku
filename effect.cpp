@@ -669,7 +669,7 @@ void SetEffectFile(char *Filename)
 						fscanf(pFile, "%s", &s_aString[0]);
 						if (strncmp(&s_aString[0], "##" ,2)==0)
 						{
-							fscanf(pFile, "%f");
+							fscanf(pFile, "%s",&s_aString[0]);
 							continue;
 						}
 					
